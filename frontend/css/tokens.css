@@ -1,0 +1,152 @@
+/* ============================================================
+   CINEVERSE — DESIGN TOKENS
+   Visual System Foundation
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+:root {
+
+  /* ── COLOR PALETTE ── */
+  /* Deep space base */
+  --bg-void:       #080810;
+  --bg-deep:       #0c0c18;
+  --bg-surface:    #11111f;
+  --bg-elevated:   #181828;
+  --bg-glass:      rgba(255, 255, 255, 0.04);
+  --bg-glass-hover:rgba(255, 255, 255, 0.08);
+
+  /* Cinematic accent — molten amber/gold */
+  --gold:          #e8a838;
+  --gold-dim:      #b07a1e;
+  --gold-glow:     rgba(232, 168, 56, 0.25);
+  --gold-trace:    rgba(232, 168, 56, 0.08);
+
+  /* Signature electric teal — lens flare */
+  --teal:          #00d4c8;
+  --teal-dim:      #009990;
+  --teal-glow:     rgba(0, 212, 200, 0.20);
+  --teal-trace:    rgba(0, 212, 200, 0.06);
+
+  /* Cinematic rose — drama */
+  --rose:          #ff4d6d;
+  --rose-glow:     rgba(255, 77, 109, 0.20);
+
+  /* Neutrals */
+  --white:         #ffffff;
+  --white-90:      rgba(255,255,255,0.90);
+  --white-60:      rgba(255,255,255,0.60);
+  --white-30:      rgba(255,255,255,0.30);
+  --white-10:      rgba(255,255,255,0.10);
+  --white-05:      rgba(255,255,255,0.05);
+
+  /* Semantic */
+  --success:       #22d3a0;
+  --warning:       #f59e0b;
+  --error:         #ef4444;
+  --rating-star:   #f4c542;
+
+  /* ── GRADIENTS ── */
+  --grad-hero:     linear-gradient(
+                     180deg,
+                     transparent 0%,
+                     rgba(8,8,16,0.4) 40%,
+                     rgba(8,8,16,0.85) 75%,
+                     #080810 100%
+                   );
+  --grad-card:     linear-gradient(
+                     180deg,
+                     transparent 50%,
+                     rgba(8,8,16,0.95) 100%
+                   );
+  --grad-gold:     linear-gradient(135deg, #e8a838 0%, #f5c842 50%, #c17d12 100%);
+  --grad-teal:     linear-gradient(135deg, #00d4c8 0%, #00b4aa 100%);
+  --grad-section:  linear-gradient(180deg, #080810 0%, #0c0c18 50%, #080810 100%);
+  --grad-shine:    linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+
+  /* ── GLASSMORPHISM ── */
+  --glass-bg:      rgba(16, 16, 30, 0.65);
+  --glass-border:  rgba(255, 255, 255, 0.08);
+  --glass-blur:    blur(18px) saturate(1.6);
+  --glass-blur-sm: blur(10px) saturate(1.4);
+
+  /* ── SHADOWS ── */
+  --shadow-card:   0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
+  --shadow-hover:  0 20px 60px rgba(0,0,0,0.8), 0 0 40px var(--gold-glow);
+  --shadow-teal:   0 20px 60px rgba(0,0,0,0.8), 0 0 40px var(--teal-glow);
+  --shadow-glow-gold: 0 0 60px var(--gold-glow), 0 0 20px var(--gold-glow);
+  --shadow-glow-teal: 0 0 60px var(--teal-glow), 0 0 20px var(--teal-glow);
+  --shadow-navbar: 0 1px 0 var(--glass-border), 0 4px 32px rgba(0,0,0,0.5);
+
+  /* ── TYPOGRAPHY ── */
+  --font-display:  'Bebas Neue', sans-serif;      /* Headlines, cinematic */
+  --font-editorial:'Playfair Display', serif;     /* Editorial pull-quotes */
+  --font-body:     'Inter', sans-serif;           /* Everything else */
+
+  /* Type scale */
+  --text-xs:       0.75rem;
+  --text-sm:       0.875rem;
+  --text-base:     1rem;
+  --text-lg:       1.125rem;
+  --text-xl:       1.25rem;
+  --text-2xl:      1.5rem;
+  --text-3xl:      1.875rem;
+  --text-4xl:      2.25rem;
+  --text-5xl:      3rem;
+  --text-6xl:      3.75rem;
+  --text-7xl:      5rem;
+  --text-hero:     clamp(4rem, 10vw, 9rem);
+
+  /* Letter spacing */
+  --tracking-wide:    0.05em;
+  --tracking-wider:   0.1em;
+  --tracking-widest:  0.25em;
+
+  /* ── SPACING ── */
+  --space-1:   0.25rem;
+  --space-2:   0.5rem;
+  --space-3:   0.75rem;
+  --space-4:   1rem;
+  --space-5:   1.25rem;
+  --space-6:   1.5rem;
+  --space-8:   2rem;
+  --space-10:  2.5rem;
+  --space-12:  3rem;
+  --space-16:  4rem;
+  --space-20:  5rem;
+  --space-24:  6rem;
+  --space-32:  8rem;
+
+  /* ── BORDERS ── */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   18px;
+  --radius-xl:   24px;
+  --radius-2xl:  32px;
+  --radius-pill: 999px;
+
+  /* ── MOTION ── */
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart:   cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-cinematic:   cubic-bezier(0.4, 0, 0.2, 1);
+
+  --dur-fast:   150ms;
+  --dur-base:   300ms;
+  --dur-slow:   500ms;
+  --dur-slower: 800ms;
+
+  /* ── LAYOUT ── */
+  --max-w:        1440px;
+  --nav-h:        72px;
+  --carousel-gap: 16px;
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
