@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up — CineVerse</title>
+
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/signup.css">
+</head>
+<body>
+
+  <!-- Navbar injected by includeHTML.js -->
+  <div id="navbar-root" data-include="navbar"></div>
+
+  <main class="auth-page">
+    <div class="auth-card">
+
+      <a href="index.html" class="auth-logo">CineVerse</a>
+
+      <h1 class="auth-title">Create account</h1>
+
+      <form id="signup-form" class="auth-form" novalidate>
+
+        <div class="form-group">
+          <label for="full-name">Full name</label>
+          <input
+            type="text"
+            id="full-name"
+            name="full_name"
+            autocomplete="name"
+            required
+          >
+          <span class="field-error" id="full-name-error" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            required
+          >
+          <span class="field-error" id="email-error" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="new-password"
+            required
+          >
+          <span class="field-hint" id="password-hint">At least 8 characters</span>
+          <span class="field-error" id="password-error" role="alert"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password">Confirm password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm_password"
+            autocomplete="new-password"
+            required
+          >
+          <span class="field-error" id="confirm-password-error" role="alert"></span>
+        </div>
+
+        <!-- API-level error (e.g. email already registered) -->
+        <span class="form-error" id="form-error" role="alert"></span>
+
+        <button type="submit" id="signup-submit" class="btn-primary">
+          <span class="btn-text">Create account</span>
+          <span class="btn-loader" hidden></span>
+        </button>
+
+      </form>
+
+      <p class="auth-switch">
+        Already have an account? <a href="login.html">Log in</a>
+      </p>
+
+    </div>
+  </main>
+
+  <script type="module" src="js/utils/includeHTML.js"></script>
+  <script type="module" src="js/auth/signup.js"></script>
+
+</body>
+</html>

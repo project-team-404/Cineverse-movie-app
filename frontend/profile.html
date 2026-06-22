@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile — CineVerse</title>
+
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+  <!-- Navbar injected by includeHTML.js -->
+  <div id="navbar-root" data-include="navbar"></div>
+
+  <main class="profile-page">
+
+    <!-- ─── Profile Header ─── -->
+    <section class="profile-header">
+
+      <div class="profile-avatar-wrapper">
+        <img
+          id="profile-avatar"
+          class="profile-avatar"
+          src="assets/images/default-avatar.png"
+          alt="Profile picture"
+        >
+        <!-- V2: replace avatar will go here -->
+      </div>
+
+      <div class="profile-info">
+        <h1 id="profile-name" class="profile-name">—</h1>
+        <p id="profile-email" class="profile-email">—</p>
+        <p id="profile-joined" class="profile-joined">Member since —</p>
+      </div>
+
+      <div class="profile-actions">
+        <!-- V2: Edit Profile button will go here -->
+        <button id="logout-btn" class="btn-secondary">Log out</button>
+      </div>
+
+    </section>
+
+    <!-- ─── Quick Stats ─── -->
+    <section class="profile-stats">
+
+      <div class="stat-card">
+        <span id="stat-watchlist" class="stat-number">—</span>
+        <span class="stat-label">Watchlist</span>
+      </div>
+
+      <div class="stat-card">
+        <span id="stat-favorites" class="stat-number">—</span>
+        <span class="stat-label">Favourites</span>
+      </div>
+
+      <div class="stat-card">
+        <span id="stat-watched" class="stat-number">—</span>
+        <span class="stat-label">Watched</span>
+      </div>
+
+    </section>
+
+    <!-- ─── Error state (shown if profile fetch fails) ─── -->
+    <div id="profile-error" class="profile-error" hidden role="alert">
+      Couldn't load your profile. <button id="profile-retry">Try again</button>
+    </div>
+
+  </main>
+
+  <script type="module" src="js/utils/includeHTML.js"></script>
+  <script type="module" src="js/user/profile.js"></script>
+
+</body>
+</html>

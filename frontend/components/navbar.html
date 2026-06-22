@@ -1,0 +1,76 @@
+<nav class="navbar" id="main-navbar">
+
+  <!-- ─── Left: Brand ─── -->
+  <div class="navbar-brand">
+    <a href="index.html" class="navbar-logo">CineVerse</a>
+  </div>
+
+  <!-- ─── Center: Nav Links (visible when logged in) ─── -->
+  <ul class="navbar-links" id="navbar-links" hidden>
+    <li><a href="index.html" class="nav-link">Home</a></li>
+    <li><a href="movies.html" class="nav-link">Movies</a></li>
+    <li><a href="watchlist.html" class="nav-link">Watchlist</a></li>
+    <li><a href="favorites.html" class="nav-link">Favourites</a></li>
+  </ul>
+
+  <!-- ─── Right ─── -->
+  <div class="navbar-right">
+
+    <!-- Guest state: shown when logged out -->
+    <div class="navbar-guest" id="navbar-guest">
+      <a href="login.html" class="btn-ghost">Log in</a>
+      <a href="signup.html" class="btn-primary">Sign up</a>
+    </div>
+
+    <!-- Auth state: shown when logged in -->
+    <div class="navbar-user" id="navbar-user" hidden>
+
+      <button
+        class="avatar-btn"
+        id="avatar-btn"
+        aria-haspopup="true"
+        aria-expanded="false"
+        aria-controls="user-dropdown"
+      >
+        <img
+          id="navbar-avatar"
+          class="navbar-avatar"
+          src="assets/images/default-avatar.png"
+          alt="Your profile"
+        >
+        <span id="navbar-username" class="navbar-username"></span>
+      </button>
+
+      <!-- Dropdown Menu -->
+      <ul
+        class="user-dropdown"
+        id="user-dropdown"
+        role="menu"
+        hidden
+      >
+        <li role="none">
+          <a href="profile.html" class="dropdown-item" role="menuitem">Profile</a>
+        </li>
+        <li role="none">
+          <a href="recommendations.html" class="dropdown-item" role="menuitem">Recommendations</a>
+        </li>
+        <li class="dropdown-divider" role="none"></li>
+        <li role="none">
+          <button id="dropdown-logout" class="dropdown-item dropdown-item--danger" role="menuitem">
+            Log out
+          </button>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- Mobile: hamburger toggle -->
+    <button class="hamburger" id="hamburger-btn" aria-label="Open menu" hidden>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+
+</nav>
