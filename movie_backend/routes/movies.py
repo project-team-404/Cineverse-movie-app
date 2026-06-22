@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.database import get_db
-from services.movie_service import (
+from movie_backend.database.database import get_db
+from movie_backend.services.movies_service import (
     get_movies_service,
     get_movie_service,
     search_movies_service,

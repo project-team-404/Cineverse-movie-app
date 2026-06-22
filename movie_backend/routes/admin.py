@@ -6,17 +6,17 @@ from fastapi import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.database import get_db
-from auth.jwt_handler import verify_token
-from schemas.movie_schema import (
+from movie_backend.database.database import get_db
+from movie_backend.util.helpers import verify_token
+from movie_backend.schemas.movie_schema import (
     MovieCreate,
     MovieUpdate
 )
-from schemas.genre_schema import (
+from movie_backend.schemas.genre_schema import (
     GenreCreate,
     GenreUpdate
 )
-from services.admin_service import (
+from movie_backend.services.admin_service import (
     create_movie_service,
     update_movie_service,
     delete_movie_service,

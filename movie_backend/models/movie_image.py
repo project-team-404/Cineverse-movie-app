@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
-from database.database import Base
+from movie_backend.database.database import Base
 
 
 class MovieImage(Base):

@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from datetime import datetime
 
-from database.database import Base
+from movie_backend.database.database import Base
 
 
 class User(Base):
