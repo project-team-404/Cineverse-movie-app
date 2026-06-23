@@ -38,14 +38,23 @@ app = FastAPI(
 )
 
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://movie-app-frontend-2o9t.onrender.com"],
+    allow_origins=[
+        "http://localhost:63342",
+        "https://movie-app-frontend-2o9t.onrender.com"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
+app.include_router(...)
 
 @app.middleware("http")
 async def log_requests(
