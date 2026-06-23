@@ -6,83 +6,88 @@
 
 /* ── HERO ENHANCED (local images, Ken Burns, crossfade, counter) ── */
 (function initHeroEnhanced() {
-  const slides     = document.querySelectorAll('.hero-slide[data-local]');
+  const slides     = Array.from(document.querySelectorAll('.hero-slide[data-local]'));
   const counter    = document.querySelector('.hsc-current');
   const totalEl    = document.querySelector('.hsc-total');
   const indicators = document.querySelector('.hero-indicators');
   const thumbsWrap = document.querySelector('.hero-thumbs');
 
-  if (!slides.length) return; // fall back to home.js if no local slides
+  if (!slides.length) return;
+
+  /* Immediately take ownership: remove all active classes, set only index 0 active */
+  slides.forEach((s, i) => {
+    s.classList.toggle('active', i === 0);
+  });
 
   /* Static slide data — replaces TMDB data when local images are used */
   const slideData = [
     {
-      title:       'Oppenheimer',
-      desc:        'The story of J. Robert Oppenheimer\'s role in the development of the atomic bomb during World War II, and the haunting aftermath that followed.',
-      genre:       ['Biography', 'Drama', 'History'],
-      year:        '2023',
-      rating:      '8.4',
-      id:          null,
+      title:   'Oppenheimer',
+      desc:    'The story of J. Robert Oppenheimer\'s role in the development of the atomic bomb during World War II, and the haunting aftermath that followed.',
+      genre:   ['Biography', 'Drama', 'History'],
+      year:    '2023',
+      rating:  '8.4',
+      id:      null,
     },
     {
-      title:       'Dune: Part Two',
-      desc:        'Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.',
-      genre:       ['Sci-Fi', 'Adventure'],
-      year:        '2024',
-      rating:      '8.6',
-      id:          null,
+      title:   'Dune: Part Two',
+      desc:    'Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.',
+      genre:   ['Sci-Fi', 'Adventure'],
+      year:    '2024',
+      rating:  '8.6',
+      id:      null,
     },
     {
-      title:       'Killers of the Flower Moon',
-      desc:        'Members of the Osage Nation are murdered under mysterious circumstances in 1920s Oklahoma, sparking a major FBI investigation.',
-      genre:       ['Crime', 'Drama', 'History'],
-      year:        '2023',
-      rating:      '7.7',
-      id:          null,
+      title:   'Killers of the Flower Moon',
+      desc:    'Members of the Osage Nation are murdered under mysterious circumstances in 1920s Oklahoma, sparking a major FBI investigation.',
+      genre:   ['Crime', 'Drama', 'History'],
+      year:    '2023',
+      rating:  '7.7',
+      id:      null,
     },
     {
-      title:       'Poor Things',
-      desc:        'The incredible tale of a young woman brought back to life by an unorthodox scientist who embarks on an adventure across continents.',
-      genre:       ['Drama', 'Fantasy', 'Romance'],
-      year:        '2023',
-      rating:      '8.0',
-      id:          null,
+      title:   'Poor Things',
+      desc:    'The incredible tale of a young woman brought back to life by an unorthodox scientist who embarks on an adventure across continents.',
+      genre:   ['Drama', 'Fantasy', 'Romance'],
+      year:    '2023',
+      rating:  '8.0',
+      id:      null,
     },
     {
-      title:       'Interstellar',
-      desc:        'A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival as Earth faces catastrophic devastation.',
-      genre:       ['Sci-Fi', 'Adventure', 'Drama'],
-      year:        '2014',
-      rating:      '8.7',
-      id:          null,
+      title:   'Interstellar',
+      desc:    'A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival as Earth faces catastrophic devastation.',
+      genre:   ['Sci-Fi', 'Adventure', 'Drama'],
+      year:    '2014',
+      rating:  '8.7',
+      id:      null,
     },
     {
-      title:       'The Batman',
-      desc:        'In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while pursuing a sadistic killer.',
-      genre:       ['Action', 'Crime', 'Drama'],
-      year:        '2022',
-      rating:      '7.8',
-      id:          null,
+      title:   'The Batman',
+      desc:    'In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while pursuing a sadistic killer.',
+      genre:   ['Action', 'Crime', 'Drama'],
+      year:    '2022',
+      rating:  '7.8',
+      id:      null,
     },
     {
-      title:       'Blade Runner 2049',
-      desc:        'A young blade runner discovers a long-buried secret that has the potential to plunge what\'s left of society into chaos.',
-      genre:       ['Sci-Fi', 'Thriller'],
-      year:        '2017',
-      rating:      '8.0',
-      id:          null,
+      title:   'Blade Runner 2049',
+      desc:    'A young blade runner discovers a long-buried secret that has the potential to plunge what\'s left of society into chaos.',
+      genre:   ['Sci-Fi', 'Thriller'],
+      year:    '2017',
+      rating:  '8.0',
+      id:      null,
     },
     {
-      title:       'The Grand Budapest Hotel',
-      desc:        'The adventures of Gustave H, a legendary concierge at a famous European hotel between the wars, and Zero, the lobby boy who becomes his most trusted friend.',
-      genre:       ['Adventure', 'Comedy', 'Crime'],
-      year:        '2014',
-      rating:      '8.1',
-      id:          null,
+      title:   'The Grand Budapest Hotel',
+      desc:    'The adventures of Gustave H, a legendary concierge at a famous European hotel between the wars, and Zero, the lobby boy who becomes his most trusted friend.',
+      genre:   ['Adventure', 'Comedy', 'Crime'],
+      year:    '2014',
+      rating:  '8.1',
+      id:      null,
     },
   ];
 
-  let currentIndex = 0;
+  let currentIndex  = 0;
   let autoplayTimer = null;
   let isTransitioning = false;
 
@@ -115,16 +120,17 @@
     if (!thumbsWrap) return;
     thumbsWrap.innerHTML = '';
     slides.forEach((slide, i) => {
-      const imgSrc = slide.querySelector('img')?.src || '';
-      const thumb = document.createElement('div');
+      const imgEl  = slide.querySelector('img');
+      const imgSrc = imgEl ? imgEl.src : '';
+      const thumb  = document.createElement('div');
       thumb.className = `hero-thumb${i === 0 ? ' active' : ''}`;
       thumb.setAttribute('role', 'tab');
       thumb.setAttribute('tabindex', '0');
       thumb.setAttribute('aria-label', slideData[i]?.title || `Slide ${i + 1}`);
 
-      const img = document.createElement('img');
-      img.src = imgSrc;
-      img.alt = slideData[i]?.title || '';
+      const img   = document.createElement('img');
+      img.src     = imgSrc;
+      img.alt     = slideData[i]?.title || '';
       img.loading = 'lazy';
       thumb.appendChild(img);
 
@@ -136,10 +142,10 @@
 
   /* Animate hero content out → swap data → animate back in */
   function animateContent(data) {
-    const title   = document.querySelector('.hero-title');
-    const desc    = document.querySelector('.hero-desc');
-    const meta    = document.querySelector('.hero-meta');
-    const actions = document.querySelector('.hero-actions');
+    const title    = document.querySelector('.hero-title');
+    const desc     = document.querySelector('.hero-desc');
+    const meta     = document.querySelector('.hero-meta');
+    const actions  = document.querySelector('.hero-actions');
     const ratingEl = document.querySelector('.hero-rating-score');
     const yearEl   = document.querySelector('.hero-year');
     const genresEl = document.querySelector('.hero-genres');
@@ -151,8 +157,8 @@
     /* Fade out */
     els.forEach(el => {
       el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(14px)';
+      el.style.opacity    = '0';
+      el.style.transform  = 'translateY(14px)';
     });
 
     setTimeout(() => {
@@ -163,9 +169,9 @@
         title.innerHTML = (words.length ? words.join(' ') + ' ' : '') +
                           `<span class="title-accent">${last}</span>`;
       }
-      if (desc)     desc.textContent    = data?.desc    || '';
-      if (ratingEl) ratingEl.textContent = data?.rating  || '—';
-      if (yearEl)   yearEl.textContent   = data?.year    || '—';
+      if (desc)     desc.textContent     = data?.desc   || '';
+      if (ratingEl) ratingEl.textContent = data?.rating || '—';
+      if (yearEl)   yearEl.textContent   = data?.year   || '—';
       if (genresEl) {
         genresEl.innerHTML = (data?.genre || [])
           .map(g => `<span class="hero-genre-tag">${g}</span>`)
@@ -179,33 +185,32 @@
         setTimeout(() => {
           el.style.transition = `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s,
                                   transform 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s`;
-          el.style.opacity   = '1';
-          el.style.transform = 'translateY(0)';
+          el.style.opacity    = '1';
+          el.style.transform  = 'translateY(0)';
         }, i * 60);
       });
     }, 300);
   }
 
-  /* Go to slide */
+  /* Go to slide — only touches [data-local] slides */
   function goTo(idx) {
     if (isTransitioning || idx === currentIndex) return;
     isTransitioning = true;
 
-    const prev = currentIndex;
-    currentIndex = (idx + total) % total;
+    const prev     = currentIndex;
+    currentIndex   = ((idx % total) + total) % total;
 
-    /* Image crossfade */
+    /* Image crossfade — operate only on our local slides array */
     slides[prev].classList.remove('active');
     slides[currentIndex].classList.add('active');
 
     /* Dots */
-    document.querySelectorAll('.hero-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === currentIndex);
-    });
+    const dots = document.querySelectorAll('.hero-indicators .hero-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+
     /* Thumbs */
-    document.querySelectorAll('.hero-thumb').forEach((t, i) => {
-      t.classList.toggle('active', i === currentIndex);
-    });
+    const thumbs = document.querySelectorAll('.hero-thumbs .hero-thumb');
+    thumbs.forEach((t, i) => t.classList.toggle('active', i === currentIndex));
 
     updateCounter(currentIndex);
     animateContent(slideData[currentIndex]);
@@ -258,13 +263,17 @@
     hero.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
     hero.addEventListener('mouseleave', startAutoplay);
   }
+
+  /* Prevent home.js initHero from conflicting —
+     override heroMovies so goToHeroSlide is a no-op if called */
+  window.__heroEnhancedOwned = true;
 })();
 
 
 /* ── TRENDING CAROUSEL — premium centered version ── */
 (function initTrendingEnhanced() {
-  const track  = document.getElementById('trending-track');
-  const detail = document.getElementById('trending-detail');
+  const track   = document.getElementById('trending-track');
+  const detail  = document.getElementById('trending-detail');
   const prevBtn = document.querySelector('.trending-btn-prev');
   const nextBtn = document.querySelector('.trending-btn-next');
 
@@ -272,112 +281,19 @@
 
   /* Local placeholder data for trending cards */
   const trendingData = [
-    
-  { 
-    title: 'Office Romance', 
-    year: '2026', 
-    rating: '7.2', 
-    genre: 'Action', 
-    desc: 'A high-octane action-thriller following a high-risk sting operations team operating deep within a glossy corporate environment.', 
-    img: 'assets/images/trending/office.jpg', 
-    id: 110243, 
-    runtime: '115m' 
-  },
-  { 
-    title: 'Maternal Instinct', 
-    year: '2026', 
-    rating: '6.9', 
-    genre: 'Thriller', 
-    desc: 'A tense psychological thriller exploring the dark, disturbing unraveling of a neighborhood family after a tragic event.', 
-    img: 'assets/images/trending/maternal.jpg', 
-    id: 110244, 
-    runtime: '97m' 
-  },
-  { 
-    title: 'Your Fault: London', 
-    year: '2026', 
-    rating: '6.5', 
-    genre: 'Romance', 
-    desc: 'An intense, soapy college romance drama following forbidden love and hidden secrets across London\'s elite youth.', 
-    img: 'assets/images/trending/your_fault.jpg', 
-    id: 220351, 
-    runtime: '112m' 
-  },
-  { 
-    title: 'KPop Demon Hunters', 
-    year: '2025', 
-    rating: '7.1', 
-    genre: 'Animation', 
-    desc: 'Three K-pop superstars balance their global musical fame with a dangerous double life hunting down supernatural demons.', 
-    img: 'assets/images/trending/kpop.jpg', 
-    id: 823412, 
-    runtime: '96m' 
-  },
-  { 
-    title: 'Tom Clancy\'s Jack Ryan: Ghost War', 
-    year: '2026', 
-    rating: '7.4', 
-    genre: 'Action', 
-    desc: 'Jack Ryan returns for a dangerous covert mission to stop an underground network threatening global infrastructure.', 
-    img: 'assets/images/trending/tom.avif', 
-    id: 304592, 
-    runtime: '124m' 
-  },
-  { 
-    title: 'Goat', 
-    year: '2026', 
-    rating: '6.8', 
-    genre: 'Drama', 
-    desc: 'A raw and gritty sports drama charting a young athlete\'s intense mental and physical sacrifices to reach the top tier.', 
-    img: 'assets/images/trending/goat.webp', 
-    id: 450123, 
-    runtime: '100m' 
-  },
-  { 
-    title: 'Project Hail Mary', 
-    year: '2026', 
-    rating: '8.1', 
-    genre: 'Sci-Fi', 
-    desc: 'An amnesiac teacher wakes up aboard an interstellar ship to solve a scientific crisis threatening to destroy Earth\'s sun.', 
-    img: 'assets/images/trending/project_hail.jpg', 
-    id: 742119, 
-    runtime: '156m' 
-  },
-  { 
-    title: 'Crime 101', 
-    year: '2026', 
-    rating: '7.6', 
-    genre: 'Crime', 
-    desc: 'A meticulous detective battles wits along the Pacific Coast Highway with a lone-wolf thief executing high-stakes jewel heists.', 
-    img: 'assets/images/trending/crime101.jpeg', 
-    id: 994231, 
-    runtime: '118m' 
-  },
-  { 
-    title: 'The Murder of Rachel Nickell', 
-    year: '2026', 
-    rating: '7.0', 
-    genre: 'Mystery', 
-    desc: 'A gripping true-crime mystery detailing the complex, high-pressure investigation surrounding a high-profile public case.', 
-    img: 'assets/images/trending/murder.jpg', 
-    id: 561244, 
-    runtime: '96m' 
-  },
-  { 
-    title: 'The Protégé', 
-    year: '2021', 
-    rating: '6.5', 
-    genre: 'Action', 
-    desc: 'An elite contract killer embarks on a deadly revenge mission after her legendary assassin mentor is brutally murdered.', 
-    img: 'assets/images/trending/the_protege.jpg', 
-    id: 645886, 
-    runtime: '109m' 
-  },
-
+    { title: 'Office Romance',                    year: '2026', rating: '7.2', genre: 'Action',    desc: 'A high-octane action-thriller following a high-risk sting operations team operating deep within a glossy corporate environment.',              img: 'assets/images/trending/office.jpg',        id: 110243, runtime: '115m' },
+    { title: 'Maternal Instinct',                 year: '2026', rating: '6.9', genre: 'Thriller',  desc: 'A tense psychological thriller exploring the dark, disturbing unraveling of a neighborhood family after a tragic event.',                     img: 'assets/images/trending/maternal.jpg',      id: 110244, runtime: '97m'  },
+    { title: 'Your Fault: London',                year: '2026', rating: '6.5', genre: 'Romance',   desc: 'An intense, soapy college romance drama following forbidden love and hidden secrets across London\'s elite youth.',                           img: 'assets/images/trending/your_fault.jpg',    id: 220351, runtime: '112m' },
+    { title: 'KPop Demon Hunters',                year: '2025', rating: '7.1', genre: 'Animation', desc: 'Three K-pop superstars balance their global musical fame with a dangerous double life hunting down supernatural demons.',                     img: 'assets/images/trending/kpop.jpg',          id: 823412, runtime: '96m'  },
+    { title: 'Tom Clancy\'s Jack Ryan: Ghost War',year: '2026', rating: '7.4', genre: 'Action',    desc: 'Jack Ryan returns for a dangerous covert mission to stop an underground network threatening global infrastructure.',                          img: 'assets/images/trending/tom.avif',          id: 304592, runtime: '124m' },
+    { title: 'Goat',                              year: '2026', rating: '6.8', genre: 'Drama',     desc: 'A raw and gritty sports drama charting a young athlete\'s intense mental and physical sacrifices to reach the top tier.',                    img: 'assets/images/trending/goat.webp',         id: 450123, runtime: '100m' },
+    { title: 'Project Hail Mary',                 year: '2026', rating: '8.1', genre: 'Sci-Fi',    desc: 'An amnesiac teacher wakes up aboard an interstellar ship to solve a scientific crisis threatening to destroy Earth\'s sun.',                  img: 'assets/images/trending/project_hail.jpg',  id: 742119, runtime: '156m' },
+    { title: 'Crime 101',                         year: '2026', rating: '7.6', genre: 'Crime',     desc: 'A meticulous detective battles wits along the Pacific Coast Highway with a lone-wolf thief executing high-stakes jewel heists.',             img: 'assets/images/trending/crime101.jpeg',     id: 994231, runtime: '118m' },
+    { title: 'The Murder of Rachel Nickell',      year: '2026', rating: '7.0', genre: 'Mystery',   desc: 'A gripping true-crime mystery detailing the complex, high-pressure investigation surrounding a high-profile public case.',                   img: 'assets/images/trending/murder.jpg',        id: 561244, runtime: '96m'  },
+    { title: 'The Protégé',                       year: '2021', rating: '6.5', genre: 'Action',    desc: 'An elite contract killer embarks on a deadly revenge mission after her legendary assassin mentor is brutally murdered.',                      img: 'assets/images/trending/the_protege.jpg',   id: 645886, runtime: '109m' },
   ];
 
-  let activeIdx = 0;
-  let tmdbLoaded = false; // flag: if TMDB data loads, it takes over
+  let activeIdx  = 0;
 
   /* Build cards */
   function buildTrendingCards(data) {
@@ -412,18 +328,12 @@
         </div>`;
 
       card.addEventListener('click', () => selectTrending(i, data));
-      card.addEventListener('keydown', e => {
-        if (e.key === 'Enter') selectTrending(i, data);
-      });
-
+      card.addEventListener('keydown', e => { if (e.key === 'Enter') selectTrending(i, data); });
       track.appendChild(card);
     });
 
-    /* Set up drag-to-scroll */
     initTrendingDrag();
-    /* Set up arrow buttons */
     initTrendingArrows(data);
-    /* Update detail panel */
     updateDetailPanel(data[0], 0);
   }
 
@@ -434,7 +344,6 @@
     activeIdx = idx;
     updateDetailPanel(data[idx], idx);
 
-    /* Scroll card into center view */
     const card = cards[idx];
     if (card) {
       const trackRect = track.getBoundingClientRect();
@@ -444,32 +353,26 @@
     }
   }
 
-  /* Update detail panel with stagger animation */
+  /* Update detail panel */
   function updateDetailPanel(movie, rank) {
     if (!detail || !movie) return;
-
-    const panel = detail;
-    panel.classList.add('panel-transitioning');
-
+    detail.classList.add('panel-transitioning');
     setTimeout(() => {
-      panel.querySelector('.tdp-eyebrow').textContent   = `Trending #${rank + 1}`;
-      panel.querySelector('.tdp-title').textContent     = movie.title;
-      panel.querySelector('.tdp-rating-val').textContent = movie.rating;
-      panel.querySelector('.tdp-year').textContent       = movie.year;
+      detail.querySelector('.tdp-eyebrow').textContent    = `Trending #${rank + 1}`;
+      detail.querySelector('.tdp-title').textContent      = movie.title;
+      detail.querySelector('.tdp-rating-val').textContent = movie.rating;
+      detail.querySelector('.tdp-year').textContent       = movie.year;
 
-      const genreTag = panel.querySelector('.tdp-genre');
-      if (genreTag) {
-        genreTag.textContent = movie.genre;
-        genreTag.className   = 'tdp-genre tdp-genre-tag';
-      }
+      const genreTag = detail.querySelector('.tdp-genre');
+      if (genreTag) { genreTag.textContent = movie.genre; genreTag.className = 'tdp-genre tdp-genre-tag'; }
 
-      const descEl = panel.querySelector('.tdp-desc');
+      const descEl = detail.querySelector('.tdp-desc');
       if (descEl) descEl.textContent = movie.desc;
 
-      const watchBtn = panel.querySelector('.tdp-watch-btn');
+      const watchBtn = detail.querySelector('.tdp-watch-btn');
       if (watchBtn) watchBtn.href = movie.id ? `movie-details.html?id=${movie.id}` : '#';
 
-      const wlBtn = panel.querySelector('.tdp-wl-btn');
+      const wlBtn = detail.querySelector('.tdp-wl-btn');
       if (wlBtn) {
         wlBtn.onclick = () => {
           if (typeof Watchlist !== 'undefined') {
@@ -477,24 +380,19 @@
           }
         };
       }
-
-      panel.classList.remove('panel-transitioning');
+      detail.classList.remove('panel-transitioning');
     }, 200);
   }
 
   /* Arrow buttons */
   function initTrendingArrows(data) {
     if (!prevBtn || !nextBtn) return;
-
     function scrollCards(dir) {
       const newIdx = Math.max(0, Math.min(data.length - 1, activeIdx + dir));
       selectTrending(newIdx, data);
     }
-
     prevBtn.addEventListener('click', () => scrollCards(-1));
     nextBtn.addEventListener('click', () => scrollCards(1));
-
-    /* Update disabled state */
     track.addEventListener('scroll', () => {
       prevBtn.disabled = track.scrollLeft <= 0;
       nextBtn.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
@@ -505,9 +403,7 @@
   function initTrendingDrag() {
     let isDown = false, startX = 0, scrollLeft = 0;
     track.addEventListener('mousedown', e => {
-      isDown = true;
-      startX = e.pageX - track.offsetLeft;
-      scrollLeft = track.scrollLeft;
+      isDown = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft;
       track.style.cursor = 'grabbing';
     });
     document.addEventListener('mouseup', () => { isDown = false; track.style.cursor = 'grab'; });
@@ -519,22 +415,18 @@
     });
   }
 
-  /* Try to use TMDB data if available, else use local */
+  /* Try TMDB, fall back to local */
   function tryLoadFromTMDB() {
-    if (typeof TMDB === 'undefined') {
-      buildTrendingCards(trendingData);
-      return;
-    }
+    if (typeof TMDB === 'undefined') { buildTrendingCards(trendingData); return; }
     TMDB.trending('week').then(data => {
       if (data?.results?.length) {
-        tmdbLoaded = true;
         const mapped = data.results.slice(0, 10).map((m, i) => ({
           title:   m.title,
           year:    m.release_date?.slice(0, 4) || '—',
-          rating:  m.vote_average?.toFixed(1) || '—',
-          genre:   (typeof genreNames === 'function') ? genreNames(m.genre_ids, 1) : 'Movie',
+          rating:  m.vote_average?.toFixed(1)  || '—',
+          genre:   'Movie',
           desc:    m.overview || '',
-          img:     TMDB.posterURL(m.poster_path, 'poster_md') || trendingData[i]?.img || '',
+          img:     (typeof TMDB.posterURL === 'function') ? (TMDB.posterURL(m.poster_path, 'poster_md') || trendingData[i]?.img || '') : (trendingData[i]?.img || ''),
           id:      m.id,
           runtime: '—',
         }));
@@ -551,15 +443,14 @@
 
 /* ── HERO SLIDE COUNTER — ensure counter is visible ── */
 (function ensureHeroCounter() {
-  /* The counter is in the HTML; just make sure it animates in */
   const counter = document.querySelector('.hero-slide-counter');
   if (!counter) return;
-  counter.style.opacity = '0';
+  counter.style.opacity   = '0';
   counter.style.transform = 'translateY(10px)';
   setTimeout(() => {
     counter.style.transition = 'opacity 0.7s ease 1.4s, transform 0.7s ease 1.4s';
-    counter.style.opacity = '1';
-    counter.style.transform = 'translateY(0)';
+    counter.style.opacity    = '1';
+    counter.style.transform  = 'translateY(0)';
   }, 100);
 })();
 
@@ -570,20 +461,17 @@
   if (!cards.length) return;
 
   cards.forEach(card => {
-    /* Parallax tilt on mousemove */
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width  - 0.5;
-      const y = (e.clientY - rect.top)  / rect.height - 0.5;
+      const x    = (e.clientX - rect.left) / rect.width  - 0.5;
+      const y    = (e.clientY - rect.top)  / rect.height - 0.5;
       card.style.transform = `translateY(-12px) scale(1.03) rotateX(${y * -6}deg) rotateY(${x * 6}deg)`;
     });
-
     card.addEventListener('mouseleave', () => {
       card.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1), border-color 0.35s, box-shadow 0.35s';
-      card.style.transform = '';
+      card.style.transform  = '';
       setTimeout(() => { card.style.transition = ''; }, 600);
     });
-
     card.addEventListener('mouseenter', () => {
       card.style.transition = 'transform 0.1s ease, border-color 0.35s, box-shadow 0.35s';
     });
@@ -593,16 +481,12 @@
 
 /* ── RECOMMENDED SECTION — match scores ── */
 (function initRecommendedSection() {
-  /* Add data-match attribute to cards once they load */
   const track = document.getElementById('recommended-track');
   if (!track) return;
-
   const observer = new MutationObserver(() => {
     const posters = track.querySelectorAll('.movie-card-poster:not([data-match])');
-    const scores = [97, 94, 92, 91, 90, 88, 87, 85, 84, 83, 81, 79, 78, 76, 74];
-    posters.forEach((p, i) => {
-      p.setAttribute('data-match', `${scores[i] || 70}% Match`);
-    });
+    const scores  = [97, 94, 92, 91, 90, 88, 87, 85, 84, 83, 81, 79, 78, 76, 74];
+    posters.forEach((p, i) => { p.setAttribute('data-match', `${scores[i] || 70}% Match`); });
   });
   observer.observe(track, { childList: true, subtree: false });
 })();
@@ -614,9 +498,9 @@
   if (!banner) return;
 
   function countUp(el, target, duration) {
-    const start = performance.now();
+    const start  = performance.now();
     const update = now => {
-      const p = Math.min((now - start) / duration, 1);
+      const p    = Math.min((now - start) / duration, 1);
       const ease = 1 - Math.pow(1 - p, 3);
       el.textContent = Math.round(target * ease).toLocaleString();
       if (p < 1) requestAnimationFrame(update);
@@ -641,18 +525,17 @@
 (function initGenreGrid() {
   const grid = document.getElementById('genre-grid');
   if (!grid) return;
-
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       const cards = grid.querySelectorAll('.genre-card');
       cards.forEach((card, i) => {
-        card.style.opacity = '0';
+        card.style.opacity   = '0';
         card.style.transform = 'scale(0.93) translateY(20px)';
         setTimeout(() => {
           card.style.transition = `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 0.06}s,
                                     transform 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 0.06}s`;
-          card.style.opacity = '1';
+          card.style.opacity   = '1';
           card.style.transform = 'scale(1) translateY(0)';
         }, 50);
       });
@@ -667,17 +550,16 @@
 (function initEditorialParallax() {
   const band = document.querySelector('.editorial-band');
   if (!band) return;
-
   let ticking = false;
   window.addEventListener('scroll', () => {
     if (ticking) return;
     requestAnimationFrame(() => {
-      const rect  = band.getBoundingClientRect();
-      const vh    = window.innerHeight;
-      const ratio = 1 - (rect.top / vh);
+      const rect   = band.getBoundingClientRect();
+      const vh     = window.innerHeight;
+      const ratio  = 1 - (rect.top / vh);
       const offset = (ratio - 0.5) * 30;
-      const pseudo = band.querySelector('.editorial-inner');
-      if (pseudo) pseudo.style.transform = `translateY(${offset}px)`;
+      const inner  = band.querySelector('.editorial-inner');
+      if (inner) inner.style.transform = `translateY(${offset}px)`;
       ticking = false;
     });
     ticking = true;
@@ -689,11 +571,10 @@
 (function initPromoBanner() {
   const banner = document.querySelector('.promo-inner');
   if (!banner) return;
-
   banner.addEventListener('mousemove', e => {
     const rect = banner.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width  - 0.5;
-    const y = (e.clientY - rect.top)  / rect.height - 0.5;
+    const x    = (e.clientX - rect.left) / rect.width  - 0.5;
+    const y    = (e.clientY - rect.top)  / rect.height - 0.5;
     banner.style.transform = `perspective(1000px) rotateX(${y * -3}deg) rotateY(${x * 3}deg)`;
   });
   banner.addEventListener('mouseleave', () => {
@@ -709,7 +590,6 @@
   const hero  = document.getElementById('hero');
   const depth = document.querySelector('.hero-depth-layer');
   if (!hero || !depth) return;
-
   hero.addEventListener('mousemove', e => {
     const x = ((e.clientX / window.innerWidth)  * 100).toFixed(1);
     const y = ((e.clientY / window.innerHeight) * 100).toFixed(1);

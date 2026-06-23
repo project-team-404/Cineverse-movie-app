@@ -3,19 +3,22 @@
    ============================================================ */
 
 /* ── HERO DATA ── */
-let heroMovies  = [];
-let heroIndex   = 0;
-let heroTimer   = null;
+let heroMovies = [];
+let heroIndex  = 0;
+let heroTimer  = null;
 
 async function initHero() {
+  /* If home-enhanced.js has already taken ownership of the hero,
+     skip TMDB hero initialisation to avoid slide conflicts. */
+  if (window.__heroEnhancedOwned) return;
+
   try {
     const data = await TMDB.trending('week');
     if (!data?.results?.length) return;
 
     heroMovies = data.results.slice(0, 5);
 
-    // Populate slides
-    const backdrop = document.querySelector('.hero-backdrop');
+    const backdrop   = document.querySelector('.hero-backdrop');
     const thumbsWrap = document.querySelector('.hero-thumbs');
     const indicators = document.querySelector('.hero-indicators');
 
@@ -58,12 +61,10 @@ async function initHero() {
       }
     });
 
-    // Fill first slide content
     renderHeroContent(heroMovies[0]);
     startHeroAutoplay();
   } catch (err) {
     console.warn('initHero failed (TMDB unavailable), using local slides:', err.message);
-    // home-enhanced.js will handle local slides — nothing to do here
   }
 }
 
@@ -77,7 +78,6 @@ function renderHeroContent(movie) {
   const year    = fmtYear(movie.release_date);
   const rating  = fmtRating(movie.vote_average);
   const title   = movie.title || '';
-  // Accent last word of title
   const words   = title.split(' ');
   const last    = words.pop();
   const accented = words.join(' ') + (words.length ? ' <span class="title-accent">' + last + '</span>' : '<span class="title-accent">' + last + '</span>');
@@ -88,7 +88,6 @@ function renderHeroContent(movie) {
   document.querySelector('.hero-year').textContent = year;
   document.querySelector('.hero-genres').innerHTML = genres;
 
-  // CTA links
   const playBtn = document.querySelector('.hero-play-btn');
   const moreBtn = document.querySelector('.hero-more-btn');
   if (playBtn) playBtn.dataset.id = movie.id;
@@ -96,9 +95,10 @@ function renderHeroContent(movie) {
 }
 
 function goToHeroSlide(index) {
-  const slides     = $$('.hero-slide');
-  const thumbs     = $$('.hero-thumb');
-  const dots       = $$('.hero-dot');
+  if (window.__heroEnhancedOwned) return; // enhanced controller owns slides
+  const slides = $$('.hero-slide');
+  const thumbs = $$('.hero-thumb');
+  const dots   = $$('.hero-dot');
   if (!slides[index]) return;
 
   slides[heroIndex]?.classList.remove('active');
@@ -178,16 +178,10 @@ async function loadFeaturedSection() {
 
   const movies = data.results.slice(0, 5);
 
-  // Build sidebar
   sidebarArea.innerHTML = movies.map((m, i) => buildFeaturedSidebarCard(m, i + 1)).join('');
-
-  // Show first
   showFeaturedMain(movies[0]);
-
-  // Mark first active
   sidebarArea.querySelector('.featured-sidebar-card')?.classList.add('active');
 
-  // Sidebar click
   sidebarArea.addEventListener('click', e => {
     const card = e.target.closest('.featured-sidebar-card');
     if (!card) return;
@@ -197,7 +191,6 @@ async function loadFeaturedSection() {
     showFeaturedMain(movies[rank]);
   });
 
-  // Lazy images
   lazyLoadImages();
 }
 
@@ -231,7 +224,6 @@ async function loadContinueWatching() {
 
   let history = WatchHistory.get();
 
-  // If no history, seed with popular movies
   if (history.length < 4) {
     const data = await TMDB.popular();
     if (data?.results) {
@@ -254,11 +246,9 @@ async function loadRecommended() {
   const track = document.getElementById('recommended-track');
   if (!track) return;
 
-  // Simulate personalized — use top rated for now
   const data = await TMDB.topRated();
   if (!data?.results) return;
 
-  // Add rec score to cards (overlaid via CSS)
   track.innerHTML = data.results.slice(5, 20).map(m => {
     const score = Math.floor(Math.random() * 20 + 78);
     const card  = buildMovieCard(m);
@@ -311,7 +301,7 @@ function initSearch() {
   });
 }
 
-/* ── STATS BANNER (cinematic numbers) ── */
+/* ── STATS BANNER ── */
 function initStatsBanner() {
   const banner = document.getElementById('stats-banner');
   if (!banner) return;
@@ -330,23 +320,19 @@ function initStatsBanner() {
 
 /* ── INIT ── */
 async function init() {
-  // ── Hide loading screen FIRST — before any async work ──
   hideLoadingScreen();
 
-  // Core setup (synchronous — safe to run immediately)
   initNavbar();
   initHeroParallax();
   initReveal();
   lazyLoadImages();
   initSearch();
 
-  // Load hero + featured in parallel (non-blocking for rest of page)
   Promise.all([
     initHero(),
     loadFeaturedSection(),
   ]).catch(err => console.warn('Hero/Featured load error:', err));
 
-  // Lower-priority sections — fire and forget, errors don't block anything
   loadTrendingSection();
   loadTopRatedSection();
   loadNowPlayingSection();
