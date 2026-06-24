@@ -1,7 +1,7 @@
 // frontend/JS/utils/api.js
 // Simple wrapper around fetch for the Movie API backend
 
-const BASE_URL = "http://127.0.0.1:8000"; // Adjust if backend runs elsewhere
+const BASE_URL = "https://movie-app-qhzc.onrender.com"; // Adjust if backend runs elsewhere
 
 const TOKEN_KEY = "auth_token";
 
