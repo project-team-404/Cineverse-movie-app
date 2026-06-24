@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Genres</title>
+</head>
+<body>
+    <h2>Genres</h2>
+    <button onclick="getGenres()">Load Genres</button>
+
+    <ul id="genres-list"></ul>
+
+    <script>
+        async function getGenres() {
+            try {
+                const response = await fetch(
+                    "https://movie-app-qhzc.onrender.com/genres/"
+                );
+
+                const genres = await response.json();
+
+                const list = document.getElementById("genres-list");
+                list.innerHTML = "";
+
+                genres.forEach(genre => {
+                    const li = document.createElement("li");
+                    li.textContent = `${genre.id} - ${genre.name}`;
+                    list.appendChild(li);
+                });
+
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+    </script>
+</body>
+</html>

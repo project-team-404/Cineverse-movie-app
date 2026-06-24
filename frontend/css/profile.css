@@ -1,0 +1,122 @@
+/* frontend/css/profile.css */
+/* Profile page styling – modern glassmorphism, responsive layout */
+
+/* Ensure the page inherits the global CSS variables */
+.profile-page {
+  max-width: 960px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Dark mode – rely on global --bg-color variable */
+@media (prefers-color-scheme: dark) {
+  .profile-page {
+    background: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.08);
+  }
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.profile-avatar-wrapper {
+  flex-shrink: 0;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.profile-name {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-primary, #222);
+}
+
+.profile-email,
+.profile-joined {
+  font-size: 0.95rem;
+  color: var(--text-secondary, #555);
+  margin: 0;
+}
+
+.profile-actions {
+  margin-left: auto;
+}
+
+/* Quick stats grid */
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  min-width: 80px;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary, #222);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #555);
+}
+
+/* Error state */
+.profile-error {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 0, 0, 0.15);
+  color: #b00;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .profile-page {
+    padding: 1rem;
+  }
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile-actions {
+    margin-left: 0;
+  }
+}

@@ -14,10 +14,12 @@ from movie_backend.routes.admin import router as admin
 from movie_backend.routes.favorite import router as favorite
 from movie_backend.routes.review import router as review
 
+# Import models so SQLAlchemy registers them
 from movie_backend.models.user import User
 from movie_backend.models.genre import Genre
 from movie_backend.models.movie import Movie
 from movie_backend.models.movie_image import MovieImage
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -37,28 +39,29 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-
+# CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://movie-app-frontend-2o9t.onrender.com"],
+    allow_origins=[
+        "http://localhost:63342",
+        "http://127.0.0.1:5500",
+        "https://movie-app-frontend-2o9t.onrender.com",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
 
 @app.middleware("http")
-async def log_requests(
-    request: Request,
-    call_next
-):
+async def log_requests(request: Request, call_next):
     start = time.perf_counter()
 
     response = await call_next(request)
 
     end = time.perf_counter()
 
-    print(end - start)
+    print(f"Request time: {end - start:.4f} seconds")
 
     return response
 
@@ -78,6 +81,7 @@ def scalar():
     )
 
 
+# Routers
 app.include_router(auth)
 app.include_router(movies)
 app.include_router(genres)
