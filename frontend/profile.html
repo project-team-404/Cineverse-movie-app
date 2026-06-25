@@ -4,79 +4,126 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile — CineVerse</title>
-
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
-  <div class="cursor-example"></div>
 
   <!-- Navbar injected by includeHTML.js -->
   <div id="navbar-root" data-include="navbar"></div>
 
-  <main class="profile-page container">
+  <main class="profile-page">
 
-    <!-- ─── Profile Header ─── -->
-    <section class="profile-header">
-
-      <div class="profile-avatar-wrapper">
-        <img
-          id="profile-avatar"
-          class="profile-avatar"
-          src="assets/images/default-avatar.png"
-          alt="Profile picture"
-        >
-        <!-- V2: replace avatar will go here -->
+    <!-- ── Loading Skeleton ── -->
+    <div id="profile-skeleton" class="skeleton-wrapper" aria-hidden="true">
+      <div class="skeleton-banner"></div>
+      <div class="skeleton-body">
+        <div class="skeleton-avatar"></div>
+        <div class="skeleton-lines">
+          <div class="skeleton-line wide"></div>
+          <div class="skeleton-line medium"></div>
+          <div class="skeleton-line narrow"></div>
+        </div>
       </div>
-
-      <div class="profile-info">
-        <h1 id="profile-name" class="profile-name">—</h1>
-        <p id="profile-email" class="profile-email">—</p>
-        <p id="profile-joined" class="profile-joined">Member since —</p>
-      </div>
-
-      <div class="profile-actions">
-        <!-- Go to Home page -->
-        <button id="go-home-btn" class="btn-primary">Continue to Home</button>
-        <button id="logout-btn" class="btn-secondary">Log out</button>
-      </div>
-
-    </section>
-
-    <!-- ─── Quick Stats ─── -->
-    <section class="profile-stats">
-
-      <div class="stat-card">
-        <span id="stat-watchlist" class="stat-number">—</span>
-        <span class="stat-label">Watchlist</span>
-      </div>
-
-      <div class="stat-card">
-        <span id="stat-favorites" class="stat-number">—</span>
-        <span class="stat-label">Favourites</span>
-      </div>
-
-      <div class="stat-card">
-        <span id="stat-watched" class="stat-number">—</span>
-        <span class="stat-label">Watched</span>
-      </div>
-
-    </section>
-
-    <!-- ─── Error state (shown if profile fetch fails) ─── -->
-    <div id="profile-error" class="profile-error" hidden role="alert">
-      Couldn't load your profile. <button id="profile-retry">Try again</button>
     </div>
+
+    <!-- ── Error State ── -->
+    <div id="profile-error" class="profile-error" hidden role="alert">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="#dc2828" stroke-width="1.5"/>
+        <path d="M12 7v6M12 17v.01" stroke="#dc2828" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <p id="profile-error-message">Couldn't load your profile.</p>
+      <button id="profile-retry" class="btn-retry">Try Again</button>
+    </div>
+
+    <!-- ── Profile Content ── -->
+    <div id="profile-content" hidden>
+
+      <!-- Banner -->
+      <div class="profile-banner">
+        <div class="banner-gradient"></div>
+      </div>
+
+      <!-- Profile Card -->
+      <div class="profile-card">
+
+        <!-- Avatar + Info + Actions -->
+        <div class="profile-header">
+
+          <div class="avatar-section">
+            <div class="avatar-ring">
+              <img
+                id="profile-avatar"
+                class="profile-avatar"
+                src="assets/images/default-avatar.png"
+                alt="Profile picture"
+              >
+            </div>
+            <!-- V2: Upload button goes here -->
+          </div>
+
+          <div class="profile-info">
+            <h1 id="profile-name" class="profile-name">—</h1>
+            <p id="profile-email" class="profile-email">—</p>
+            <p id="profile-joined" class="profile-joined">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Member since <span id="joined-date">—</span>
+            </p>
+          </div>
+
+          <div class="profile-actions">
+            <!-- V2: Edit Profile button -->
+            <button id="logout-btn" class="btn-logout">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Log out
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Divider -->
+        <div class="profile-divider"></div>
+
+        <!-- Stats Row -->
+        <div class="profile-stats">
+
+          <div class="stat-card">
+            <span id="stat-watched" class="stat-number">—</span>
+            <span class="stat-label">Watched</span>
+          </div>
+
+          <div class="stat-divider"></div>
+
+          <div class="stat-card">
+            <span id="stat-watchlist" class="stat-number">—</span>
+            <span class="stat-label">Watchlist</span>
+          </div>
+
+          <div class="stat-divider"></div>
+
+          <div class="stat-card">
+            <span id="stat-favorites" class="stat-number">—</span>
+            <span class="stat-label">Favourites</span>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- end .profile-card -->
+
+    </div>
+    <!-- end #profile-content -->
 
   </main>
 
-  <!-- Load GSAP via CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <!-- Load custom global cursor script -->
-  <script src="js/utils/cursor.js"></script>
-  <script src="js/utils/includeHTML.js"></script>
-  <!-- Load profile script -->
+  <script type="module" src="js/utils/includeHTML.js"></script>
   <script type="module" src="js/auth/user/profile.js"></script>
 
 </body>

@@ -1,159 +1,201 @@
-// profile.js - Load user profile from backend API
-import { showToast } from "../../components/toast.js";
+// profile.js — CineVerse Profile Page
+import { getToken, clearToken } from "../session.js";
+import { API_BASE } from "../config/api.js";
 
-const API_BASE_URL =
-  window.location.protocol !== "file:" &&
-  (window.location.port === "8000" || window.location.port === "")
-    ? window.location.origin
-    : "http://127.0.0.1:8000";
+let skeleton;
+let errorState;
+let errorMessage;
+let content;
+let retryBtn;
+let logoutBtn;
+let avatarEl;
+let nameEl;
+let emailEl;
+let joinedEl;
+let statWatched;
+let statWatchlist;
+let statFavorites;
 
-const TOKEN_KEY = "auth_token";
+function cacheDomElements() {
+  skeleton = document.getElementById("profile-skeleton");
+  errorState = document.getElementById("profile-error");
+  errorMessage = document.getElementById("profile-error-message");
+  content = document.getElementById("profile-content");
+  retryBtn = document.getElementById("profile-retry");
+  logoutBtn = document.getElementById("logout-btn");
+  avatarEl = document.getElementById("profile-avatar");
+  nameEl = document.getElementById("profile-name");
+  emailEl = document.getElementById("profile-email");
+  joinedEl = document.getElementById("joined-date");
+  statWatched = document.getElementById("stat-watched");
+  statWatchlist = document.getElementById("stat-watchlist");
+  statFavorites = document.getElementById("stat-favorites");
+}
 
-/**
- * GET /auth/me
- * Backend expects header: Authorization: Bearer <token>
- * Backend returns: { name, email }
- */
-async function fetchCurrentUser() {
-  const token = localStorage.getItem(TOKEN_KEY);
+function requireAuth() {
+  const token = getToken();
   if (!token) {
-    throw new Error("Not authenticated");
+    window.location.href = "login.html";
+    return null;
   }
+  return token;
+}
 
-  let response;
+function redirectToLogin() {
+  clearToken();
+  window.location.href = "login.html";
+}
+
+/** GET /auth/me — returns { name, email } */
+async function fetchProfile(token) {
+  let res;
+
   try {
-    response = await fetch(`${API_BASE_URL}/auth/me`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    res = await fetch(`${API_BASE}/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
     });
   } catch {
-    throw new Error("Cannot connect to server.");
+    throw new Error(
+      "Cannot connect to server. Start backend: uvicorn main:app --reload --port 8000"
+    );
   }
 
-  let data;
+  let data = {};
   try {
-    data = await response.json();
+    data = await res.json();
   } catch {
-    throw new Error(`Server error (${response.status})`);
+    data = {};
   }
 
-  if (!response.ok) {
-    throw new Error(data.detail || "Failed to load profile");
+  if (res.status === 401 || res.status === 404) {
+    redirectToLogin();
+    return null;
+  }
+
+  if (!res.ok) {
+    throw new Error(data.detail || `Profile fetch failed (${res.status})`);
   }
 
   return data;
 }
 
-/**
- * POST /auth/logout
- * Backend expects header: Authorization: Bearer <token>
- */
-async function logoutUser() {
-  const token = localStorage.getItem(TOKEN_KEY);
-
+/** POST /auth/logout */
+async function logoutUser(token) {
   try {
-    await fetch(`${API_BASE_URL}/auth/logout`, {
+    await fetch(`${API_BASE}/auth/logout`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
     });
   } catch {
-    // Clear local session even if network fails
+    // Still clear local session if network fails
   }
-
-  localStorage.removeItem(TOKEN_KEY);
+  clearToken();
 }
 
-const initProfile = async () => {
-  const token = localStorage.getItem(TOKEN_KEY);
-
-  if (!token) {
-    window.location.href = "login.html";
-    return;
+function populateProfile(user) {
+  if (nameEl) nameEl.textContent = user.name ?? "Unknown User";
+  if (emailEl) emailEl.textContent = user.email ?? "—";
+  if (joinedEl) {
+    joinedEl.textContent = user.created_at
+      ? formatDate(user.created_at)
+      : formatDate(new Date().toISOString());
   }
 
-  const profileName = document.getElementById("profile-name");
-  const profileEmail = document.getElementById("profile-email");
-  const profileJoined = document.getElementById("profile-joined");
-  const profileAvatar = document.getElementById("profile-avatar");
-  const profileError = document.getElementById("profile-error");
-  const profileRetry = document.getElementById("profile-retry");
-  const logoutBtn = document.getElementById("logout-btn");
-  const goHomeBtn = document.getElementById("go-home-btn");
-  const statWatchlist = document.getElementById("stat-watchlist");
-  const statFavorites = document.getElementById("stat-favorites");
-  const statWatched = document.getElementById("stat-watched");
+  if (avatarEl && user.avatar_url) {
+    avatarEl.src = user.avatar_url;
+    avatarEl.alt = `${user.name}'s profile picture`;
+  }
+}
 
-  const loadProfile = async () => {
-    try {
-      if (profileError) profileError.hidden = true;
+function populateStats() {
+  if (statWatched) statWatched.textContent = "0";
+  if (statWatchlist) statWatchlist.textContent = "0";
+  if (statFavorites) statFavorites.textContent = "0";
+}
 
-      const user = await fetchCurrentUser();
+function showSkeleton() {
+  if (skeleton) skeleton.hidden = false;
+  if (errorState) errorState.hidden = true;
+  if (content) content.hidden = true;
+}
 
-      if (profileName) profileName.textContent = user.name || "—";
-      if (profileEmail) profileEmail.textContent = user.email || "—";
-      if (profileJoined) profileJoined.textContent = "Welcome to CineVerse";
+function showError(message) {
+  if (skeleton) skeleton.hidden = true;
+  if (errorState) errorState.hidden = false;
+  if (content) content.hidden = true;
+  if (errorMessage) {
+    errorMessage.textContent = message || "Couldn't load your profile.";
+  }
+}
 
-      if (profileAvatar) {
-        const initials = (user.name || "U")
-          .split(" ")
-          .map((w) => w[0])
-          .join("")
-          .toUpperCase()
-          .slice(0, 2);
-        profileAvatar.onerror = () => {
-          profileAvatar.style.display = "none";
-          const avatarWrapper = profileAvatar.parentElement;
-          if (avatarWrapper && !avatarWrapper.querySelector(".profile-avatar-initials")) {
-            const initialsEl = document.createElement("div");
-            initialsEl.className = "profile-avatar-initials";
-            initialsEl.textContent = initials;
-            avatarWrapper.appendChild(initialsEl);
-          }
-        };
-      }
+function showContent() {
+  if (skeleton) skeleton.hidden = true;
+  if (errorState) errorState.hidden = true;
+  if (content) content.hidden = false;
+}
 
-      if (statWatchlist) statWatchlist.textContent = "0";
-      if (statFavorites) statFavorites.textContent = "0";
-      if (statWatched) statWatched.textContent = "0";
-    } catch (err) {
-      console.error("Profile load error:", err);
-      const msg = (err.message || "").toLowerCase();
-      if (msg.includes("invalid token") || msg.includes("401") || msg.includes("not authenticated")) {
-        localStorage.removeItem(TOKEN_KEY);
-        window.location.href = "login.html";
-        return;
-      }
-      if (profileError) profileError.hidden = false;
+function formatDate(isoString) {
+  return new Date(isoString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+async function handleLogout() {
+  const token = getToken();
+  if (logoutBtn) logoutBtn.disabled = true;
+
+  if (token) {
+    await logoutUser(token);
+  } else {
+    clearToken();
+  }
+
+  window.location.href = "login.html";
+}
+
+async function loadProfile() {
+  const token = requireAuth();
+  if (!token) return;
+
+  showSkeleton();
+
+  try {
+    const user = await fetchProfile(token);
+    if (!user) return;
+
+    populateProfile(user);
+    populateStats();
+    showContent();
+  } catch (err) {
+    console.error("[Profile] Load failed:", err);
+
+    if (window.location.protocol === "file:") {
+      showError("Open http://127.0.0.1:8000/app/profile.html (do not open the HTML file directly).");
+      return;
     }
-  };
 
-  await loadProfile();
-
-  if (profileRetry) {
-    profileRetry.addEventListener("click", loadProfile);
+    showError(err.message || "Couldn't load your profile.");
   }
+}
+
+function initProfilePage() {
+  cacheDomElements();
 
   if (logoutBtn) {
-    logoutBtn.addEventListener("click", async () => {
-      await logoutUser();
-      showToast("Logged out", "success");
-      window.location.href = "login.html";
-    });
+    logoutBtn.addEventListener("click", handleLogout);
   }
 
-  if (goHomeBtn) {
-    goHomeBtn.addEventListener("click", () => {
-      window.location.href = "home.html";
-    });
+  if (retryBtn) {
+    retryBtn.addEventListener("click", loadProfile);
   }
-};
+
+  loadProfile();
+}
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initProfile);
+  document.addEventListener("DOMContentLoaded", initProfilePage);
 } else {
-  initProfile();
+  initProfilePage();
 }
