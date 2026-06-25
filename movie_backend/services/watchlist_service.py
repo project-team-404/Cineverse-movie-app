@@ -5,6 +5,7 @@ from sqlalchemy.future import select
 from movie_backend.models.watchlist import Watchlist
 from movie_backend.models.movie import Movie
 
+from sqlalchemy.orm import selectinload
 
 async def add_watchlist_service(
     movie_id: int,
@@ -71,6 +72,9 @@ async def get_watchlist_service(
     result = await db.execute(
         select(Watchlist).where(
             Watchlist.user_id == current_user["id"]
+        ).options(
+            selectinload(Watchlist.movie).selectinload(Movie.genre),
+            selectinload(Watchlist.movie).selectinload(Movie.images)
         )
     )
     return result.scalars().all()
