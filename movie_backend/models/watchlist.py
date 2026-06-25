@@ -1,7 +1,6 @@
 from sqlalchemy import (
     Column,
     Integer,
-    String,
     ForeignKey
 )
 from sqlalchemy.orm import relationship
@@ -9,23 +8,13 @@ from sqlalchemy.orm import relationship
 from movie_backend.database.database import Base
 
 
-class Review(Base):
-    __tablename__ = "reviews"
+class Watchlist(Base):
+    __tablename__ = "watchlist"
 
     id = Column(
         Integer,
         primary_key=True,
         index=True
-    )
-
-    rating = Column(
-        Integer,
-        nullable=False
-    )
-
-    content = Column(
-        String,
-        nullable=False
     )
 
     user_id = Column(
@@ -40,10 +29,10 @@ class Review(Base):
 
     user = relationship(
         "User",
-        back_populates="reviews"
+        back_populates="watchlist"
     )
 
     movie = relationship(
         "Movie",
-        back_populates="reviews"
+        back_populates="watchlist"
     )
