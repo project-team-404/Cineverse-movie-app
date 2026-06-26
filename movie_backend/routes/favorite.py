@@ -5,12 +5,14 @@ from movie_backend.database.database import get_db
 from movie_backend.util.helpers import verify_token
 
 from movie_backend.schemas.favorite_schema import (
-    FavoriteResponse
+    FavoriteResponse,
+    AllFavoriteResponse
 )
 
 from movie_backend.schemas.response_schema import (
     MessageResponse
 )
+from typing import List
 
 from movie_backend.services.favorite_service import (
     add_favorite_service,
@@ -25,7 +27,7 @@ router = APIRouter(
 
 
 @router.post(
-    "/{movie_id}",
+    "/add/{movie_id}",
     response_model=FavoriteResponse
 )
 async def add_favorite(
@@ -41,7 +43,7 @@ async def add_favorite(
 
 
 @router.delete(
-    "/{movie_id}",
+    "/delete/{movie_id}",
     response_model=MessageResponse
 )
 async def remove_favorite(
@@ -58,7 +60,7 @@ async def remove_favorite(
 
 @router.get(
     "/",
-    response_model=list[FavoriteResponse]
+    response_model=List[FavoriteResponse]
 )
 async def get_favorites(
     db: AsyncSession = Depends(get_db),

@@ -1,9 +1,9 @@
 ## 👥 Development Team
 
 ### Backend Team
-- **Mithul** – Backend Developer
+- **Mithul** – Backend Lead
 - **Raghul** – Backend Developer
 
 ### Frontend Team
-- **Kesavan** – Frontend Developer
+- **Kesavan** – Frontend Lead
 - **Logesh** – Frontend Developer

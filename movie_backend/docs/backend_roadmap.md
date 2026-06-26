@@ -3,7 +3,7 @@
 ## Version 1 ✅
 
 * Authentication
-* JWT
+* JWT Authentication
 * Movies CRUD
 * Genres CRUD
 * Movie Images
@@ -11,6 +11,11 @@
 * Search
 * Filter
 * Pagination
+* Docker
+* PostgreSQL
+* Render Deployment
+
+---
 
 ## Version 2 ✅
 
@@ -18,38 +23,59 @@
 * Reviews
 * Ratings
 
-## Version 3 🚀
+---
 
-* AI Review Summary
-* Review Sentiment Analysis
-* Movie Insights
+## Version 3 🚧
+
+* AI Review Summary ✅
+* Watchlist ✅
+* Watch History
+* User Profile
+* Change Password
+* Profile Statistics
+
+---
 
 ## Version 4 🚀
 
-* Personalized Recommendations
+* Home API
+* Trending Movies
+* Top Rated Movies
+* Latest Movies
 * Similar Movies
-* Genre Preference Tracking
+* Admin Dashboard
+* Movie Statistics
+* User Statistics
+
+---
 
 ## Version 5 🚀
 
-* Watchlist
-* Recently Viewed
-* User Profile
-* Movie History
+* Movie Recommendation System
+* Personalized Recommendations
+* Genre-Based Recommendations
+* Recommendation History
+
+---
 
 ## Version 6 🚀
 
-* Admin Dashboard
-* Analytics
-* Most Favorited Movies
-* Top Rated Movies
+* RAG Chatbot
+* LangChain Integration
+* LangGraph Multi-Agent
+* AI Movie Assistant
+* AI Recommendations
+
+---
 
 ## Version 7 🚀
 
+* Subscription Plans
+* Payment Gateway Integration (Stripe / Razorpay)
+* Premium Features
 * Redis Caching
 * Background Tasks
 * Logging
-* Rate Limiting
+* CI/CD Pipeline
 * AWS Deployment
-* CI/CD
-* API Versioning
+* Monitoring

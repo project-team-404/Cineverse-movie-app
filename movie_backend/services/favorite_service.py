@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from movie_backend.models.favorite import Favorite
 from movie_backend.models.movie import Movie
-
+from sqlalchemy.orm import selectinload
 
 async def add_favorite_service(
     movie_id: int,
@@ -87,8 +87,13 @@ async def get_favorites_service(
     db: AsyncSession,
     current_user
 ):
-    statement = select(Favorite).where(
-        Favorite.user_id == current_user["id"]
+    statement = (
+        select(Favorite)
+        .where(Favorite.user_id == current_user["id"])
+        .options(
+            selectinload(Favorite.movie).selectinload(Movie.genre),
+            selectinload(Favorite.movie).selectinload(Movie.images)
+        )
     )
 
     result = await db.execute(statement)
