@@ -1,98 +1,142 @@
 /* ================================================================
-   CINEVERSE — cv-details-patch.js
-   Patches movie-details.js to use backend for Watchlist too.
-   Load AFTER cv-api.js and movie-details.js.
+   CINEVERSE — cv-details-patch.js  v2.0
+   Use on: movie-details.html ONLY
+
+   • Loads Favorites & Watchlist on page load
+   • Sets correct initial active states for fav & WL buttons
+   • Replaces existing button listeners with backend-correct ones
+   • ONE request per click, locked while in-flight
+   • Backend always re-fetched after toggle for source of truth
 ================================================================ */
 
 'use strict';
 
 (function cvDetailsPatch() {
 
-  async function onReady() {
-    /* Load user lists */
-    await cvInitUserLists();
-
-    /* Now patch the wireButtons watchlist section */
-    const params = new URLSearchParams(window.location.search);
-    const detailMovieId = params.get('id');
-    if (!detailMovieId) return;
-
-    /* Override the local watchlist functions used by movie-details.js */
-    /* These are locally-scoped in movie-details.js so we hook buttons directly */
-    patchWatchlistButtons(detailMovieId);
-    syncFavStatus(detailMovieId);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
   }
 
-  function patchWatchlistButtons(movieId) {
-    /* Check initial WL state */
-    const wlActive = CV_Watchlist.has(movieId);
-    const wlLabel = document.getElementById('watchlist-label');
-    const wlBtn = document.getElementById('btn-watchlist');
-    const floatWl = document.getElementById('float-wl');
+  async function boot() {
+    /* Get movie ID from URL */
+    const movieId = new URLSearchParams(window.location.search).get('id');
+    if (!movieId) return;
 
-    if (wlLabel) wlLabel.textContent = wlActive ? 'In Watchlist' : 'Add to Watchlist';
-    if (wlBtn) wlBtn.style.borderColor = wlActive ? 'var(--gold-dim, #b8860b)' : '';
-    if (floatWl) floatWl.classList.toggle('active', wlActive);
+    /* Load user's lists from backend */
+    await cvInit();
 
-    /* Re-wire WL toggle to use backend */
-    async function handleWLClick() {
-      if (!cvIsLoggedIn()) { cvShowAuthToast(); return; }
-      const added = await CV_Watchlist.toggle(movieId);
-      const lbl = document.getElementById('watchlist-label');
-      const btn = document.getElementById('btn-watchlist');
-      const fl  = document.getElementById('float-wl');
-      if (lbl) lbl.textContent = added ? 'In Watchlist' : 'Add to Watchlist';
-      if (btn) btn.style.borderColor = added ? 'var(--gold-dim, #b8860b)' : '';
-      if (fl)  fl.classList.toggle('active', added);
-      cvToast(added ? '📌 Added to Watchlist' : 'Removed from Watchlist', added ? 'success' : '');
-    }
+    /* Apply initial icon states */
+    applyFavState(movieId);
+    applyWLState(movieId);
 
-    /* Clone and replace to remove existing listeners */
-    ['btn-watchlist', 'float-wl'].forEach(id => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const fresh = el.cloneNode(true);
-      el.parentNode.replaceChild(fresh, el);
-      fresh.addEventListener('click', handleWLClick);
-    });
+    /* Re-wire all buttons with correct backend handlers */
+    wireFavButtons(movieId);
+    wireWLButtons(movieId);
+  }
 
-    /* Re-wire Favorites to use backend */
-    async function handleFavClick() {
-      if (!cvIsLoggedIn()) { cvShowAuthToast(); return; }
-      const added = await CV_Favorites.toggle(movieId);
-      updateFavButtons(added);
-      cvToast(added ? '♥ Added to Favorites' : 'Removed from Favorites', added ? 'success' : '');
-    }
-
+  /* ================================================================
+     FAVORITE BUTTONS
+  ================================================================ */
+  function wireFavButtons(movieId) {
+    /* IDs used in movie-details.html */
     ['btn-fav-hero', 'float-fav'].forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
+      /* Remove existing listeners by cloning */
       const fresh = el.cloneNode(true);
       el.parentNode.replaceChild(fresh, el);
-      fresh.addEventListener('click', handleFavClick);
+      fresh.addEventListener('click', () => handleFavToggle(movieId));
     });
   }
 
-  function syncFavStatus(movieId) {
-    const active = CV_Favorites.has(movieId);
-    updateFavButtons(active);
+  async function handleFavToggle(movieId) {
+    if (!cvLoggedIn()) { cvShowAuthPrompt(); return; }
+
+    /* Lock all fav buttons while in flight */
+    setFavLoading(true);
+
+    const result = await cvToggleFavorite(movieId);
+
+    setFavLoading(false);
+
+    if (result === null) return; /* error already toasted, icon unchanged */
+
+    applyFavState(movieId);
+    cvToast(result ? '♥ Added to Favorites' : 'Removed from Favorites', result ? 'success' : '');
   }
 
-  function updateFavButtons(active) {
+  function applyFavState(movieId) {
+    const active = cvIsFavorite(movieId);
+
     const heroIcon  = document.getElementById('fav-hero-icon');
     const heroBtn   = document.getElementById('btn-fav-hero');
     const floatIcon = document.getElementById('float-fav-icon');
     const floatBtn  = document.getElementById('float-fav');
+
     if (heroIcon)  heroIcon.style.fill  = active ? 'var(--rose, #f43f5e)' : 'none';
     if (heroBtn)   heroBtn.classList.toggle('active', active);
     if (floatIcon) floatIcon.style.fill = active ? 'var(--rose, #f43f5e)' : 'none';
     if (floatBtn)  floatBtn.classList.toggle('active', active);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', onReady);
-  } else {
-    onReady();
+  function setFavLoading(loading) {
+    ['btn-fav-hero', 'float-fav'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.opacity = loading ? '0.5' : '';
+      el.style.pointerEvents = loading ? 'none' : '';
+    });
+  }
+
+  /* ================================================================
+     WATCHLIST BUTTONS
+  ================================================================ */
+  function wireWLButtons(movieId) {
+    ['btn-watchlist', 'float-wl'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const fresh = el.cloneNode(true);
+      el.parentNode.replaceChild(fresh, el);
+      fresh.addEventListener('click', () => handleWLToggle(movieId));
+    });
+  }
+
+  async function handleWLToggle(movieId) {
+    if (!cvLoggedIn()) { cvShowAuthPrompt(); return; }
+
+    setWLLoading(true);
+
+    const result = await cvToggleWatchlist(movieId);
+
+    setWLLoading(false);
+
+    if (result === null) return;
+
+    applyWLState(movieId);
+    cvToast(result ? '📌 Added to Watchlist' : 'Removed from Watchlist', result ? 'success' : '');
+  }
+
+  function applyWLState(movieId) {
+    const active = cvIsWatchlisted(movieId);
+
+    const label   = document.getElementById('watchlist-label');
+    const btn     = document.getElementById('btn-watchlist');
+    const floatBtn = document.getElementById('float-wl');
+
+    if (label)    label.textContent = active ? 'In Watchlist' : 'Add to Watchlist';
+    if (btn)      btn.classList.toggle('active', active);
+    if (floatBtn) floatBtn.classList.toggle('active', active);
+  }
+
+  function setWLLoading(loading) {
+    ['btn-watchlist', 'float-wl'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.opacity = loading ? '0.5' : '';
+      el.style.pointerEvents = loading ? 'none' : '';
+    });
   }
 
 })();
