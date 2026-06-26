@@ -14,9 +14,11 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
 from uuid import uuid4
-
+import uuid
 import os
 
+UPLOAD_DIR = "uploads/profile_pictures"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 load_dotenv()
 
 
@@ -190,3 +192,16 @@ def delete_image(
             image_path
         )
 
+def _save_file(file: UploadFile) -> str:
+    allowed_types = {"image/jpeg", "image/png", "image/webp"}
+    if file.content_type not in allowed_types:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Only JPEG, PNG, and WEBP images are allowed"
+        )
+    ext = file.filename.split(".")[-1]
+    filename = f"{uuid.uuid4().hex}.{ext}"
+    file_path = os.path.join(UPLOAD_DIR, filename)
+    with open(file_path, "wb") as f:
+        f.write(file.file.read())
+    return file_path
