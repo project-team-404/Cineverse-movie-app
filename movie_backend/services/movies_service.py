@@ -1,11 +1,12 @@
 from fastapi import HTTPException, status
-from sqlalchemy import select
+
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
 from movie_backend.models.genre import Genre
 from movie_backend.models.movie import Movie
 
+from sqlalchemy import select, desc
+from sqlalchemy.orm import selectinload
 
 async def get_movies_service(
     page: int,
@@ -130,3 +131,45 @@ async def filter_movies_service(
     movies = result.scalars().all()
 
     return movies
+
+async def home_service(db: AsyncSession):
+
+    top_rated_stmt = (
+        select(Movie)
+        .order_by(desc(Movie.rating))
+        .options(
+            selectinload(Movie.genre),
+            selectinload(Movie.images)
+        )
+        .limit(15)
+    )
+
+    latest_stmt = (
+        select(Movie)
+        .order_by(desc(Movie.release_year))
+        .options(
+            selectinload(Movie.genre),
+            selectinload(Movie.images)
+        )
+        .limit(15)
+    )
+
+    recently_added_stmt = (
+        select(Movie)
+        .order_by(desc(Movie.created_at))
+        .options(
+            selectinload(Movie.genre),
+            selectinload(Movie.images)
+        )
+        .limit(15)
+    )
+
+    top_rated = (await db.execute(top_rated_stmt)).scalars().all()
+    latest = (await db.execute(latest_stmt)).scalars().all()
+    recently_added = (await db.execute(recently_added_stmt)).scalars().all()
+
+    return {
+        "top_rated": top_rated,
+        "latest": latest,
+        "recently_added": recently_added,
+    }

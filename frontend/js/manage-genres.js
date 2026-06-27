@@ -82,6 +82,68 @@ function openAddGenreModal() {
 }
 
 async function submitAddGenre() {
+
+  var name = document.getElementById('add-genre-name').value.trim();
+
+  if (!name) {
+    cvToast('Genre name is required', 'error');
+    return;
+  }
+
+  var btn = document.getElementById('add-genre-btn');
+
+  btn.disabled = true;
+  btn.textContent = 'Adding...';
+
+  try {
+
+    var res = await CV_Admin.createGenre(name);
+
+    console.log("Status:", res.status);
+
+    const body = await res.text();
+
+    console.log("Response:", body);
+
+    if (res.ok) {
+
+      cvToast(
+        'Genre added successfully!',
+        'success'
+      );
+
+      closeModal('add-genre-modal');
+
+      loadGenres();
+
+    } else {
+
+      cvToast(
+        body,
+        'error'
+      );
+
+    }
+
+  } catch (err) {
+
+    console.error(err);
+
+    cvToast(
+      'Network error. Try again.',
+      'error'
+    );
+
+  } finally {
+
+    btn.disabled = false;
+
+    btn.textContent = 'Add Genre';
+
+  }
+
+}
+/*async function submitAddGenre() {
   var name = document.getElementById('add-genre-name').value.trim();
   if (!name) { cvToast('Genre name is required', 'error'); return; }
 
@@ -105,7 +167,7 @@ async function submitAddGenre() {
     btn.disabled = false;
     btn.textContent = 'Add Genre';
   }
-}
+}*/
 
 // ── Edit Genre ────────────────────────────────
 function openEditGenreModal(id, name) {

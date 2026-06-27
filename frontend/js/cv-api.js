@@ -39,6 +39,127 @@ function cvHandle401() {
 }
 
 /* ================================================================
+   ADMIN API — CV_Admin namespace for backend operations
+================================================================ */
+var CV_Admin = {
+  /* Movies */
+  getMovies: async function(page, limit) {
+    const res = await fetch(`${CV_BASE}/movies/?page=${page}&limit=${limit}`, { headers: cvAuthHeaders() });
+    if (res.status === 401) { cvHandle401(); return []; }
+    if (!res.ok) throw new Error(`GET /movies/ → ${res.status}`);
+    return await res.json();
+  },
+
+createMovie: async function(payload) {
+    return await fetch(`${CV_BASE}/admin/movies`, {
+        method: 'POST',
+        headers: {
+            ...cvAuthHeaders(),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+},
+
+ updateMovie: async function(movieId, payload) {
+    return await fetch(`${CV_BASE}/admin/movies/${movieId}`, {
+        method: 'PATCH',
+        headers: {
+            ...cvAuthHeaders(),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+},
+
+  deleteMovie: async function(movieId) {
+    return await fetch(`${CV_BASE}/admin/movies/${movieId}`, {
+        method: 'DELETE',
+        headers: cvAuthHeaders()
+    });
+},
+
+  uploadMovieImage: async function(movieId, file) {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    return await fetch(`${CV_BASE}/admin/movies/${movieId}/images`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${cvToken()}`
+        },
+        body: formData
+    });
+},
+
+ deleteMovieImage: async function(imageId) {
+    return await fetch(`${CV_BASE}/admin/movie-images/${imageId}`, {
+        method: 'DELETE',
+        headers: cvAuthHeaders()
+    });
+},
+
+  /* Genres */
+  getGenres: async function() {
+    const res = await fetch(`${CV_BASE}/genres/`, { headers: cvAuthHeaders() });
+    if (res.status === 401) { cvHandle401(); return []; }
+    if (!res.ok) throw new Error(`GET /genres/ → ${res.status}`);
+    return await res.json();
+  },
+
+ createGenre: async function(name) {
+    return await fetch(`${CV_BASE}/admin/genres`, {
+        method: 'POST',
+        headers: {
+            ...cvAuthHeaders(),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name })
+    });
+},
+
+ updateGenre: async function(genreId, name) {
+    return await fetch(`${CV_BASE}/admin/genres/${genreId}`, {
+        method: 'PATCH',
+        headers: {
+            ...cvAuthHeaders(),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name })
+    });
+},
+
+ deleteGenre: async function(genreId) {
+    return await fetch(`${CV_BASE}/admin/genres/${genreId}`, {
+        method: 'DELETE',
+        headers: cvAuthHeaders()
+    });
+},
+
+  /* Reviews */
+  getReviews: async function(movieId) {
+    const res = await fetch(`${CV_BASE}/reviews/${movieId}`, { headers: cvAuthHeaders() });
+    if (res.status === 401) { cvHandle401(); return []; }
+    if (!res.ok) throw new Error(`GET /reviews/${movieId} → ${res.status}`);
+    return await res.json();
+  },
+
+  getReviewSummary: async function(movieId) {
+    const res = await fetch(`${CV_BASE}/reviews/ai_summary_review/${movieId}`, { headers: cvAuthHeaders() });
+    if (res.status === 401) { cvHandle401(); return {}; }
+    if (!res.ok) throw new Error(`GET /reviews/ai_summary_review/${movieId} → ${res.status}`);
+    return await res.json();
+  },
+
+  deleteReview: async function(reviewId) {
+    return await fetch(`${CV_BASE}/reviews/${reviewId}`, {
+      method: 'DELETE',
+      headers: cvAuthHeaders()
+    });
+  }
+};
+
+/* ================================================================
    STATE — single source of truth, never persisted to localStorage
 ================================================================ */
 const CV_State = {

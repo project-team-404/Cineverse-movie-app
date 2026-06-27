@@ -6,11 +6,14 @@ from movie_backend.services.movies_service import (
     get_movies_service,
     get_movie_service,
     search_movies_service,
-    filter_movies_service
+    filter_movies_service,
+    home_service
 )
 
-from movie_backend.schemas.movie_schema import MovieResponse
+from movie_backend.schemas.movie_schema import MovieResponse,HomePageResponse
 from typing import List
+
+
 
 router = APIRouter(
     prefix="/movies",
@@ -74,3 +77,7 @@ async def filter_movies(
         limit,
         db
     )
+
+@router.get("/home/",response_model=HomePageResponse)
+async def home(db: AsyncSession = Depends(get_db)):
+    return await home_service(db)

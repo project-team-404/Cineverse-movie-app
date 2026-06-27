@@ -44,3 +44,8 @@ class MovieResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class HomePageResponse(BaseModel):
+    top_rated : list[MovieResponse]
+    latest : list[MovieResponse]
+    recently_added : list[MovieResponse]

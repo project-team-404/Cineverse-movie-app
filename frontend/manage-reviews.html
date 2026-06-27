@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Reviews — CineVerse Admin</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- ── Top Bar ── -->
+  <header class="admin-topbar">
+    <a href="index.html" class="admin-topbar-brand">
+      <span class="brand-name">CineVerse</span>
+      <span class="brand-badge">ADMIN</span>
+    </a>
+    <nav class="admin-nav">
+      <a href="admin-dashboard.html" class="admin-nav-link">Dashboard</a>
+      <a href="manage-movies.html"   class="admin-nav-link">Movies</a>
+      <a href="manage-genres.html"   class="admin-nav-link">Genres</a>
+      <a href="manage-reviews.html"  class="admin-nav-link active">Reviews</a>
+    </nav>
+    <div class="admin-topbar-right">
+      <a href="home.html" class="admin-back-link">← Back to Site</a>
+    </div>
+  </header>
+
+  <main class="admin-page">
+
+    <!-- ── Page Header ── -->
+    <div class="admin-page-header">
+      <div>
+        <h1 class="admin-page-title">Manage Reviews</h1>
+        <p class="admin-page-subtitle">Monitor audience feedback and AI sentiment analysis</p>
+      </div>
+    </div>
+
+    <!-- ── Movie Filter Section ── -->
+    <div class="filter-card">
+      <label class="filter-label">Movie</label>
+      <select id="movie-filter" class="form-control">
+        <option value="">Select Movie</option>
+      </select>
+    </div>
+
+    <!-- ── Statistics Cards ── -->
+    <div class="stat-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon">💬</div>
+        <div class="stat-info">
+          <div class="stat-value" id="stat-total-reviews">—</div>
+          <div class="stat-label">Total Reviews</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-info">
+          <div class="stat-value" id="stat-avg-rating">—</div>
+          <div class="stat-label">Average Rating</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">✨</div>
+        <div class="stat-info">
+          <div class="stat-value" id="stat-five-star">—</div>
+          <div class="stat-label">Five Star Reviews</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── AI Summary Card ── -->
+    <div class="ai-summary-card">
+      <div class="ai-summary-header">
+        <h2 class="ai-summary-title">✨ AI Review Summary</h2>
+        <span class="sentiment-badge" id="sentiment-badge">Neutral</span>
+      </div>
+      <p class="ai-summary-text" id="summary-text">Select a movie to analyze reviews</p>
+    </div>
+
+    <!-- ── Reviews Table ── -->
+    <div class="table-card">
+      <div id="reviews-table-body">
+        <div class="empty-state"><div class="empty-state-icon">💬</div><h3>Select a movie</h3><p>Choose a movie from the filter above to view its reviews.</p></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══ DELETE CONFIRM MODAL ══ -->
+  <div class="modal-overlay" id="delete-review-modal">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-header">
+        <h2 class="modal-title">Delete Review</h2>
+        <button class="modal-close" onclick="closeModal('delete-review-modal')">×</button>
+      </div>
+      <div class="confirm-body">
+        <div class="confirm-icon">🗑️</div>
+        <h3>Are you sure?</h3>
+        <p>You are about to delete this review. This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal('delete-review-modal')">Cancel</button>
+        <button class="btn btn-danger" id="delete-review-btn" onclick="submitDeleteReview()">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/cv-api.js"></script>
+  <script src="js/manage-reviews.js"></script>
+
+</body>
+</html>

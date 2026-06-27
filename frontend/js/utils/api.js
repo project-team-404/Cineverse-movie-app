@@ -6,4 +6,4 @@ const isLocal =
 
 export const API_BASE = isLocal
   ? 'http://127.0.0.1:8000'
-  : 'https://movie-app-qhzc.onrender.com';
+  : ' https://cineverse-movie-app.onrender.com';

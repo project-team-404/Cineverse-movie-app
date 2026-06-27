@@ -30,35 +30,18 @@
 * AI Review Summary ✅
 * Watchlist ✅
 * Watch History
-* User Profile
-* Change Password
-* Profile Statistics
+* User Profile ✅
 
 ---
 
 ## Version 4 🚀
 
-* Home API
-* Trending Movies
-* Top Rated Movies
-* Latest Movies
-* Similar Movies
-* Admin Dashboard
-* Movie Statistics
-* User Statistics
-
----
+* Home API ✅
+* Recentely_Added Movies ✅
+* Top Rated Movies ✅
+* Latest Movies(year) ✅
 
 ## Version 5 🚀
-
-* Movie Recommendation System
-* Personalized Recommendations
-* Genre-Based Recommendations
-* Recommendation History
-
----
-
-## Version 6 🚀
 
 * RAG Chatbot
 * LangChain Integration
@@ -68,14 +51,19 @@
 
 ---
 
-## Version 7 🚀
+## Version 6 🚀
 
 * Subscription Plans
+* Logs
 * Payment Gateway Integration (Stripe / Razorpay)
-* Premium Features
+* Premium Features(All AI feature except AI Review Summary)
+* Change Password
 * Redis Caching
 * Background Tasks
 * Logging
-* CI/CD Pipeline
+* testing
+* CD Pipeline(Render) ✅
+* CI Pipeline(Render)
 * AWS Deployment
+* CI/CD for AWS
 * Monitoring
