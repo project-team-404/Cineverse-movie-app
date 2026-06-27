@@ -3,8 +3,11 @@ from sqlalchemy import (
     Integer,
     String,
     Float,
-    ForeignKey
+    ForeignKey,
+    DateTime,
+    func
 )
+
 from sqlalchemy.orm import relationship
 
 from movie_backend.database.database import Base
@@ -61,6 +64,12 @@ class Movie(Base):
     genre = relationship(
         "Genre",
         back_populates="movies"
+    )
+
+    created_at = Column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False
     )
 
     images = relationship(
