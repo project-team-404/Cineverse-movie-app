@@ -2,7 +2,7 @@
    CINEVERSE — signup.js
    ============================================================ */
 
-const API_BASE = 'https://movie-app-qhzc.onrender.com';
+const API_BASE = 'https://cineverse-movie-app.onrender.com';
 
 // ── DOM refs ──────────────────────────────────────────────────
 

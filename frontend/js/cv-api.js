@@ -17,7 +17,7 @@
 
 'use strict';
 
-const CV_BASE = 'https://movie-app-qhzc.onrender.com';
+const CV_BASE = 'https://cineverse-movie-app.onrender.com';
 
 /* ── Token helpers ─────────────────────────────────────────── */
 function cvToken()    { return localStorage.getItem('access_token') || ''; }

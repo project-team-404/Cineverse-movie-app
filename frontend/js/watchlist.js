@@ -9,7 +9,7 @@
 
 'use strict';
 
-const WL_BASE = 'https://movie-app-qhzc.onrender.com';
+const WL_BASE = ' https://cineverse-movie-app.onrender.com';
 const WL_PLACEHOLDER = 'assets/images/placeholder.jpg';
 
 function wlToken()    { return localStorage.getItem('access_token') || ''; }

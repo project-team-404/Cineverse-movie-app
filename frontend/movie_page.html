@@ -182,14 +182,14 @@
         <div class="filter-group" role="group" aria-label="Filter by genre">
           <span class="filter-label">Genre</span>
           <button class="filter-chip active" data-filter="genre" data-value="all">All</button>
-          <button class="filter-chip" data-filter="genre" data-value="28">Action</button>
-          <button class="filter-chip" data-filter="genre" data-value="35">Comedy</button>
-          <button class="filter-chip" data-filter="genre" data-value="18">Drama</button>
-          <button class="filter-chip" data-filter="genre" data-value="878">Sci-Fi</button>
-          <button class="filter-chip" data-filter="genre" data-value="53">Thriller</button>
-          <button class="filter-chip" data-filter="genre" data-value="12">Adventure</button>
-          <button class="filter-chip" data-filter="genre" data-value="14">Fantasy</button>
-          <button class="filter-chip" data-filter="genre" data-value="16">Animation</button>
+          <button class="filter-chip" data-filter="genre" data-value="Action">Action</button>
+          <button class="filter-chip" data-filter="genre" data-value="Comedy">Comedy</button>
+          <button class="filter-chip" data-filter="genre" data-value="Drama">Drama</button>
+          
+          <button class="filter-chip" data-filter="genre" data-value="Thriller">Thriller</button>
+          <button class="filter-chip" data-filter="genre" data-value="Adventure">Adventure</button>
+          <button class="filter-chip" data-filter="genre" data-value="Fantasy">Fantasy</button>
+          <button class="filter-chip" data-filter="genre" data-value="Animation">Animation</button>
         </div>
 
         <div class="filter-sep" aria-hidden="true"></div>
@@ -272,11 +272,10 @@
             <h2 class="collection-title">SCI-FI UNIVERSE</h2>
             <div class="collection-meta">
               <span>Curated by our editors</span>
-              <span class="collection-count">42 Films</span>
             </div>
           </div>
           <div class="collection-cta">
-            <a href="movie_page.html?collection=scifi" class="btn-primary">
+            <a href="movie_page.html?genre=Sci-Fi" class="btn-primary">
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
                 <path d="M8 5v14l11-7z"/>
               </svg>
@@ -384,17 +383,17 @@
     </section>
 
     <!-- ================================================================
-         SECTION 6 — TRENDING NOW carousel
+         SECTION 6 — MOST POPULAR carousel
     ================================================================ -->
-    <section class="carousel-section reveal" id="section-trending-now" aria-label="Trending now">
+    <section class="carousel-section reveal" id="section-trending-now" aria-label="Most popular movies">
       <div class="carousel-section-inner">
         <div class="carousel-section-header">
           <div>
-            <p class="section-eyebrow">What's Hot</p>
-            <h2 class="carousel-section-title">Trending This Week</h2>
-            <p class="carousel-section-sub">The movies everyone's watching right now</p>
+            <p class="section-eyebrow">Highly Rated</p>
+            <h2 class="carousel-section-title">Most Popular</h2>
+            <p class="carousel-section-sub">Top-rated movies our audience loves</p>
           </div>
-          <a href="movie_page.html?filter=trending" class="section-see-all" aria-label="See all trending">
+          <a href="movie_page.html?sort=rating" class="section-see-all" aria-label="See all popular movies">
             See All
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -415,7 +414,7 @@
         </div>
         <div class="cs-detail-panel" id="trending-detail" aria-live="polite" aria-label="Selected trending movie details">
           <div class="cs-detail-left">
-            <p class="cs-detail-eyebrow">Trending #1</p>
+            <p class="cs-detail-eyebrow">Popular #1</p>
             <h3 class="cs-detail-title">Loading…</h3>
             <div class="cs-detail-meta">
               <span class="cs-detail-meta-item">
@@ -452,57 +451,51 @@
         </div>
         <div class="genre-showcase-grid" role="list">
 
-          <a href="movie_page.html?genre=28" class="genre-card" style="--genre-color:#ef4444" role="listitem" aria-label="Browse Action movies">
+          <a href="movie_page.html?genre=Action" class="genre-card" style="--genre-color:#ef4444" role="listitem" aria-label="Browse Action movies">
             <img class="genre-card-bg" src="assets/images/genres/action.jpg" alt="Action genre" loading="lazy">
             <div class="genre-card-overlay" aria-hidden="true"></div>
             <div class="genre-card-content">
               <div class="genre-card-name">ACTION</div>
-              <p class="genre-card-count">1,240+ films</p>
             </div>
           </a>
 
-          <a href="movie_page.html?genre=878" class="genre-card" style="--genre-color:#00d4c8" role="listitem" aria-label="Browse Sci-Fi movies">
+          <a href="movie_page.html?genre=Sci-Fi" class="genre-card" style="--genre-color:#00d4c8" role="listitem" aria-label="Browse Sci-Fi movies">
             <img class="genre-card-bg" src="assets/images/genres/scifi.jpg" alt="Sci-Fi genre" loading="lazy">
             <div class="genre-card-overlay" aria-hidden="true"></div>
             <div class="genre-card-content">
               <div class="genre-card-name">SCI-FI</div>
-              <p class="genre-card-count">870+ films</p>
             </div>
           </a>
 
-          <a href="movie_page.html?genre=18" class="genre-card" style="--genre-color:#8b5cf6" role="listitem" aria-label="Browse Drama movies">
+          <a href="movie_page.html?genre=Drama" class="genre-card" style="--genre-color:#8b5cf6" role="listitem" aria-label="Browse Drama movies">
             <img class="genre-card-bg" src="assets/images/genres/drama.jpg" alt="Drama genre" loading="lazy">
             <div class="genre-card-overlay" aria-hidden="true"></div>
             <div class="genre-card-content">
               <div class="genre-card-name">DRAMA</div>
-              <p class="genre-card-count">2,100+ films</p>
             </div>
           </a>
 
-          <a href="movie_page.html?genre=53" class="genre-card" style="--genre-color:#f59e0b" role="listitem" aria-label="Browse Thriller movies">
+          <a href="movie_page.html?genre=Thriller" class="genre-card" style="--genre-color:#f59e0b" role="listitem" aria-label="Browse Thriller movies">
             <img class="genre-card-bg" src="assets/images/genres/thriller.jpg" alt="Thriller genre" loading="lazy">
             <div class="genre-card-overlay" aria-hidden="true"></div>
             <div class="genre-card-content">
               <div class="genre-card-name">THRILLER</div>
-              <p class="genre-card-count">960+ films</p>
             </div>
           </a>
 
-          <a href="movie_page.html?genre=12" class="genre-card" style="--genre-color:#22d3a0" role="listitem" aria-label="Browse Adventure movies">
+          <a href="movie_page.html?genre=Adventure" class="genre-card" style="--genre-color:#22d3a0" role="listitem" aria-label="Browse Adventure movies">
             <img class="genre-card-bg" src="assets/images/genres/adventure.jpg" alt="Adventure genre" loading="lazy">
             <div class="genre-card-overlay" aria-hidden="true"></div>
             <div class="genre-card-content">
               <div class="genre-card-name">ADVENTURE</div>
-              <p class="genre-card-count">730+ films</p>
             </div>
           </a>
 
-          <a href="movie_page.html?genre=14" class="genre-card" style="--genre-color:#ec4899" role="listitem" aria-label="Browse Fantasy movies">
+          <a href="movie_page.html?genre=Fantasy" class="genre-card" style="--genre-color:#ec4899" role="listitem" aria-label="Browse Fantasy movies">
             <img class="genre-card-bg" src="assets/images/genres/fantasy.jpg" alt="Fantasy genre" loading="lazy">
             <div class="genre-card-overlay" aria-hidden="true"></div>
             <div class="genre-card-content">
               <div class="genre-card-name">FANTASY</div>
-              <p class="genre-card-count">580+ films</p>
             </div>
           </a>
 
@@ -572,30 +565,26 @@
             <h3 class="footer-col-title">Explore</h3>
             <ul class="footer-col-links">
               <li><a href="movie_page.html" class="footer-col-link">All Movies</a></li>
-              <li><a href="movie_page.html" class="footer-col-link">Trending</a></li>
               <li><a href="movie_page.html?sort=rating" class="footer-col-link">Top Rated</a></li>
-              <li><a href="movie_page.html?filter=now_playing" class="footer-col-link">Now Playing</a></li>
-              <li><a href="movie_page.html?filter=upcoming" class="footer-col-link">Upcoming</a></li>
+              <li><a href="movie_page.html?sort=release" class="footer-col-link">Latest Releases</a></li>
+              <li><a href="movie_page.html?sort=recent" class="footer-col-link">Recently Added</a></li>
             </ul>
           </div>
           <div class="footer-col">
             <h3 class="footer-col-title">Genres</h3>
             <ul class="footer-col-links">
-              <li><a href="movie_page.html?genre=28"  class="footer-col-link">Action</a></li>
-              <li><a href="movie_page.html?genre=35"  class="footer-col-link">Comedy</a></li>
-              <li><a href="movie_page.html?genre=18"  class="footer-col-link">Drama</a></li>
-              <li><a href="movie_page.html?genre=878" class="footer-col-link">Sci-Fi</a></li>
-              <li><a href="movie_page.html?genre=27"  class="footer-col-link">Horror</a></li>
+              <li><a href="movie_page.html?genre=Action"    class="footer-col-link">Action</a></li>
+              <li><a href="movie_page.html?genre=Comedy"    class="footer-col-link">Comedy</a></li>
+              <li><a href="movie_page.html?genre=Drama"     class="footer-col-link">Drama</a></li>
+              <li><a href="movie_page.html?genre=Sci-Fi"    class="footer-col-link">Sci-Fi</a></li>
+              <li><a href="movie_page.html?genre=Horror"    class="footer-col-link">Horror</a></li>
             </ul>
           </div>
           <div class="footer-col">
             <h3 class="footer-col-title">My Account</h3>
             <ul class="footer-col-links">
-              <li><a href="watchlist.html"       class="footer-col-link">Watchlist</a></li>
-              <li><a href="favorites.html"       class="footer-col-link">Favorites</a></li>
-              <li><a href="history.html"         class="footer-col-link">History</a></li>
-              <li><a href="recommendations.html" class="footer-col-link">For You</a></li>
-              <li><a href="mood.html"            class="footer-col-link">Mood Pick</a></li>
+              <li><a href="watchlist.html"  class="footer-col-link">Watchlist</a></li>
+              <li><a href="favorites.html"  class="footer-col-link">Favorites</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -611,7 +600,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copy">© 2025 <span>CineVerse</span>. All rights reserved. Movie data provided by TMDB.</p>
+        <p class="footer-copy">© 2025 <span>CineVerse</span>. All rights reserved.</p>
         <nav class="footer-legal" aria-label="Legal links">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Service</a>
@@ -659,7 +648,6 @@
        IMPORTANT: tmdb.js + utils.js + components.js load first,
        then movie_page.js. movie_page.js has fallbacks if they are absent.
   ============================================================ -->
-  <script src="js/tmdb.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/components.js"></script>
   <script src="js/movie_page.js"></script>
@@ -693,8 +681,8 @@
     });
   </script>
 
-/* ── these scripts are for the enhanced favorites and watchlist functionality ── */
-<script src="js/cv-api.js"></script>
-<script src="js/cv-patch.js"></script>
+  <!-- Enhanced favorites and watchlist functionality -->
+  <script src="js/cv-api.js"></script>
+  <script src="js/cv-patch.js"></script>
 </body>
 </html>

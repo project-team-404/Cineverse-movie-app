@@ -6,18 +6,13 @@
 const API_BASE =
   window.CINEVERSE_API_BASE ||
   localStorage.getItem('cineverse_api_base') ||
-  'https://movie-app-qhzc.onrender.com';
+  'https://cineverse-movie-app.onrender.com';
 
 const API_LIMIT = 200;
 const PLACEHOLDER_IMAGE = 'assets/images/placeholder.jpg';
-const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/w342';
 
-const GENRE_MAP = {
-  28: 'Action', 12: 'Adventure', 16: 'Animation', 35: 'Comedy', 80: 'Crime',
-  99: 'Documentary', 18: 'Drama', 10751: 'Family', 14: 'Fantasy', 36: 'History',
-  27: 'Horror', 10402: 'Music', 9648: 'Mystery', 10749: 'Romance', 878: 'Sci-Fi',
-  10770: 'TV Movie', 53: 'Thriller', 10752: 'War', 37: 'Western'
-};
+// Genre map is populated at runtime from the /genres/ API endpoint
+const GENRE_MAP = {};
 
 const state = {
   allMovies: [],
@@ -53,7 +48,7 @@ async function boot() {
     applyFilters();
     renderGrid();
     buildCarousel('toprated-cs-track', getTopRatedMovies(), 'toprated-detail', 'Top Rated');
-    buildCarousel('trending-cs-track', getTrendingMovies(), 'trending-detail', 'Trending');
+    buildCarousel('trending-cs-track', getPopularMovies(), 'trending-detail', 'Popular');
     buildRecentlyAdded(getRecentlyAddedMovies());
   } catch (error) {
     console.error(error);
@@ -90,7 +85,7 @@ async function fetchSearchMovies(query) {
 
 async function fetchFilteredMovies() {
   const data = await apiGet('/movies/filter/', {
-    genre: genreValueForApi(state.genre),
+    genre: state.genre === 'all' ? '' : state.genre,
     year: state.year,
     page: 1,
     limit: API_LIMIT,
@@ -124,11 +119,10 @@ function normalizeMovieList(data) {
 function normalizeMovie(movie) {
   const images = Array.isArray(movie.images) ? movie.images : [];
   const genre = normalizeGenre(movie.genre, movie.genre_id, movie.genre_name);
-  const releaseYear = movie.release_year || yearFromDate(movie.release_date);
-  const rating = Number(movie.rating ?? movie.vote_average ?? 0);
+  const releaseYear = movie.release_year || null;
+  const rating = Number(movie.rating ?? 0);
   const poster = resolveImageUrl(
     movie.poster_url ||
-    movie.poster_path ||
     movie.image_url ||
     images[0]?.image_url ||
     images[0]?.url ||
@@ -137,15 +131,13 @@ function normalizeMovie(movie) {
 
   return {
     id: movie.id,
-    title: movie.title || movie.name || 'Untitled',
-    description: movie.description || movie.overview || '',
+    title: movie.title || 'Untitled',
+    description: movie.description || '',
     release_year: releaseYear,
     duration: movie.duration,
     language: movie.language || '',
     rating,
-    popularity: Number(movie.popularity ?? rating ?? 0),
     poster_url: poster,
-    backdrop_url: resolveImageUrl(movie.backdrop_url || movie.backdrop_path || poster),
     trailer_url: movie.trailer_url || '',
     genre,
     images,
@@ -173,29 +165,23 @@ function normalizeGenre(genre, genreId, genreName) {
   return { id: null, name: 'Film' };
 }
 
-function yearFromDate(value) {
-  const match = String(value || '').match(/\d{4}/);
-  return match ? Number(match[0]) : null;
-}
-
 function resolveImageUrl(value) {
   const raw = String(value || '').trim();
   if (!raw || raw === 'null' || raw === 'undefined') return PLACEHOLDER_IMAGE;
   if (/^https?:\/\//i.test(raw) || raw.startsWith('data:') || raw.startsWith('blob:')) return raw;
   if (raw.startsWith('//')) return `${location.protocol}${raw}`;
-  if (raw.startsWith('/assets/') || raw.startsWith('/static/') || raw.startsWith('/media/') || raw.startsWith('/uploads/')) {
+  if (raw.startsWith('/')) {
     return new URL(raw, normalizeBaseUrl(API_BASE)).toString();
   }
-  if (raw.startsWith('/')) return `${TMDB_IMAGE_BASE}${raw}`;
   return raw;
 }
 
 function getPoster(movie) {
-  return resolveImageUrl(movie?.poster_url || movie?.poster_path || movie?.images?.[0]?.image_url || '');
+  return resolveImageUrl(movie?.poster_url || movie?.images?.[0]?.image_url || '');
 }
 
 function getBackdrop(movie) {
-  return resolveImageUrl(movie?.backdrop_url || movie?.backdrop_path || getPoster(movie));
+  return getPoster(movie);
 }
 
 function genreName(movie) {
@@ -204,6 +190,8 @@ function genreName(movie) {
 
 function genreValueForApi(value) {
   if (!value || value === 'all') return '';
+  // Genre chip data-values are now genre name strings directly (e.g. "Action", "Drama")
+  // GENRE_MAP may still be populated from /genres/ API with id→name mappings for lookup
   return GENRE_MAP[value] || value;
 }
 
@@ -236,7 +224,7 @@ function readURLParams() {
   const filter = params.get('filter');
   if (sort === 'rating' || filter === 'top_rated') state.sort = 'rating';
   if (sort === 'recent' || filter === 'now_playing' || filter === 'upcoming') state.sort = 'release';
-  if (filter === 'trending') state.sort = 'popularity';
+  if (filter === 'trending' || sort === 'popularity') state.sort = 'rating'; // no popularity field; use rating
 
   syncChips('genre', state.genre);
   syncChips('year', state.year);
@@ -256,7 +244,7 @@ function applyFilters(source = state.allMovies) {
   let list = [...source];
 
   if (state.genre !== 'all') {
-    const wanted = genreValueForApi(state.genre).toLowerCase();
+    const wanted = state.genre.toLowerCase();
     list = list.filter(movie => genreName(movie).toLowerCase() === wanted);
   }
 
@@ -289,7 +277,8 @@ function sortMovies(a, b) {
   if (state.sort === 'rating') return (b.rating || 0) - (a.rating || 0);
   if (state.sort === 'release') return (b.release_year || 0) - (a.release_year || 0);
   if (state.sort === 'title') return (a.title || '').localeCompare(b.title || '');
-  return (b.popularity || b.rating || 0) - (a.popularity || a.rating || 0);
+  // Default: sort by rating descending (no popularity field from backend)
+  return (b.rating || 0) - (a.rating || 0);
 }
 
 async function refreshMoviesFromApi() {
@@ -546,7 +535,7 @@ function renderActiveFilterTags() {
   if (!wrap) return;
 
   const tags = [];
-  if (state.genre !== 'all') tags.push({ label: genreValueForApi(state.genre), key: 'genre' });
+  if (state.genre !== 'all') tags.push({ label: state.genre, key: 'genre' });
   if (state.year !== 'all') tags.push({ label: state.year, key: 'year' });
   if (state.rating !== 'all') tags.push({ label: `${state.rating}+ rating`, key: 'rating' });
   if (state.query) tags.push({ label: `"${state.query}"`, key: 'query' });
@@ -799,8 +788,9 @@ function getTopRatedMovies() {
   return [...state.allMovies].sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 15);
 }
 
-function getTrendingMovies() {
-  return [...state.allMovies].sort((a, b) => (b.popularity || b.rating || 0) - (a.popularity || a.rating || 0)).slice(0, 15);
+function getPopularMovies() {
+  // Backend has no popularity field; use rating as the best available signal
+  return [...state.allMovies].sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 15);
 }
 
 function getRecentlyAddedMovies() {
