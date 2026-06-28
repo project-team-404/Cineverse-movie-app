@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from movie_backend.database.database import get_db
 from movie_backend.util.helpers import verify_token
+from movie_backend.util.helpers import rate_limit
 
 from movie_backend.schemas.favorite_schema import (
     FavoriteResponse
@@ -26,7 +27,8 @@ router = APIRouter(
 
 @router.post(
     "/{movie_id}",
-    response_model=FavoriteResponse
+    response_model=FavoriteResponse,
+    dependencies=[Depends(rate_limit(20, 60))]
 )
 async def add_favorite(
     movie_id: int,
@@ -42,7 +44,8 @@ async def add_favorite(
 
 @router.delete(
     "/{movie_id}",
-    response_model=MessageResponse
+    response_model=MessageResponse,
+    dependencies=[Depends(rate_limit(20, 60))]
 )
 async def remove_favorite(
     movie_id: int,
@@ -58,7 +61,8 @@ async def remove_favorite(
 
 @router.get(
     "/",
-    response_model=list[FavoriteResponse]
+    response_model=list[FavoriteResponse],
+    dependencies=[Depends(rate_limit(60, 60))]
 )
 async def get_favorites(
     db: AsyncSession = Depends(get_db),

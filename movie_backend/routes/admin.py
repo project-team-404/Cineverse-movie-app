@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from movie_backend.database.database import get_db
 from movie_backend.util.helpers import verify_token
+from movie_backend.util.helpers import rate_limit
 
 from movie_backend.schemas.movie_schema import (
     MovieCreate,
@@ -48,7 +49,8 @@ router = APIRouter(
 
 @router.post(
     "/movies",
-    response_model=MovieResponse
+    response_model=MovieResponse,
+    dependencies=[Depends(rate_limit(10, 60))]
 )
 async def create_movie(
     request: MovieCreate,
@@ -64,7 +66,8 @@ async def create_movie(
 
 @router.patch(
     "/movies/{movie_id}",
-    response_model=MovieResponse
+    response_model=MovieResponse,
+    dependencies=[Depends(rate_limit(15, 60))]
 )
 async def update_movie(
     movie_id: int,
@@ -82,7 +85,8 @@ async def update_movie(
 
 @router.delete(
     "/movies/{movie_id}",
-    response_model=MessageResponse
+    response_model=MessageResponse,
+    dependencies=[Depends(rate_limit(10, 60))]
 )
 async def delete_movie(
     movie_id: int,
@@ -98,7 +102,8 @@ async def delete_movie(
 
 @router.post(
     "/genres",
-    response_model=GenreResponse
+    response_model=GenreResponse,
+    dependencies=[Depends(rate_limit(10, 60))]
 )
 async def create_genre(
     request: GenreCreate,
@@ -114,7 +119,8 @@ async def create_genre(
 
 @router.patch(
     "/genres/{genre_id}",
-    response_model=GenreResponse
+    response_model=GenreResponse,
+    dependencies=[Depends(rate_limit(15, 60))]
 )
 async def update_genre(
     genre_id: int,
@@ -132,7 +138,8 @@ async def update_genre(
 
 @router.delete(
     "/genres/{genre_id}",
-    response_model=MessageResponse
+    response_model=MessageResponse,
+    dependencies=[Depends(rate_limit(10, 60))]
 )
 async def delete_genre(
     genre_id: int,
@@ -148,7 +155,8 @@ async def delete_genre(
 
 @router.post(
     "/movies/{movie_id}/images",
-    response_model=MovieImageResponse
+    response_model=MovieImageResponse,
+    dependencies=[Depends(rate_limit(5, 60))]
 )
 async def add_movie_image(
     movie_id: int,
@@ -166,7 +174,8 @@ async def add_movie_image(
 
 @router.delete(
     "/movie-images/{image_id}",
-    response_model=MessageResponse
+    response_model=MessageResponse,
+    dependencies=[Depends(rate_limit(10, 60))]
 )
 async def delete_movie_image(
     image_id: int,

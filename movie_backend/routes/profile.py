@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from movie_backend.database.database import get_db
 from movie_backend.util.helpers import verify_token
-
+from movie_backend.util.helpers import rate_limit
 from movie_backend.schemas.profile_schema import ProfileResponse
 from movie_backend.schemas.response_schema import MessageResponse
 
@@ -25,6 +25,7 @@ router = APIRouter(
     "/",
     response_model=ProfileResponse,
     status_code=201,
+    dependencies=[Depends(rate_limit(10, 60))]
 )
 async def create_profile(
     preferred_language: Optional[str] = Form(None),
@@ -43,7 +44,8 @@ async def create_profile(
 
 @router.get(
     "/",
-    response_model=ProfileResponse
+    response_model=ProfileResponse,
+    dependencies=[Depends(rate_limit(60, 60))]
 )
 async def get_profile(
     db: AsyncSession = Depends(get_db),
@@ -55,6 +57,7 @@ async def get_profile(
 @router.patch(
     "/",
     response_model=ProfileResponse,
+    dependencies=[Depends(rate_limit(10, 60))]
     
 )
 async def update_profile(
@@ -74,7 +77,8 @@ async def update_profile(
 
 @router.delete(
     "/",
-    response_model=MessageResponse
+    response_model=MessageResponse,
+    dependencies=[Depends(rate_limit(10, 60))]
 )
 async def delete_profile(
     db: AsyncSession = Depends(get_db),

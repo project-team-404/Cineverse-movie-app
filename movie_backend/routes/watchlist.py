@@ -26,7 +26,8 @@ router = APIRouter(
  
 @router.post(
     "/add/{movie_id}",
-    response_model=WatchlistResponse
+    response_model=WatchlistResponse,
+    dependencies=[Depends(rate_limit(20, 60))]
 )
 async def add_to_watchlist(
     movie_id: int,
@@ -42,7 +43,8 @@ async def add_to_watchlist(
  
 @router.delete(
     "/{movie_id}",
-    response_model=MessageResponse
+    response_model=MessageResponse,
+    dependencies=[Depends(rate_limit(20, 60))]
 )
 async def remove_from_watchlist(
     movie_id: int,
@@ -58,7 +60,8 @@ async def remove_from_watchlist(
  
 @router.get(
     "/",
-    response_model=list[WatchlistResponse]
+    response_model=list[WatchlistResponse],
+    dependencies=[Depends(rate_limit(60, 60))]
 )
 async def get_watchlist(
     db: AsyncSession = Depends(get_db),

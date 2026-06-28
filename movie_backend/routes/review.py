@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from movie_backend.database.database import get_db
 from movie_backend.util.helpers import verify_token
-
+from movie_backend.util.helpers import rate_limit
 from movie_backend.schemas.review_schema import (
     ReviewCreate,
     ReviewUpdate,
@@ -36,7 +36,8 @@ router = APIRouter(
 
 @router.post(
     "/{movie_id}",
-    response_model=ReviewResponse
+    response_model=ReviewResponse,
+    dependencies=[Depends(rate_limit(10, 60))]
 )
 async def create_review(
     movie_id: int,
@@ -54,7 +55,8 @@ async def create_review(
 
 @router.patch(
     "/{review_id}",
-    response_model=ReviewResponse
+    response_model=ReviewResponse,
+    dependencies=[Depends(rate_limit(10, 60))]
 )
 async def update_review(
     review_id: int,
@@ -72,7 +74,8 @@ async def update_review(
 
 @router.delete(
     "/{review_id}",
-    response_model=MessageResponse
+    response_model=MessageResponse,
+    dependencies=[Depends(rate_limit(10, 60))]
 )
 async def delete_review(
     review_id: int,
@@ -88,7 +91,8 @@ async def delete_review(
 
 @router.get(
     "/{movie_id}",
-    response_model=list[ReviewResponse]
+    response_model=list[ReviewResponse],
+    dependencies=[Depends(rate_limit(60, 60))]
 )
 async def get_reviews(
     movie_id: int,
@@ -101,7 +105,8 @@ async def get_reviews(
 
 @router.get(
     "/ai_summary_review/{movie_id}",
-    response_model=SummaryResponse
+    response_model=SummaryResponse,
+    dependencies=[Depends(rate_limit(5, 60))]
 )
 async def get_reviews_summary(
         movie_id: int,
