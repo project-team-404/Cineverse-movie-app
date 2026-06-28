@@ -39,6 +39,7 @@ from movie_backend.services.admin_service import (
     add_movie_image_service,
     delete_movie_image_service
 )
+from movie_backend.util.helpers import rate_limit
 
 router = APIRouter(
     prefix="/admin",
@@ -48,7 +49,8 @@ router = APIRouter(
 
 @router.post(
     "/movies",
-    response_model=MovieResponse
+    response_model=MovieResponse,
+    dependencies=[Depends(rate_limit(5, 60))]
 )
 async def create_movie(
     request: MovieCreate,

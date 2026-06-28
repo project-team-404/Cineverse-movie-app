@@ -3,128 +3,215 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile — CineVerse</title>
+  <title>My Profile — CineVerse</title>
+
+  <!-- Same fonts as home.html -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Base tokens + global from existing project -->
+  <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/global.css">
-  <link rel="stylesheet" href="css/navbar.css">
+  <!-- Profile-specific styles -->
   <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
 
-  <!-- Navbar injected by includeHTML.js -->
-  <div id="navbar-root" data-include="navbar"></div>
+  <!-- ── Background Glows ── -->
+  <div class="pf-bg" aria-hidden="true">
+    <div class="pf-glow pf-glow--blue"></div>
+    <div class="pf-glow pf-glow--gold"></div>
+  </div>
 
-  <main class="profile-page">
-
-    <!-- ── Loading Skeleton ── -->
-    <div id="profile-skeleton" class="skeleton-wrapper" aria-hidden="true">
-      <div class="skeleton-banner"></div>
-      <div class="skeleton-body">
-        <div class="skeleton-avatar"></div>
-        <div class="skeleton-lines">
-          <div class="skeleton-line wide"></div>
-          <div class="skeleton-line medium"></div>
-          <div class="skeleton-line narrow"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Error State ── -->
-    <div id="profile-error" class="profile-error" hidden role="alert">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="10" stroke="#dc2828" stroke-width="1.5"/>
-        <path d="M12 7v6M12 17v.01" stroke="#dc2828" stroke-width="2" stroke-linecap="round"/>
+  <!-- ── Header ── -->
+  <header class="pf-header">
+    <a href="home.html" class="pf-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
       </svg>
-      <p id="profile-error-message">Couldn't load your profile.</p>
-      <button id="profile-retry" class="btn-retry">Try Again</button>
+      Back to Home
+    </a>
+    <a href="home.html" class="pf-logo" aria-label="CineVerse home">
+      <span class="pf-logo-mark">▶</span>
+      <span class="pf-logo-text">CINEVERSE</span>
+    </a>
+  </header>
+
+  <!-- ── Main ── -->
+  <main class="pf-main">
+
+    <!-- ── Hero ── -->
+    <div class="pf-hero">
+      <div class="pf-avatar-wrap" id="avatar-wrap">
+        <img id="pf-avatar" class="pf-avatar-img" src="assets/images/default-avatar.png" alt="Profile picture">
+        <label class="pf-avatar-overlay" for="photo-input" title="Change photo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+          <span>Change Photo</span>
+        </label>
+        <input type="file" id="photo-input" accept="image/*" hidden>
+      </div>
+      <h1 class="pf-hero-name" id="pf-name">—</h1>
+      <p  class="pf-hero-email" id="pf-email">—</p>
     </div>
 
-    <!-- ── Profile Content ── -->
-    <div id="profile-content" hidden>
+    <!-- ══════════════════════════════
+         EMPTY STATE — Create Profile
+    ══════════════════════════════ -->
+    <section id="pf-create" class="pf-section" hidden aria-label="Create profile">
+      <div class="pf-card pf-create-card">
 
-      <!-- Banner -->
-      <div class="profile-banner">
-        <div class="banner-gradient"></div>
-      </div>
+        <div class="pf-create-intro">
+          <span class="pf-create-icon" aria-hidden="true">🎬</span>
+          <h2 class="pf-create-title">Create Your CineVerse Identity</h2>
+          <p class="pf-create-sub">Personalize your universe — upload a photo and tell us what you love.</p>
+        </div>
 
-      <!-- Profile Card -->
-      <div class="profile-card">
+        <!-- Upload Zone -->
+        <div class="pf-upload-zone" id="create-upload-zone" role="button" tabindex="0" aria-label="Upload photo">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <p class="pf-upload-label">Upload Photo</p>
+          <p class="pf-upload-hint">Click or drag & drop · JPG, PNG, WEBP</p>
+        </div>
 
-        <!-- Avatar + Info + Actions -->
-        <div class="profile-header">
-
-          <div class="avatar-section">
-            <div class="avatar-ring">
-              <img
-                id="profile-avatar"
-                class="profile-avatar"
-                src="assets/images/default-avatar.png"
-                alt="Profile picture"
-              >
+        <div class="pf-fields">
+          <div class="pf-field">
+            <label class="pf-field-label" for="create-movie">Favorite Movie</label>
+            <div class="pf-field-wrap">
+              <span class="pf-field-icon" aria-hidden="true">🎬</span>
+              <input type="text" id="create-movie" class="pf-field-input" placeholder="e.g. Interstellar">
             </div>
-            <!-- V2: Upload button goes here -->
           </div>
-
-          <div class="profile-info">
-            <h1 id="profile-name" class="profile-name">—</h1>
-            <p id="profile-email" class="profile-email">—</p>
-            <p id="profile-joined" class="profile-joined">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-              Member since <span id="joined-date">—</span>
-            </p>
+          <div class="pf-field">
+            <label class="pf-field-label" for="create-lang">Preferred Language</label>
+            <div class="pf-field-wrap">
+              <span class="pf-field-icon" aria-hidden="true">🌐</span>
+              <input type="text" id="create-lang" class="pf-field-input" placeholder="e.g. English">
+            </div>
           </div>
-
-          <div class="profile-actions">
-            <!-- V2: Edit Profile button -->
-            <button id="logout-btn" class="btn-logout">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Log out
-            </button>
-          </div>
-
         </div>
 
-        <!-- Divider -->
-        <div class="profile-divider"></div>
-
-        <!-- Stats Row -->
-        <div class="profile-stats">
-
-          <div class="stat-card">
-            <span id="stat-watched" class="stat-number">—</span>
-            <span class="stat-label">Watched</span>
-          </div>
-
-          <div class="stat-divider"></div>
-
-          <div class="stat-card">
-            <span id="stat-watchlist" class="stat-number">—</span>
-            <span class="stat-label">Watchlist</span>
-          </div>
-
-          <div class="stat-divider"></div>
-
-          <div class="stat-card">
-            <span id="stat-favorites" class="stat-number">—</span>
-            <span class="stat-label">Favourites</span>
-          </div>
-
-        </div>
+        <button id="create-btn" class="pf-btn pf-btn--gold" onclick="handleCreate()">
+          <span id="create-btn-text">Create Profile</span>
+        </button>
 
       </div>
-      <!-- end .profile-card -->
+    </section>
 
-    </div>
-    <!-- end #profile-content -->
+    <!-- ══════════════════════════════
+         EDIT STATE — Profile exists
+    ══════════════════════════════ -->
+    <section id="pf-edit" class="pf-section" hidden aria-label="Edit profile">
+
+      <!-- Info Card -->
+      <div class="pf-card">
+        <h2 class="pf-card-title">Profile Details</h2>
+
+        <div class="pf-fields">
+          <div class="pf-field">
+            <label class="pf-field-label" for="edit-movie">Favorite Movie</label>
+            <div class="pf-field-wrap">
+              <span class="pf-field-icon" aria-hidden="true">🎬</span>
+              <input type="text" id="edit-movie" class="pf-field-input" placeholder="e.g. Interstellar">
+            </div>
+          </div>
+          <div class="pf-field">
+            <label class="pf-field-label" for="edit-lang">Preferred Language</label>
+            <div class="pf-field-wrap">
+              <span class="pf-field-icon" aria-hidden="true">🌐</span>
+              <input type="text" id="edit-lang" class="pf-field-input" placeholder="e.g. English">
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo replace zone -->
+        <div class="pf-upload-zone pf-upload-zone--sm" id="edit-upload-zone" role="button" tabindex="0" aria-label="Replace profile photo" style="margin-top:4px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <p class="pf-upload-label" style="font-size:13px;">Replace Profile Photo</p>
+          <p class="pf-upload-hint">Click or drag & drop to update</p>
+        </div>
+
+        <div class="pf-action-btns">
+          <button id="save-btn" class="pf-btn pf-btn--gold" onclick="handleUpdate()">
+            <span id="save-btn-text">Save Changes</span>
+          </button>
+          <button id="delete-btn" class="pf-btn pf-btn--danger" onclick="openDeleteModal()">
+            Delete Profile
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="pf-stats-row">
+        <a href="favorites.html" class="pf-stat-card" aria-label="My Favorites">
+          <span class="pf-stat-icon" aria-hidden="true">❤️</span>
+          <div class="pf-stat-info">
+            <div class="pf-stat-value" id="stat-favorites">—</div>
+            <div class="pf-stat-label">Favorites</div>
+          </div>
+          <svg class="pf-stat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="watchlist.html" class="pf-stat-card" aria-label="My Watchlist">
+          <span class="pf-stat-icon" aria-hidden="true">🎬</span>
+          <div class="pf-stat-info">
+            <div class="pf-stat-value" id="stat-watchlist">—</div>
+            <div class="pf-stat-label">Watchlist</div>
+          </div>
+          <svg class="pf-stat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Recent Watchlist -->
+      <div class="pf-card">
+        <div class="pf-watchlist-header">
+          <h2 class="pf-card-title" style="margin-bottom:0;">Recent Watchlist</h2>
+          <a href="watchlist.html" class="pf-view-all">View All →</a>
+        </div>
+        <div class="pf-watchlist-grid" id="watchlist-grid">
+          <div class="pf-watchlist-empty">
+            <span aria-hidden="true">🎞️</span>
+            <p>No movies in watchlist</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- end edit section -->
 
   </main>
 
-  <script type="module" src="js/utils/includeHTML.js"></script>
-  <script type="module" src="js/auth/user/profile.js"></script>
+  <!-- ── Delete Confirm Modal ── -->
+  <div class="pf-modal-overlay" id="delete-modal" role="dialog" aria-modal="true" aria-label="Delete profile confirmation">
+    <div class="pf-modal">
+      <div class="pf-modal-body">
+        <span class="pf-modal-icon" aria-hidden="true">⚠️</span>
+        <h3 class="pf-modal-title">Delete Profile?</h3>
+        <p class="pf-modal-text">This will permanently remove your CineVerse profile and all preferences. This action cannot be undone.</p>
+      </div>
+      <div class="pf-modal-footer">
+        <button class="pf-btn pf-btn--ghost" onclick="closeDeleteModal()">Cancel</button>
+        <button class="pf-btn pf-btn--danger" id="confirm-delete-btn" onclick="handleDelete()">
+          <span id="confirm-delete-text">Yes, Delete</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/cv-api.js"></script>
+  <script src="js/profile.js"></script>
 
 </body>
 </html>

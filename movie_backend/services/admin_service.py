@@ -49,7 +49,7 @@ async def create_movie_service(
     )
 
     result = await db.execute(statement)
-
+    await db.refresh(movie)
     return result.scalar_one()
 
 
@@ -92,6 +92,7 @@ async def update_movie_service(
     )
 
     result = await db.execute(statement)
+    await db.refresh(movie)
 
     return result.scalar_one()
 

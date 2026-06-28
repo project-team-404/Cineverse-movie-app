@@ -26,7 +26,7 @@ from movie_backend.services.review_service import (
     get_reviews_service
 )
 
-from AI.review_summary import summary_review_service
+from movie_backend.ai.review_summary import summary_review_service
 
 router = APIRouter(
     prefix="/reviews",

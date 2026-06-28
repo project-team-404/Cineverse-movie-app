@@ -1860,7 +1860,7 @@ GET /reviews/ai_summary_review/5
 
 ```json
 {
-    "detail": "Unable to generate AI review summary."
+    "detail": "Unable to generate ai review summary."
 }
 ```
 

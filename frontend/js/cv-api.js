@@ -462,3 +462,80 @@ function cvToast(message, type = 'success') {
     setTimeout(() => toast.remove(), 320);
   }, 3000);
 }
+// =============================================
+// PASTE AT THE BOTTOM OF frontend/js/cv-api.js
+// =============================================
+
+// ── CV_Profile ────────────────────────────────
+var CV_Profile = {
+
+  getProfile: async function () {
+    return fetch(CV_BASE + '/profile/', {
+      headers: cvAuthHeaders()
+    });
+  },
+
+  // Do NOT set Content-Type for FormData — browser sets it with boundary
+  createProfile: async function (formData) {
+    return fetch(CV_BASE + '/profile/', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + cvToken() },
+      body: formData
+    });
+  },
+
+  updateProfile: async function (formData) {
+    return fetch(CV_BASE + '/profile/', {
+      method: 'PATCH',
+      headers: { 'Authorization': 'Bearer ' + cvToken() },
+      body: formData
+    });
+  },
+
+  deleteProfile: async function () {
+    return fetch(CV_BASE + '/profile/', {
+      method: 'DELETE',
+      headers: cvAuthHeaders()
+    });
+  }
+
+};
+
+// ── CV_Favorites ──────────────────────────────
+// Returns raw list: [{id, user_id, movie_id}]
+var CV_Favorites = {
+
+  getFavorites: async function () {
+    var res = await fetch(CV_BASE + '/favorites/', {
+      headers: cvAuthHeaders()
+    });
+    if (res.status === 401) { cvHandle401(); return []; }
+    return res.ok ? res.json() : [];
+  }
+
+};
+
+// ── CV_Watchlist ──────────────────────────────
+// Returns raw list: [{id, movie:{id, title, poster_url, rating}}]
+var CV_Watchlist = {
+
+  getWatchlist: async function () {
+    var res = await fetch(CV_BASE + '/watchlist/', {
+      headers: cvAuthHeaders()
+    });
+    if (res.status === 401) { cvHandle401(); return []; }
+    return res.ok ? res.json() : [];
+  }
+
+};
+
+// =============================================
+// home.html — "My Profile" dropdown link fix
+// Find the profile dropdown link in home.html
+// (navbar profile menu) and make sure it has:
+//
+//   href="profile.html"
+//
+// Look for the element with text "My Profile"
+// in the navbar dropdown and set/confirm href.
+// =============================================
