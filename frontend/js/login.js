@@ -248,3 +248,89 @@ form.addEventListener('submit', async (e) => {
     setLoading(false);
   }
 });
+const forgotLink = document.getElementById("forgot-password-link");
+const modal = document.getElementById("reset-modal");
+
+forgotLink.onclick = (e) => {
+
+    e.preventDefault();
+
+    modal.classList.remove("hidden");
+
+};
+
+document.getElementById("cancel-reset").onclick = () => {
+
+    modal.classList.add("hidden");
+
+};
+document.getElementById("reset-password-btn")
+.addEventListener("click", async () => {
+
+    const requestId =
+        document.getElementById("request-id").value.trim();
+
+    const password =
+        document.getElementById("new-password").value;
+
+    const confirm =
+        document.getElementById("confirm-new-password").value;
+
+    if (!requestId) {
+
+        showToast("Enter Request ID","error");
+        return;
+
+    }
+
+    if (password !== confirm) {
+
+        showToast("Passwords do not match","error");
+        return;
+
+    }
+
+    try {
+
+        const res = await fetch(
+            `${API_BASE}/auth/reset-password`,
+            {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+
+                    request_id:requestId,
+
+                    new_password:password
+
+                })
+
+            }
+        );
+
+        const data = await res.json();
+
+        if(res.ok){
+
+            showToast("Password updated successfully","success");
+
+            modal.classList.add("hidden");
+
+        }else{
+
+            showToast(data.detail || data.message,"error");
+
+        }
+
+    }catch{
+
+        showToast("Network Error","error");
+
+    }
+
+});

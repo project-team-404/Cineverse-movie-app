@@ -539,3 +539,31 @@ var CV_Watchlist = {
 // Look for the element with text "My Profile"
 // in the navbar dropdown and set/confirm href.
 // =============================================
+var CV_Auth = {
+
+    resetPassword: async function(requestId, newPassword) {
+
+        const res = await fetch(`${CV_BASE}/auth/reset-password`, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                request_id: requestId,
+                new_password: newPassword
+            })
+
+        });
+
+        if (res.status === 401) {
+            cvHandle401();
+        }
+
+        return res;
+
+    }
+
+};

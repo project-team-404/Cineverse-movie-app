@@ -94,14 +94,16 @@
               </div>
               <span class="field-error" id="password-error"></span>
             </div>
-
+            <div class="forgot-password">
+    <a href="#" id="forgot-password-link">Forgot Password?</a>
+</div>
             <!-- Submit button -->
             <button type="submit" class="btn-primary" id="login-btn">
               <span class="btn-primary__text">Sign In</span>
               <span class="btn-primary__spinner" aria-hidden="true"></span>
               <span class="btn-primary__shine"></span>
             </button>
-
+           
           </form>
 
           <!-- Divider -->
@@ -120,10 +122,84 @@
     </main>
 
   </div>
+           <div class="modal-overlay hidden" id="reset-modal">
+  <div class="reset-modal">
+    <div class="reset-modal__border"></div>
+    <div class="reset-modal__inner">
 
+      <div class="auth-card__head">
+        <h2 class="auth-card__title">Reset Password</h2>
+        <p class="auth-card__subtitle">Enter your details to set a new password.</p>
+      </div>
+
+      <div class="auth-form">
+
+        <div class="field-group">
+          <label class="field-label" for="request-id">Request ID</label>
+          <div class="field-wrap">
+            <span class="field-icon"><!-- your icon svg --></span>
+            <input class="field-input" type="text" id="request-id" placeholder="e.g. REQ-00421">
+          </div>
+        </div>
+<div class="field-group">
+  <label class="field-label" for="new-password">New Password</label>
+  <div class="field-wrap">
+    <span class="field-icon"><!-- lock icon --></span>
+    <input class="field-input" type="password" id="new-password" placeholder="New password">
+    <button type="button" class="field-toggle" id="toggle-new-password" aria-label="Show password">
+      <svg id="eye-new" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <svg id="eye-new-off" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+    </button>
+  </div>
+</div>
+<div class="field-group">
+  <label class="field-label" for="confirm-new-password">Confirm Password</label>
+  <div class="field-wrap">
+    <span class="field-icon"><!-- lock icon --></span>
+    <input class="field-input" type="password" id="confirm-new-password" placeholder="Confirm password">
+    <button type="button" class="field-toggle" id="toggle-confirm-password" aria-label="Show password">
+      <svg id="eye-confirm" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <svg id="eye-confirm-off" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+    </button>
+  </div>
+</div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-primary" id="reset-password-btn">
+            <div class="btn-primary__shine"></div>
+            <span>Reset Password</span>
+          </button>
+          <button type="button" class="btn-ghost" id="cancel-reset">Cancel</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+</div>
   <!-- Toast container -->
   <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
   <script src="js/login.js"></script>
+  <script src="js/cv-api.js"></script>
+  <script>
+    function setupToggle(inputId, toggleId, eyeId, eyeOffId) {
+      const input  = document.getElementById(inputId);
+      const btn    = document.getElementById(toggleId);
+      const eye    = document.getElementById(eyeId);
+      const eyeOff = document.getElementById(eyeOffId);
+
+      btn.addEventListener('click', () => {
+        const isHidden = input.type === 'password';
+        input.type = isHidden ? 'text' : 'password';
+        eye.style.display    = isHidden ? 'none'  : 'block';
+        eyeOff.style.display = isHidden ? 'block' : 'none';
+        btn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+      });
+    }
+
+    setupToggle('new-password',         'toggle-new-password',     'eye-new',     'eye-new-off');
+    setupToggle('confirm-new-password', 'toggle-confirm-password', 'eye-confirm', 'eye-confirm-off');
+  </script>
 </body>
 </html>
