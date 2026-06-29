@@ -51,6 +51,7 @@
 
 * Change Password (with otp Redis)✅
 * Rate Limit using Redis✅
+* Redis Catch
 * testing
 * CD Pipeline(Render) ✅
 * CI Pipeline(Render)
