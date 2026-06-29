@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
  
 from movie_backend.database.database import get_db
 from movie_backend.util.helpers import verify_token
- 
+from movie_backend.util.helpers import rate_limit
 from movie_backend.schemas.watchlist_schema import (
     WatchlistResponse,
     AllWatchlistResponse
