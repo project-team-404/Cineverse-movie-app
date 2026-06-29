@@ -96,3 +96,4 @@ class Movie(Base):
         cascade="all, delete"
     )
     
+    watch_history = relationship("WatchHistory", back_populates="movie")

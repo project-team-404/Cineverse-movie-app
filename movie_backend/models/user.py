@@ -57,3 +57,4 @@ class User(Base):
     )
     profile = relationship("Profile", back_populates="user",cascade="all, delete", uselist=False)
     
+    watch_history = relationship("WatchHistory", back_populates="user")
