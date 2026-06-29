@@ -37,14 +37,21 @@ SessionLocal = async_sessionmaker(
 
 Base = declarative_base()
 
+# ── Model imports (must be AFTER Base is defined) ─────────────────────────────
+from movie_backend.models.user import User                      # noqa: F401, E402
+from movie_backend.models.genre import Genre                    # noqa: F401, E402
+from movie_backend.models.movie import Movie                    # noqa: F401, E402
+from movie_backend.models.movie_image import MovieImage         # noqa: F401, E402
+from movie_backend.models.watchlist import Watchlist            # noqa: F401, E402
+from movie_backend.models.profile import Profile                # noqa: F401, E402
+from movie_backend.models.watch_history import WatchHistory     # noqa: F401, E402
+
 
 async def init_db():
-
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
 
 async def get_db():
-
     async with SessionLocal() as db:
         yield db
