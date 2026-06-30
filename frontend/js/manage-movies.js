@@ -54,6 +54,7 @@ function renderMoviesTable(movies) {
     var rating = movie.rating ? '⭐ ' + Number(movie.rating).toFixed(1) : '—';
 
     return '<tr>' +
+    '<td><span class="badge">#' + movie.id + '</span></td>' +
       '<td>' + poster + '</td>' +
       '<td><strong>' + movie.title + '</strong></td>' +
       '<td><span class="badge">' + genre + '</span></td>' +
@@ -70,6 +71,7 @@ function renderMoviesTable(movies) {
   container.innerHTML =
     '<table>' +
       '<thead><tr>' +
+       '<th>ID</th>' +
         '<th>Poster</th>' +
         '<th>Title</th>' +
         '<th>Genre</th>' +
