@@ -6,7 +6,8 @@
 
 'use strict';
 
-const API_BASE = window.API_BASE;
+const API_BASE = window.API_BASE||
+    "https://cineverse-movie-app.onrender.com";;
 const PLACEHOLDER = 'data:image/svg+xml,' + encodeURIComponent(
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 450"><rect width="300" height="450" fill="#0f1530"/><text x="150" y="220" text-anchor="middle" fill="#ffffff20" font-size="48">🎬</text><text x="150" y="270" text-anchor="middle" fill="#ffffff15" font-size="14">No Image</text></svg>'
 );

@@ -13,7 +13,9 @@
    ============================================================ */
 
 /* ── BASE CONFIG ── */
-const CINEVERSE_API_BASE = window.API_BASE;
+const CINEVERSE_API_BASE =
+    window.API_BASE ||
+    "https://cineverse-movie-app.onrender.com";
 const CINEVERSE_API_LIMIT = 200;
 const CV_PLACEHOLDER = '';
 const CV_BACKDROP_FALLBACK =

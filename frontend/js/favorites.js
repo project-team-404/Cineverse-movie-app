@@ -7,7 +7,8 @@
 
 'use strict';
 
-const FAV_BASE = window.API_BASE;
+const FAV_BASE = window.API_BASE||
+    "https://cineverse-movie-app.onrender.com";;
 const FAV_PLACEHOLDER = 'assets/images/placeholder.jpg';
 
 function favToken()    { return localStorage.getItem('access_token') || ''; }

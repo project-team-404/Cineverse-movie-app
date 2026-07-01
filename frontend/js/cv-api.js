@@ -16,7 +16,8 @@
 
 'use strict';
 
-const CV_BASE = window.API_BASE;
+const CV_BASE = window.API_BASE ||
+    "https://cineverse-movie-app.onrender.com";;
 
 /* ── Token helpers ─────────────────────────────────────────── */
 function cvToken()    { return localStorage.getItem('access_token') || ''; }

@@ -1,6 +1,7 @@
 // profile.js — CineVerse Profile Page
 // Vanilla JS, no modules, follows cv-api.js conventions
-const API_BASE = window.API_BASE;
+const API_BASE = window.API_BASE||
+    "https://cineverse-movie-app.onrender.com";;
 // ── Auth Guard ────────────────────────────────
 (function () {
   if (!localStorage.getItem('access_token')) {
