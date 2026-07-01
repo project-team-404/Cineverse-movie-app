@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CineVerse AI Recommendations — Describe the kind of movie you're looking for and let CineVerse AI find the perfect movies for you.">
+  <meta name="theme-color" content="#050816">
+
+  <meta property="og:title" content="CineVerse — AI Movie Recommendation">
+  <meta property="og:description" content="Describe the kind of movie you're looking for and let CineVerse AI find the perfect movies for you.">
+  <meta property="og:type" content="website">
+
+  <title>AI Recommendations — CineVerse</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets — DO NOT CHANGE ORDER -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar_home.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/ai_recommendations.css">
+
+</head>
+
+<body>
+
+  <!-- Noise texture overlay -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Page transition -->
+  <div id="page-transition" aria-hidden="true"></div>
+
+  <!-- Toast container -->
+  <div id="toast-container" role="status" aria-live="polite"></div>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="home.html" class="nav-logo" aria-label="CineVerse Home">
+        <div class="nav-logo-mark" aria-hidden="true">C</div>
+        <span class="nav-logo-text">CINE<span>VERSE</span></span>
+      </a>
+      <div class="nav-links" role="list">
+        <a href="home.html"           class="nav-link"        role="listitem">Home</a>
+        <a href="movie_page.html"         class="nav-link" role="listitem">Movies</a>
+        <a href="watchlist.html"      class="nav-link"        role="listitem">Watchlist</a>
+        <a href="favorites.html"      class="nav-link"        role="listitem">Favorites</a>
+         <a href="watch-history.html" class="nav-link" role="listitem">History</a>
+        <a href="ai_recommendations.html" class="nav-link active" role="listitem" aria-current="page">AI Recommendations</a>
+      </div>
+      <div class="nav-actions">
+
+        <button class="nav-icon-btn" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="nav-badge">3</span>
+        </button>
+        <div class="profile-menu-container">
+
+    <div class="nav-avatar"
+         id="profile-btn"
+         role="button"
+         tabindex="0"
+         aria-haspopup="true">
+
+        A
+
+    </div>
+
+    <div class="profile-dropdown" id="profile-dropdown">
+
+        <div class="profile-header">
+
+            <div class="profile-avatar" id="dropdown-avatar">
+                A
+            </div>
+
+            <div>
+
+                <h4 id="dropdown-name">Guest</h4>
+
+                <p id="dropdown-email">
+                    guest@example.com
+                </p>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <a href="profile.html">
+
+             My Profile
+
+        </a>
+
+        <a href="favorites.html">
+
+             Favorites
+
+        </a>
+
+        <a href="watchlist.html">
+
+             Watchlist
+
+        </a>
+
+        <button id="logout-btn">
+
+             Logout
+
+        </button>
+
+    </div>
+
+</div>
+        <div class="nav-hamburger" role="button" aria-label="Toggle menu" aria-expanded="false" tabindex="0">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+    <nav class="nav-mobile-drawer" aria-label="Mobile navigation">
+      <a href="home.html"            class="nav-mobile-link">Home</a>
+      <a href="movie_page.html"          class="nav-mobile-link">Movies</a>
+      <a href="watchlist.html"       class="nav-mobile-link">Watchlist</a>
+      <a href="favorites.html"       class="nav-mobile-link">Favorites</a>       
+      <a href="ai_recommendations.html" class="nav-mobile-link active">AI Recommendations</a>
+      <a href="watch-history.html" class="nav-mobile-link">History</a>
+    </nav>
+  </nav>
+
+  <!-- Search Overlay (navbar) -->
+  <div id="search-overlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="Search movies">
+    <div class="search-box">
+      <div class="search-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="search"
+               id="search-overlay-input"
+               class="search-input"
+               placeholder="Search movies, genres, directors…"
+               autocomplete="off"
+               aria-label="Search query">
+        <button id="search-overlay-close" class="search-close" aria-label="Close search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div id="search-live-results" role="listbox" aria-label="Search results"></div>
+    </div>
+  </div>
+
+ 
+  <main id="main-content" class="air-main">
+
+  
+    <section class="air-hero">
+      <div class="air-orb" aria-hidden="true">
+        
+        
+      </div>
+      <p class="section-eyebrow" style="justify-content:center;">CineVerse Intelligence</p>
+      <h1 class="air-hero-title">AI MOVIE RECOMMENDATION</h1>
+      <p class="air-hero-sub">Describe the kind of movie you're looking for and let CineVerse AI find the perfect movies for you.</p>
+    </section>
+
+
+    <section class="air-input-section">
+      <form class="air-input-card" id="air-form" novalidate>
+        <div class="air-textarea-wrap">
+          <label for="air-textarea" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Describe the movie you're looking for</label>
+          <textarea
+            id="air-textarea"
+            class="air-textarea"
+            placeholder="I'm looking for a mind-bending sci-fi movie with amazing visuals."
+            maxlength="500"
+            aria-describedby="air-char-counter air-validation"
+          ></textarea>
+        </div>
+
+        <p class="air-validation" id="air-validation" role="alert">
+          <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M12 8v5M12 16h.01M10.29 3.86l-8.18 14.18A1 1 0 003 19.5h18a1 1 0 00.87-1.46L13.71 3.86a1 1 0 00-1.73 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Please describe what you're looking for before asking AI.</span>
+        </p>
+
+        <div class="air-prompt-chips" role="group" aria-label="Example prompts">
+          <span class="air-prompt-chips-label">Try:</span>
+          <button type="button" class="air-chip" data-prompt="A mind-bending sci-fi movie with amazing visuals.">Mind-bending sci-fi</button>
+          <button type="button" class="air-chip" data-prompt="A feel-good comedy to watch with friends on a weekend.">Feel-good comedy</button>
+          <button type="button" class="air-chip" data-prompt="A tense psychological thriller with a twist ending.">Psychological thriller</button>
+          <button type="button" class="air-chip" data-prompt="An emotional drama based on a true story.">Emotional drama</button>
+        </div>
+
+        <div class="air-input-footer">
+          <span class="air-char-counter" id="air-char-counter">0 / 500</span>
+          <button type="submit" class="btn-primary air-ask-btn" id="air-ask-btn" aria-label="Ask AI for recommendations">
+            <svg class="air-ask-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path d="M12 2L13.9 8.6L20.5 10.5L13.9 12.4L12 19L10.1 12.4L3.5 10.5L10.1 8.6L12 2Z"/>
+            </svg>
+            <span class="air-spinner" aria-hidden="true"></span>
+            <span class="air-ask-label">Ask AI</span>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section class="air-loading" id="air-loading" aria-live="polite">
+      <div class="air-loading-inner">
+        <div class="air-loading-ring" aria-hidden="true"></div>
+        <p class="air-loading-message" id="air-loading-message">Analyzing your preferences...</p>
+      </div>
+      <div class="air-skeleton-grid" id="air-skeleton-grid" aria-hidden="true"></div>
+    </section>
+
+ 
+    <section class="air-results" id="air-results">
+      <article class="air-explanation" id="air-explanation">
+        <div class="air-explanation-header">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d="M12 2L13.9 8.6L20.5 10.5L13.9 12.4L12 19L10.1 12.4L3.5 10.5L10.1 8.6L12 2Z"/>
+          </svg>
+          <h2>Why These Movies?</h2>
+        </div>
+        <p class="air-explanation-body" id="air-explanation-text"></p>
+      </article>
+
+      <div class="air-results-grid" id="air-results-grid" role="list" aria-label="Recommended movies"></div>
+    </section>
+
+
+    <section class="air-empty" id="air-empty" role="status">
+      <div class="air-empty-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="44" height="44">
+          <path d="M9 10h.01M15 10h.01M9.5 15c.7.8 1.6 1.2 2.5 1.2s1.8-.4 2.5-1.2M12 2a10 10 0 100 20 10 10 0 000-20z"/>
+        </svg>
+      </div>
+      <h3 class="air-empty-title">No Recommendations Found</h3>
+      <p class="air-empty-desc">Try describing another type of movie.</p>
+      <button class="btn-primary" id="air-try-again-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+          <path d="M3 3v5h5"/>
+        </svg>
+        Try Again
+      </button>
+    </section>
+
+  </main>
+
+  
+  <div class="air-modal-overlay" id="air-login-modal" role="dialog" aria-modal="true" aria-labelledby="air-login-modal-title">
+    <div class="air-modal">
+      <div class="air-modal-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm2-10V7a4 4 0 118 0v2"/>
+        </svg>
+      </div>
+      <h3 id="air-login-modal-title">Login Required</h3>
+      <p>Please login to use AI Recommendations.</p>
+      <div class="air-modal-actions">
+        <button class="btn-ghost" id="air-modal-cancel" type="button">Cancel</button>
+        <button class="btn-primary" id="air-modal-login" type="button">Go to Login</button>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-logo-mark" aria-hidden="true">C</div>
+            <span class="footer-logo-text">CINE<span>VERSE</span></span>
+          </div>
+          <p class="footer-tagline">Your universe of cinema, curated with precision. Stream, discover, and experience films like never before.</p>
+          <div class="footer-socials" aria-label="Social media">
+            <a href="#" class="footer-social" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+            </a>
+            <a href="#" class="footer-social" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" class="footer-social" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.97C5.12 20 12 20 12 20s6.88 0 8.59-.45a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#050816"/></svg>
+            </a>
+            <a href="#" class="footer-social" aria-label="Discord">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.04.03.05a19.91 19.91 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h3 class="footer-col-title">Explore</h3>
+            <ul class="footer-col-links">
+              <li><a href="movie_page.html" class="footer-col-link">All Movies</a></li>
+              <li><a href="movie_page.html?sort=rating" class="footer-col-link">Top Rated</a></li>
+              <li><a href="movie_page.html?sort=release" class="footer-col-link">Latest Releases</a></li>
+              <li><a href="ai_recommendations.html" class="footer-col-link">AI Recommendations</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-col-title">Genres</h3>
+            <ul class="footer-col-links">
+              <li><a href="movie_page.html?genre=Action"    class="footer-col-link">Action</a></li>
+              <li><a href="movie_page.html?genre=Comedy"    class="footer-col-link">Comedy</a></li>
+              <li><a href="movie_page.html?genre=Drama"     class="footer-col-link">Drama</a></li>
+              <li><a href="movie_page.html?genre=Sci-Fi"    class="footer-col-link">Sci-Fi</a></li>
+              <li><a href="movie_page.html?genre=Horror"    class="footer-col-link">Horror</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-col-title">My Account</h3>
+            <ul class="footer-col-links">
+              <li><a href="watchlist.html"  class="footer-col-link">Watchlist</a></li>
+              <li><a href="favorites.html"  class="footer-col-link">Favorites</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-col-title">Company</h3>
+            <ul class="footer-col-links">
+              <li><a href="#" class="footer-col-link">About Us</a></li>
+              <li><a href="#" class="footer-col-link">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 <span>CineVerse</span>. All rights reserved.</p>
+        <nav class="footer-legal" aria-label="Legal links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Settings</a>
+        </nav>
+        <button class="footer-region" aria-label="Change language or region">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          English (US)
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:11px;height:11px" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  
+  <script src="js/utils.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/ai_recommendations.js"></script>
+
+  <script>
+    /* ── Login modal close ── */
+    document.getElementById('air-modal-cancel')?.addEventListener('click', () => {
+      document.getElementById('air-login-modal')?.classList.remove('active');
+    });
+    document.getElementById('air-login-modal')?.addEventListener('click', (e) => {
+      if (e.target.id === 'air-login-modal') e.target.classList.remove('active');
+    });
+  </script>
+
+  <!-- Enhanced favorites and watchlist functionality -->
+  <script src="js/cv-api.js"></script>
+  <script src="js/cv-patch.js"></script>
+</body>
+</html>
