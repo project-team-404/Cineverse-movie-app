@@ -434,22 +434,34 @@ function buildGridCard(movie) {
 
 function wireGridActions(root) {
   root.querySelectorAll('.mgc-wl-btn').forEach(btn => {
-    btn.addEventListener('click', e => {
+    btn.addEventListener('click', async e => {
       e.preventDefault();
       e.stopPropagation();
-      const added = toggleWatchlist(readMovieData(btn));
-      btn.classList.toggle('active', added);
-      btn.innerHTML = bookmarkSvg(added);
+      if (btn.dataset.cvBusy) return; /* one request in flight at a time */
+      btn.dataset.cvBusy = '1';
+      btn.style.opacity = '0.5';
+      const result = await toggleWatchlist(readMovieData(btn));
+      delete btn.dataset.cvBusy;
+      btn.style.opacity = '';
+      if (result === null) return; /* not logged in / error — icon unchanged */
+      btn.classList.toggle('active', result);
+      btn.innerHTML = bookmarkSvg(result);
     });
   });
 
   root.querySelectorAll('.mgc-fav-btn').forEach(btn => {
-    btn.addEventListener('click', e => {
+    btn.addEventListener('click', async e => {
       e.preventDefault();
       e.stopPropagation();
-      const added = toggleFavourite(readMovieData(btn));
-      btn.classList.toggle('active', added);
-      btn.innerHTML = heartSvg(added);
+      if (btn.dataset.cvBusy) return;
+      btn.dataset.cvBusy = '1';
+      btn.style.opacity = '0.5';
+      const result = await toggleFavourite(readMovieData(btn));
+      delete btn.dataset.cvBusy;
+      btn.style.opacity = '';
+      if (result === null) return;
+      btn.classList.toggle('active', result);
+      btn.innerHTML = heartSvg(result);
     });
   });
 
@@ -869,7 +881,23 @@ function updateCarouselDetail(detail, movie, label, index) {
     if (watchBtn) watchBtn.href = `movie-details.html?id=${movie.id}`;
 
     const wlBtn = detail.querySelector('.cs-wl-btn');
-    if (wlBtn) wlBtn.onclick = () => toggleWatchlist(movieForStorage(movie));
+    if (wlBtn) {
+      wlBtn.dataset.movieId = movie.id; /* lets cv-patch.js delegation resolve it too */
+      const inWL = isInWatchlist(movie.id);
+      wlBtn.classList.toggle('active', inWL);
+      wlBtn.innerHTML = `${bookmarkSvg(inWL)} ${inWL ? 'In Watchlist' : 'Watchlist'}`;
+      wlBtn.onclick = async () => {
+        if (wlBtn.dataset.cvBusy) return;
+        wlBtn.dataset.cvBusy = '1';
+        wlBtn.style.opacity = '0.5';
+        const result = await toggleWatchlist(movieForStorage(movie));
+        delete wlBtn.dataset.cvBusy;
+        wlBtn.style.opacity = '';
+        if (result === null) return;
+        wlBtn.classList.toggle('active', result);
+        wlBtn.innerHTML = `${bookmarkSvg(result)} ${result ? 'In Watchlist' : 'Watchlist'}`;
+      };
+    }
 
     detail.classList.remove('cs-transitioning');
   }, 180);
@@ -1018,43 +1046,30 @@ function initReveal() {
 }
 
 /* ============================================================
-   LOCAL STORAGE
+   FAVORITES / WATCHLIST — backed by the FastAPI backend
+   (cv-api.js, loaded on this page, is the single source of truth).
+   No localStorage — every toggle is a real API call to:
+     POST/DELETE /favorites/{movie_id}
+     POST /watchlist/add/{movie_id}  DELETE /watchlist/{movie_id}
 ============================================================ */
 function isInWatchlist(id) {
-  return readStoredList('cineverse_watchlist').some(movie => movie.id === id);
+  return typeof cvIsWatchlisted === 'function' ? cvIsWatchlisted(id) : false;
 }
 
 function isInFavourite(id) {
-  return readStoredList('cineverse_favourites').some(movie => movie.id === id);
+  return typeof cvIsFavorite === 'function' ? cvIsFavorite(id) : false;
 }
 
-function toggleWatchlist(movie) {
-  return toggleStoredMovie('cineverse_watchlist', movie);
+/* Returns: true = now in watchlist, false = removed, null = error/not logged in */
+async function toggleWatchlist(movie) {
+  if (typeof cvToggleWatchlist !== 'function' || !movie?.id) return null;
+  return await cvToggleWatchlist(movie.id);
 }
 
-function toggleFavourite(movie) {
-  return toggleStoredMovie('cineverse_favourites', movie);
-}
-
-function readStoredList(key) {
-  try {
-    return JSON.parse(localStorage.getItem(key) || '[]');
-  } catch {
-    return [];
-  }
-}
-
-function toggleStoredMovie(key, movie) {
-  try {
-    const list = readStoredList(key);
-    const idx = list.findIndex(item => item.id === movie.id);
-    if (idx !== -1) list.splice(idx, 1);
-    else list.push(movie);
-    localStorage.setItem(key, JSON.stringify(list));
-    return idx === -1;
-  } catch {
-    return false;
-  }
+/* Returns: true = now favorited, false = removed, null = error/not logged in */
+async function toggleFavourite(movie) {
+  if (typeof cvToggleFavorite !== 'function' || !movie?.id) return null;
+  return await cvToggleFavorite(movie.id);
 }
 
 /* ============================================================
