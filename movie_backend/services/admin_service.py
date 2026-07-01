@@ -43,7 +43,6 @@ async def create_movie_service(
     )
 
     db.add(movie)
-
     await db.commit()
 
     statement = (
@@ -56,9 +55,12 @@ async def create_movie_service(
     )
 
     result = await db.execute(statement)
-    await db.refresh(movie)
-    add_movie(movie)
-    return result.scalar_one()
+
+    loaded_movie = result.scalar_one()
+
+    add_movie(loaded_movie)
+
+    return loaded_movie
 
 
 async def update_movie_service(
@@ -100,9 +102,12 @@ async def update_movie_service(
     )
 
     result = await db.execute(statement)
-    await db.refresh(movie)
-    update_movie(movie)
-    return result.scalar_one()
+
+    loaded_movie = result.scalar_one()
+
+    update_movie(loaded_movie)
+
+    return loaded_movie
 
 
 async def delete_movie_service(

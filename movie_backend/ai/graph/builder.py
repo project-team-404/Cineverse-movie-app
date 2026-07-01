@@ -11,10 +11,20 @@ def build_graph(tools):
 
     tool_node = ToolNode(tools)
 
-    graph.add_node("chat_bot", chat_bot)
-    graph.add_node("tool_node", tool_node)
+    graph.add_node(
+        "chat_bot",
+        lambda state: chat_bot(state, tools)
+    )
 
-    graph.add_edge(START, "chat_bot")
+    graph.add_node(
+        "tool_node",
+        tool_node
+    )
+
+    graph.add_edge(
+        START,
+        "chat_bot"
+    )
 
     graph.add_conditional_edges(
         "chat_bot",
@@ -25,6 +35,9 @@ def build_graph(tools):
         },
     )
 
-    graph.add_edge("tool_node", "chat_bot")
+    graph.add_edge(
+        "tool_node",
+        "chat_bot"
+    )
 
     return graph.compile()

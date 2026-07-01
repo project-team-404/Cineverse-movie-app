@@ -1,4 +1,5 @@
 from langchain_core.messages import HumanMessage
+from pydantic import ValidationError
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -18,12 +19,12 @@ from movie_backend.schemas.ai_recommendation import (
     AiResponse
 )
 
+
 async def AI_Recommendation(
     user_id: int,
     user_query: str,
     db: AsyncSession
 ):
-
     history_tool = create_user_history_genre_count_tool(
         db=db,
         user_id=user_id
@@ -34,7 +35,6 @@ async def AI_Recommendation(
         user_id=user_id
     )
 
-
     rag_tool = rag
 
     tools = [
@@ -43,9 +43,7 @@ async def AI_Recommendation(
         rag_tool
     ]
 
-
     compiled_graph = build_graph(tools)
-
 
     result = await compiled_graph.ainvoke(
         {
@@ -55,8 +53,22 @@ async def AI_Recommendation(
         }
     )
 
-    response = AiResponse.model_validate_json(
-        result["messages"][-1].content
-    )
+    ai_message = result["messages"][-1]
 
-    return response
+    print("=" * 80)
+    print("RAW AI RESPONSE")
+    print(ai_message.content)
+    print("=" * 80)
+
+    try:
+        response = AiResponse.model_validate_json(
+            ai_message.content
+        )
+        return response
+
+    except ValidationError as e:
+        print("FAILED TO PARSE AI RESPONSE")
+        print(e)
+        raise ValueError(
+            f"LLM did not return valid JSON.\n\nResponse:\n{ai_message.content}"
+        )

@@ -13,6 +13,9 @@ from sqlalchemy.orm import declarative_base
 
 load_dotenv()
 
+
+
+print("DATABASE_URL =", os.getenv("DATABASE_URL"))
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 host = os.getenv("DB_HOST")

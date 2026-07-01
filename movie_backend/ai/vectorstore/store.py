@@ -7,7 +7,6 @@ embeddings = HuggingFaceEmbeddings(
 )
 
 vector_store = Chroma(
-    persist_directory="./db",
+    persist_directory="./db1",
     embedding_function=embeddings
 )
-

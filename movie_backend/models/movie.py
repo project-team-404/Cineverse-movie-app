@@ -63,7 +63,8 @@ class Movie(Base):
 
     genre = relationship(
         "Genre",
-        back_populates="movies"
+        back_populates="movies",
+        lazy="selectin"
     )
 
     created_at = Column(
@@ -75,7 +76,8 @@ class Movie(Base):
     images = relationship(
         "MovieImage",
         back_populates="movie",
-        cascade="all, delete"
+        cascade="all, delete",
+        lazy="selectin"
     )
 
     favorites = relationship(

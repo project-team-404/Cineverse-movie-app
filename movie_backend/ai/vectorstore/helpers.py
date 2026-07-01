@@ -5,15 +5,17 @@ from movie_backend.models.movie import Movie
 
 
 def movie_to_document(movie: Movie) -> Document:
+    genre_name = movie.genre.name if movie.genre else "Unknown"
+
     return Document(
         page_content=f"""
-        Title: {movie.title}
-        
-        Genre: {movie.genre.name}
-        
-        Description:
-        {movie.description}
-        """,
+            Title: {movie.title}
+            
+            Genre: {genre_name}
+            
+            Description:
+            {movie.description}
+            """,
         metadata={
             "movie_id": movie.id
         }
