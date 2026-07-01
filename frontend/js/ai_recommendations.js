@@ -4,7 +4,7 @@
   'use strict';
 
  
-  const API_BASE = 'https://movie-app-qhzc.onrender.com';
+  const API_BASE = window.API_BASE;
   const LOADING_MESSAGES = [
     'Analyzing your preferences...',
     'Understanding your request...',

@@ -4,7 +4,7 @@
    ============================================================ */
 
 const API_BASE =
-  window.CINEVERSE_API_BASE ||
+  window.API_BASE ||
   localStorage.getItem('cineverse_api_base') ||
   'https://cineverse-movie-app.onrender.com';
 

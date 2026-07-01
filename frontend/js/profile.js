@@ -1,6 +1,6 @@
 // profile.js — CineVerse Profile Page
 // Vanilla JS, no modules, follows cv-api.js conventions
-
+const API_BASE = window.API_BASE;
 // ── Auth Guard ────────────────────────────────
 (function () {
   if (!localStorage.getItem('access_token')) {
@@ -71,7 +71,9 @@ function fillProfileFields(data) {
     document.getElementById('edit-lang').value = data.preferred_language;
   }
   if (data.profile_picture) {
-    var base = (typeof CV_BASE !== 'undefined') ? CV_BASE : 'https://movie-app-qhzc.onrender.com';
+var base =
+    API_BASE ||
+    'https://cineverse-movie-app.onrender.com';
     var src  = data.profile_picture.startsWith('http')
       ? data.profile_picture
       : base + '/' + data.profile_picture;

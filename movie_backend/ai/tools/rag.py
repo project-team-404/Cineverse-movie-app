@@ -3,7 +3,7 @@ from langchain_core.tools import tool
 from movie_backend.ai.vectorstore.store import vector_store
 
 retriever = vector_store.as_retriever(
-    search_kwargs={"k": 5}
+    search_kwargs={"k": 10}
 )
 
 
@@ -12,11 +12,19 @@ def rag(query: str):
     """
     Search the movie vector database.
 
-    Use this tool whenever you need movie recommendations or movie IDs.
+    Returns the top 10 most relevant movies for the given query.
 
-    This tool returns the movie_id, title, genre and description.
+    Use this tool whenever movie recommendations or movie IDs are required.
+
+    Each result contains:
+    - movie_id
+    - title
+    - genre
+    - description
+
     The returned movie_id is the only valid movie ID.
-    Never invent movie IDs.
+    Never invent or modify movie IDs.
+    Always use the IDs returned by this tool.
     """
 
     docs = retriever.invoke(query)
