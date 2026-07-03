@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/images/logo.png" alt="CineVerse Logo" width="80" height="80" />
+<img src="screenshots/logo.png" alt="CineVerse Logo" width="200" height="200" />
 
 #  CineVerse
 
