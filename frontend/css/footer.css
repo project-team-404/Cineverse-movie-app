@@ -1,6 +1,4 @@
-/* ============================================================
-   CINEVERSE — FOOTER
-   ============================================================ */
+
 
 .footer {
   position: relative;
@@ -10,7 +8,7 @@
   border-top: 1px solid var(--glass-border);
 }
 
-/* Ambient glow behind footer */
+
 .footer::before {
   content: '';
   position: absolute;
@@ -42,7 +40,7 @@
   z-index: 1;
 }
 
-/* Top: brand + links */
+
 .footer-top {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -109,7 +107,7 @@
   transform: translateY(-3px);
 }
 
-/* Link columns */
+
 .footer-links {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -136,7 +134,7 @@
 }
 .footer-col-link:hover { color: var(--white-90); }
 
-/* Bottom bar */
+
 .footer-bottom {
   padding-top: var(--space-8);
   display: flex;
@@ -161,7 +159,7 @@
 }
 .footer-legal a:hover { color: var(--white-60); }
 
-/* Language / Region selector */
+
 .footer-region {
   display: flex;
   align-items: center;
@@ -178,7 +176,7 @@
 .footer-region:hover { color: var(--white); border-color: var(--white-10); }
 .footer-region svg { width: 13px; height: 13px; }
 
-/* ── RESPONSIVE ── */
+
 @media (max-width: 1200px) {
   .footer-top { grid-template-columns: 240px 1fr; gap: var(--space-10); }
   .footer-links { grid-template-columns: repeat(2, 1fr); }

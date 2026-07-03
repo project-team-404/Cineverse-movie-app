@@ -1,7 +1,4 @@
-/* ============================================================
-   CINEVERSE - MOVIE PAGE CONTROLLER
-   FastAPI data version, original UI classes preserved.
-   ============================================================ */
+
 
 const API_BASE =
   window.API_BASE ||
@@ -11,7 +8,7 @@ const API_BASE =
 const API_LIMIT = 200;
 const PLACEHOLDER_IMAGE = '';
 
-// Genre map is populated at runtime from the /genres/ API endpoint
+
 const GENRE_MAP = {};
 
 const state = {
@@ -44,7 +41,7 @@ async function boot() {
 
   try {
     await loadGenres();
-    // Resolve genre ID to name now that GENRE_MAP is populated
+    
     state.genre = resolveGenreParam(state.genre);
     syncChips('genre', state.genre);
     state.allMovies = await fetchMovies();
@@ -59,9 +56,7 @@ async function boot() {
   }
 }
 
-/* ============================================================
-   API
-============================================================ */
+
 async function apiGet(path, params = {}) {
   const url = new URL(path, normalizeBaseUrl(API_BASE));
 
@@ -193,8 +188,7 @@ function genreName(movie) {
 
 function genreValueForApi(value) {
   if (!value || value === 'all') return '';
-  // Genre chip data-values are now genre name strings directly (e.g. "Action", "Drama")
-  // GENRE_MAP may still be populated from /genres/ API with id→name mappings for lookup
+  
   return GENRE_MAP[value] || value;
 }
 
@@ -214,20 +208,18 @@ function movieForStorage(movie) {
   };
 }
 
-/* ============================================================
-   URL PARAMS
-============================================================ */
+
 function resolveGenreParam(value) {
-  // If value is a numeric ID, resolve to genre name using GENRE_MAP
+  
   if (!value || value === 'all') return 'all';
   const asNum = Number(value);
   if (!isNaN(asNum) && GENRE_MAP[asNum]) return GENRE_MAP[asNum];
-  return value; // already a name string
+  return value; 
 }
 
 function readURLParams() {
   const params = new URLSearchParams(location.search);
-  if (params.get('genre')) state.genre = params.get('genre'); // may be ID or name
+  if (params.get('genre')) state.genre = params.get('genre'); 
   if (params.get('year')) state.year = params.get('year');
   if (params.get('q')) state.query = params.get('q').trim().toLowerCase();
 
@@ -248,9 +240,7 @@ function readURLParams() {
   if (sortEl) sortEl.value = state.sort;
 }
 
-/* ============================================================
-   FILTERS
-============================================================ */
+
 function applyFilters(source = state.allMovies) {
   let list = [...source];
 
@@ -291,7 +281,7 @@ function sortMovies(a, b) {
   if (state.sort === 'rating') return (b.rating || 0) - (a.rating || 0);
   if (state.sort === 'release') return (b.release_year || 0) - (a.release_year || 0);
   if (state.sort === 'title') return (a.title || '').localeCompare(b.title || '');
-  // Default: sort by rating descending (no popularity field from backend)
+  
   return (b.rating || 0) - (a.rating || 0);
 }
 
@@ -335,9 +325,7 @@ function updateResultState() {
   }
 }
 
-/* ============================================================
-   GRID
-============================================================ */
+
 function renderLoading() {
   const grid = document.getElementById('movies-grid');
   if (!grid) return;
@@ -437,13 +425,13 @@ function wireGridActions(root) {
     btn.addEventListener('click', async e => {
       e.preventDefault();
       e.stopPropagation();
-      if (btn.dataset.cvBusy) return; /* one request in flight at a time */
+      if (btn.dataset.cvBusy) return; 
       btn.dataset.cvBusy = '1';
       btn.style.opacity = '0.5';
       const result = await toggleWatchlist(readMovieData(btn));
       delete btn.dataset.cvBusy;
       btn.style.opacity = '';
-      if (result === null) return; /* not logged in / error — icon unchanged */
+      if (result === null) return; 
       btn.classList.toggle('active', result);
       btn.innerHTML = bookmarkSvg(result);
     });
@@ -491,9 +479,7 @@ function renderError(message) {
   grid.innerHTML = `<div class="suggest-empty" style="grid-column:1/-1;padding:32px;text-align:center;">${escHtml(message)}</div>`;
 }
 
-/* ============================================================
-   PAGINATION
-============================================================ */
+
 function renderPagination() {
   const wrap = document.getElementById('pagination');
   if (!wrap) return;
@@ -553,9 +539,7 @@ function scrollToGrid() {
   window.scrollTo({ top: (document.getElementById('movies-grid')?.offsetTop || 0) - 120, behavior: 'smooth' });
 }
 
-/* ============================================================
-   ACTIVE FILTER TAGS
-============================================================ */
+
 function renderActiveFilterTags() {
   const wrap = document.getElementById('active-filters-wrap');
   if (!wrap) return;
@@ -611,9 +595,7 @@ function syncChips(filter, value) {
   });
 }
 
-/* ============================================================
-   WIRES
-============================================================ */
+
 function wireFilters() {
   document.querySelectorAll('.filter-chip[data-filter]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -807,15 +789,13 @@ function wireOverlaySearch() {
   });
 }
 
-/* ============================================================
-   CAROUSELS
-============================================================ */
+
 function getTopRatedMovies() {
   return [...state.allMovies].sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 15);
 }
 
 function getPopularMovies() {
-  // Backend has no popularity field; use rating as the best available signal
+  
   return [...state.allMovies].sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 15);
 }
 
@@ -925,9 +905,7 @@ function buildRecentlyAdded(movies) {
   initCarouselDrag(track);
 }
 
-/* ============================================================
-   QUICK VIEW
-============================================================ */
+
 function openQuickView(movie) {
   const modal = document.getElementById('quickview-modal');
   const content = document.getElementById('quickview-content');
@@ -981,9 +959,7 @@ function toEmbedUrl(url) {
   return url;
 }
 
-/* ============================================================
-   NAV / REVEAL / DRAG
-============================================================ */
+
 function fixNavActiveLink() {
   const currentPage = location.pathname.split('/').pop() || 'home.html';
   document.querySelectorAll('.nav-link, .nav-mobile-link').forEach(link => {
@@ -1045,13 +1021,7 @@ function initReveal() {
   revealEls.forEach(el => observer.observe(el));
 }
 
-/* ============================================================
-   FAVORITES / WATCHLIST — backed by the FastAPI backend
-   (cv-api.js, loaded on this page, is the single source of truth).
-   No localStorage — every toggle is a real API call to:
-     POST/DELETE /favorites/{movie_id}
-     POST /watchlist/add/{movie_id}  DELETE /watchlist/{movie_id}
-============================================================ */
+
 function isInWatchlist(id) {
   return typeof cvIsWatchlisted === 'function' ? cvIsWatchlisted(id) : false;
 }
@@ -1060,21 +1030,18 @@ function isInFavourite(id) {
   return typeof cvIsFavorite === 'function' ? cvIsFavorite(id) : false;
 }
 
-/* Returns: true = now in watchlist, false = removed, null = error/not logged in */
+
 async function toggleWatchlist(movie) {
   if (typeof cvToggleWatchlist !== 'function' || !movie?.id) return null;
   return await cvToggleWatchlist(movie.id);
 }
 
-/* Returns: true = now favorited, false = removed, null = error/not logged in */
 async function toggleFavourite(movie) {
   if (typeof cvToggleFavorite !== 'function' || !movie?.id) return null;
   return await cvToggleFavorite(movie.id);
 }
 
-/* ============================================================
-   SVG / ESCAPE HELPERS
-============================================================ */
+
 function starSvg(size) {
   return `<svg viewBox="0 0 24 24" fill="#f4c542" width="${size}" height="${size}" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
 }

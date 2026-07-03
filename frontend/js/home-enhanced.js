@@ -1,9 +1,4 @@
-/* ============================================================
-   CINEVERSE - HOME ENHANCED INTERACTIONS
-   Visual-only helpers. Movie data is owned by home.js.
-   ============================================================ */
 
-/* ── HERO SLIDE COUNTER — ensure counter is visible ── */
 (function ensureHeroCounter() {
   const counter = document.querySelector('.hero-slide-counter');
   if (!counter) return;
@@ -18,7 +13,7 @@
   }, 100);
 })();
 
-/* ── MOOD CARDS — enhanced hover interactions ── */
+
 (function initMoodCards() {
   const cards = document.querySelectorAll('.mood-card');
   if (!cards.length) return;
@@ -43,7 +38,7 @@
   });
 })();
 
-/* ── RECOMMENDED SECTION — match score badge attribute ── */
+
 (function initRecommendedSection() {
   const track = document.getElementById('recommended-track');
   if (!track) return;
@@ -59,7 +54,7 @@
   observer.observe(track, { childList: true, subtree: false });
 })();
 
-/* ── STATS BANNER — countup with intersection observer ── */
+
 (function reinitStats() {
   const banner = document.getElementById('stats-banner');
   if (!banner) return;
@@ -88,7 +83,7 @@
   observer.observe(banner);
 })();
 
-/* ── GENRE GRID — delayed stagger entrance ── */
+
 (function initGenreGrid() {
   const grid = document.getElementById('genre-grid');
   if (!grid) return;
@@ -114,7 +109,7 @@
   observer.observe(grid);
 })();
 
-/* ── EDITORIAL BAND — parallax on scroll ── */
+
 (function initEditorialParallax() {
   const band = document.querySelector('.editorial-band');
   if (!band) return;
@@ -134,7 +129,7 @@
   }, { passive: true });
 })();
 
-/* ── PROMO BANNER — magnetic tilt effect ── */
+
 (function initPromoBanner() {
   const banner = document.querySelector('.promo-inner');
   if (!banner) return;
@@ -153,7 +148,7 @@
   });
 })();
 
-/* ── CURSOR GLOW on hero ── */
+
 (function initHeroCursorGlow() {
   const hero = document.getElementById('hero');
   const depth = document.querySelector('.hero-depth-layer');

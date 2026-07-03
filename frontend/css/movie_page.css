@@ -1,12 +1,4 @@
-/* ================================================================
-   CINEVERSE — movie_page.css  (FIXED VERSION)
-   - Removed sticky search
-   - Removed hero header section styles (moved search to top)
-   - Added MGC card styles (used by JS buildGridCard)
-   - Fixed filter chips, autocomplete, Netflix-style improvements
-================================================================ */
 
-/* ── CSS CUSTOM PROPERTIES ── */
 :root {
   --bg-void:       #050816;
   --bg-deep:       #080810;
@@ -57,7 +49,7 @@
   --grad-gold: linear-gradient(135deg, #e8a838 0%, #ffd97d 50%, #e8a838 100%);
 }
 
-/* ── RESET ── */
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -70,14 +62,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── NOISE OVERLAY ── */
+
 .noise-overlay {
   position: fixed; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none; z-index: 9999; opacity: 0.4;
 }
 
-/* ── BUTTONS ── */
+
 .btn-primary {
   display: inline-flex; align-items: center; gap: var(--space-2);
   padding: var(--space-3) var(--space-8);
@@ -103,7 +95,7 @@ body {
 }
 .btn-ghost:hover { border-color: var(--gold-dim); color: var(--gold); background: rgba(232,168,56,0.06); transform: translateY(-2px); }
 
-/* ── SECTION EYEBROW ── */
+
 .section-eyebrow {
   display: flex; align-items: center; gap: var(--space-3);
   font-size: var(--text-xs); font-weight: 700;
@@ -116,18 +108,14 @@ body {
   background: var(--gold); border-radius: var(--radius-pill);
 }
 
-/* ================================================================
-   HIDE THE OLD HERO HEADER — search is now on top
-================================================================ */
+
 .movies-header { display: none !important; }
 
-/* ================================================================
-   SEARCH BAR — TOP OF PAGE, NOT STICKY
-================================================================ */
+
 .search-section {
   background: var(--bg-base);
   padding: var(--space-10) 0 var(--space-6);
-  /* REMOVED: position sticky, top, z-index */
+  
   border-bottom: 1px solid var(--glass-border);
   margin-top: 0;
 }
@@ -136,7 +124,7 @@ body {
   padding: 0 var(--space-8);
 }
 
-/* Page title above search */
+
 .search-inner::before {
   content: 'MOVIES';
   display: block;
@@ -188,7 +176,7 @@ body {
 }
 .search-voice:hover { color: var(--gold); }
 
-/* ── AUTOCOMPLETE SUGGESTIONS DROPDOWN ── */
+
 .search-suggestions {
   position: absolute;
   top: calc(100% + 8px); left: 0; right: 0;
@@ -230,7 +218,7 @@ body {
 .suggest-item-meta { font-size: var(--text-xs); color: var(--white-30); margin-top: 2px; }
 .suggest-item-rating { font-size: var(--text-xs); font-weight: 700; color: var(--rating-star); flex-shrink: 0; }
 
-/* No results state */
+
 .suggest-empty {
   padding: 20px; text-align: center;
   font-size: var(--text-sm); color: var(--white-30);
@@ -255,14 +243,12 @@ body {
 }
 .search-chip:hover { border-color: var(--gold-dim); color: var(--gold); background: rgba(232,168,56,0.06); transform: translateY(-1px); }
 
-/* ================================================================
-   FILTER PANEL
-================================================================ */
+
 .filter-section {
   background: var(--bg-base);
   border-bottom: 1px solid var(--glass-border);
   padding: var(--space-5) 0;
-  /* NOT sticky */
+  
 }
 .filter-inner {
   max-width: var(--max-w); margin: 0 auto;
@@ -317,9 +303,7 @@ body {
 .view-btn.active { background: var(--gold); color: var(--bg-void); }
 .view-btn:hover:not(.active) { color: var(--white); }
 
-/* ================================================================
-   RESULTS BAR
-================================================================ */
+
 .results-bar {
   max-width: var(--max-w); margin: 0 auto;
   padding: var(--space-6) var(--space-8) 0;
@@ -342,9 +326,7 @@ body {
 }
 .active-filter-remove:hover { opacity: 0.6; }
 
-/* ================================================================
-   FEATURED COLLECTION BANNER
-================================================================ */
+
 .collection-banner {
   max-width: var(--max-w); margin: var(--space-8) auto;
   padding: 0 var(--space-8);
@@ -393,10 +375,7 @@ body {
 }
 .collection-cta { flex-shrink: 0; }
 
-/* ================================================================
-   MGC MOVIE CARDS (used by JS buildGridCard)
-   These are the ACTUAL card classes rendered in the grid
-================================================================ */
+
 .movies-grid-section {
   max-width: var(--max-w); margin: 0 auto;
   padding: var(--space-8) var(--space-8) var(--space-16);
@@ -412,7 +391,7 @@ body {
   gap: 16px;
 }
 
-/* ── MGC GRID CARD ── */
+
 .mgc {
   position: relative;
   border-radius: var(--radius-xl);
@@ -443,7 +422,7 @@ body {
 }
 .mgc:hover .mgc-poster img { transform: scale(1.07); filter: saturate(1.05); }
 
-/* Rating badge */
+
 .mgc-rating {
   position: absolute; top: 10px; right: 10px;
   display: flex; align-items: center; gap: 3px;
@@ -454,7 +433,7 @@ body {
   border: 1px solid rgba(244,197,66,0.2); z-index: 3;
 }
 
-/* NEW badge */
+
 .mgc-new-badge {
   position: absolute; top: 10px; left: 10px;
   padding: 3px 7px;
@@ -464,7 +443,7 @@ body {
   z-index: 3;
 }
 
-/* Gradient overlay */
+
 .mgc-gradient {
   position: absolute; inset: 0;
   background: linear-gradient(180deg, transparent 40%, rgba(5,8,22,0.95) 100%);
@@ -474,7 +453,7 @@ body {
 }
 .mgc:hover .mgc-gradient { opacity: 1; }
 
-/* Actions overlay */
+
 .mgc-actions {
   position: absolute; inset: 0;
   display: flex; flex-direction: column;
@@ -514,7 +493,7 @@ body {
 .mgc-action-btn:hover { background: rgba(255,255,255,0.22); transform: scale(1.1); }
 .mgc-action-btn.active { background: var(--gold); border-color: var(--gold); color: var(--bg-void); }
 
-/* Card info below poster */
+
 .mgc-info {
   padding: var(--space-3) var(--space-1) 0;
 }
@@ -540,7 +519,7 @@ body {
   font-size: 10px; color: var(--white-30);
 }
 
-/* ── MGC LIST VIEW ── */
+
 .movies-grid.list-view .mgc {
   display: flex; gap: var(--space-5);
   background: var(--glass-bg); border: 1px solid var(--glass-border);
@@ -576,7 +555,7 @@ body {
   flex-direction: column; gap: var(--space-1);
 }
 
-/* ── SKELETON CARDS ── */
+
 @keyframes shimmer {
   0%   { background-position: -600px 0; }
   100% { background-position: 600px 0; }
@@ -592,9 +571,7 @@ body {
 .skeleton-card .skeleton-title { height: 12px; margin: 10px 0 6px; border-radius: 6px; }
 .skeleton-card .skeleton-meta { height: 10px; width: 55%; border-radius: 6px; }
 
-/* ================================================================
-   CAROUSELS — Top Rated + Trending (Netflix style)
-================================================================ */
+
 .carousel-section {
   padding: var(--space-16) 0;
   position: relative; overflow: hidden;
@@ -629,7 +606,7 @@ body {
 }
 .section-see-all:hover { color: var(--gold); }
 
-/* Stage + track */
+
 .cs-stage { width: 80%; margin: 0 auto; position: relative; }
 .cs-wrap { position: relative; overflow: hidden; }
 .cs-wrap::before, .cs-wrap::after {
@@ -645,7 +622,7 @@ body {
 .cs-track:active { cursor: grabbing; }
 .cs-track::-webkit-scrollbar { display: none; }
 
-/* Carousel card */
+
 .cs-card {
   position: relative; flex-shrink: 0; width: 180px;
   scroll-snap-align: center; cursor: pointer;
@@ -711,7 +688,7 @@ body {
 .cs-card.cs-active .cs-card-title { color: var(--gold); }
 .cs-card-year { font-size: var(--text-xs); color: var(--white-30); }
 
-/* Carousel nav buttons */
+
 .cs-btn {
   position: absolute; top: 42%; transform: translateY(-50%);
   z-index: 5; width: 48px; height: 48px; border-radius: 50%;
@@ -729,7 +706,7 @@ body {
 .cs-btn-next { right: -24px; }
 .cs-btn[disabled] { opacity: 0 !important; pointer-events: none; }
 
-/* Detail panel */
+
 .cs-detail-panel {
   width: 80%; margin: var(--space-6) auto 0; min-height: 120px;
   padding: var(--space-6) var(--space-10);
@@ -774,9 +751,7 @@ body {
 .cs-detail-right .btn-primary,
 .cs-detail-right .btn-ghost { font-size: var(--text-sm); padding: var(--space-3) var(--space-6); white-space: nowrap; }
 
-/* ================================================================
-   GENRE SHOWCASE
-================================================================ */
+
 .genre-showcase {
   padding: var(--space-16) 0;
   background: linear-gradient(180deg, var(--bg-void) 0%, var(--bg-base) 50%, var(--bg-void) 100%);
@@ -830,9 +805,7 @@ body {
 }
 .genre-card:hover .genre-card-count { opacity: 1; transform: translateY(0); }
 
-/* ================================================================
-   RECENTLY ADDED
-================================================================ */
+
 .recently-section {
   padding: var(--space-16) 0; position: relative;
   overflow-x: hidden;
@@ -855,7 +828,7 @@ body {
 .recently-track:active { cursor: grabbing; }
 .recently-track::-webkit-scrollbar { display: none; }
 
-/* Recently added card */
+
 .rc-card { flex-shrink: 0; width: 160px; scroll-snap-align: start; }
 .rc-card-link { text-decoration: none; color: inherit; display: block; }
 .rc-poster {
@@ -891,9 +864,7 @@ body {
 .rc-card:hover .rc-title { color: var(--gold); }
 .rc-year { font-size: var(--text-xs); color: var(--white-30); margin-top: 2px; }
 
-/* ================================================================
-   PAGINATION
-================================================================ */
+
 .pagination-wrap {
   max-width: var(--max-w); margin: 0 auto;
   padding: var(--space-4) var(--space-8) var(--space-16);
@@ -919,9 +890,7 @@ body {
   color: var(--white-30); font-size: var(--text-sm);
 }
 
-/* ================================================================
-   EMPTY STATE
-================================================================ */
+
 .empty-state {
   max-width: 480px; margin: var(--space-20) auto;
   text-align: center; padding: 0 var(--space-8); display: none;
@@ -938,9 +907,7 @@ body {
 }
 .empty-state-desc { font-size: var(--text-sm); color: var(--white-60); line-height: 1.7; margin-bottom: var(--space-8); }
 
-/* ================================================================
-   SCROLL REVEAL
-================================================================ */
+
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 @keyframes fadeUp {
@@ -948,9 +915,7 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ================================================================
-   TRAILER / QUICKVIEW MODALS
-================================================================ */
+
 .trailer-modal-overlay {
   position: fixed; inset: 0; z-index: 1000;
   background: rgba(5,8,22,0.92); backdrop-filter: blur(16px);
@@ -978,35 +943,17 @@ body {
 }
 .trailer-close:hover { background: rgba(255,255,255,0.15); transform: scale(1.1); }
 
-/* ================================================================
-   RESPONSIVE
-   Desktop (1367px and above) is the approved final design and is
-   untouched above this point. Everything below only adjusts layout
-   for laptop/tablet/mobile breakpoints — no colors, fonts, spacing
-   language, or animations are changed, only sizing/reflow.
-================================================================ */
 
-/* ========= 1920px (Large Desktop) =========
-   Content is centered via max-width: var(--max-w) with fluid
-   padding, so nothing overflows or needs overriding here. */
-
-/* ========= 1600px (Desktop) =========
-   Same fluid container as above — no overrides required. */
-
-/* ========= 1440px (Laptop) =========
-   Same fluid container as above — no overrides required. */
-
-/* ========= 1366px (Small Laptop) ========= */
 @media (max-width: 1366px) {
   .cs-stage, .cs-detail-panel { width: 88%; }
 }
 
-/* ========= 1280px (transitional grid step, kept from original) ========= */
+
 @media (max-width: 1280px) {
   .movies-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
-/* ========= 1024px (Tablet Landscape) ========= */
+
 @media (max-width: 1024px) {
   .movies-grid { grid-template-columns: repeat(3, 1fr); }
   .genre-showcase-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1016,7 +963,7 @@ body {
   .results-bar { flex-wrap: wrap; }
 }
 
-/* ========= 768px (Tablet Portrait) ========= */
+
 @media (max-width: 768px) {
   .movies-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .filter-inner { gap: var(--space-3); }
@@ -1047,7 +994,7 @@ body {
   .cs-card { width: 150px; }
 }
 
-/* ========= 576px (Large Mobile) ========= */
+
 @media (max-width: 576px) {
   .movies-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .filter-inner { flex-direction: column; align-items: flex-start; }
@@ -1076,7 +1023,6 @@ body {
   .trailer-modal { width: 94%; }
 }
 
-/* ========= 480px (Medium Mobile) ========= */
 @media (max-width: 480px) {
   .movies-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .search-inner::before { font-size: 1.7rem; margin-bottom: var(--space-4); }
@@ -1107,7 +1053,7 @@ body {
   .pag-btn, .pag-ellipsis { width: 34px; height: 34px; font-size: var(--text-xs); }
 }
 
-/* ========= 375px (Small Mobile) ========= */
+
 @media (max-width: 375px) {
   .movies-grid { gap: 8px; }
   .mgc-info, .rc-info, .cs-card-info { padding-top: var(--space-2); }
@@ -1340,11 +1286,7 @@ transform:none;
 
 }
 
-/* ================================================================
-   RESPONSIVE — profile dropdown & modals
-   (fixed-width elements that need a mobile-safe ceiling so they
-   never overflow the viewport; desktop values above are untouched)
-================================================================ */
+
 @media (max-width: 576px) {
   .profile-dropdown { width: min(260px, calc(100vw - 32px)); right: -8px; }
 }

@@ -1,6 +1,4 @@
-/* ============================================================
-   CINEVERSE — HERO SECTION
-   ============================================================ */
+
 
 .hero {
   position: relative;
@@ -12,7 +10,7 @@
   align-items: flex-end;
 }
 
-/* ── BACKDROP SLIDESHOW ── */
+
 .hero-backdrop {
   position: absolute;
   inset: 0;
@@ -35,7 +33,7 @@
 }
 .hero-slide.active img { transform: scale(1); }
 
-/* Parallax depth overlay - cinematic layers */
+
 .hero-overlay-1 {
   position: absolute;
   inset: 0;
@@ -53,7 +51,7 @@
   background: var(--grad-hero);
   z-index: 2;
 }
-/* Vignette sides */
+
 .hero-overlay-3 {
   position: absolute;
   inset: 0;
@@ -61,7 +59,7 @@
   z-index: 3;
 }
 
-/* Ambient light leak — signature element */
+
 .hero-light-leak {
   position: absolute;
   bottom: 20%;
@@ -74,7 +72,7 @@
   mix-blend-mode: screen;
 }
 
-/* ── CONTENT ── */
+
 .hero-content {
   position: relative;
   z-index: 10;
@@ -88,7 +86,6 @@
   padding: 0 var(--space-8);
 }
 
-/* Eyebrow label */
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -130,7 +127,7 @@
   color: var(--white-60);
 }
 
-/* Main title */
+
 .hero-title {
   font-family: var(--font-display);
   font-size: var(--text-hero);
@@ -150,7 +147,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Metadata row */
 .hero-meta {
   display: flex;
   align-items: center;
@@ -192,7 +188,7 @@
   color: var(--white-90);
 }
 
-/* Description */
+
 .hero-desc {
   font-size: var(--text-lg);
   color: var(--white-60);
@@ -204,7 +200,7 @@
   animation: hero-rise 0.7s var(--ease-out-expo) 0.65s forwards;
 }
 
-/* CTA row */
+
 .hero-actions {
   display: flex;
   align-items: center;
@@ -214,7 +210,7 @@
   animation: hero-rise 0.7s var(--ease-out-expo) 0.8s forwards;
 }
 
-/* Primary button */
+
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -249,7 +245,7 @@
 .btn-primary:active { transform: scale(0.98); }
 .btn-primary svg { width: 20px; height: 20px; }
 
-/* Secondary button */
+
 .btn-ghost {
   display: inline-flex;
   align-items: center;
@@ -272,7 +268,7 @@
 }
 .btn-ghost svg { width: 20px; height: 20px; }
 
-/* ── SLIDE INDICATORS ── */
+
 .hero-indicators {
   position: absolute;
   bottom: var(--space-8);
@@ -298,7 +294,6 @@
 }
 .hero-dot:hover:not(.active) { background: var(--white-60); }
 
-/* ── FEATURED THUMBNAILS ── */
 .hero-thumbs {
   position: absolute;
   bottom: var(--space-8);
@@ -332,7 +327,7 @@
   object-fit: cover;
 }
 
-/* Mouse-depth overlay (moves with cursor) */
+
 .hero-depth-layer {
   position: absolute;
   inset: 0;
@@ -346,7 +341,7 @@
   transition: background 0.1s;
 }
 
-/* ── SLIDE COUNTER ── */
+
 .hero-slide-counter {
   position: absolute;
   top: calc(var(--nav-h) + var(--space-6));
@@ -375,7 +370,7 @@
   color: var(--white-30);
 }
 
-/* ── KEN BURNS KEYFRAME ── */
+
 @keyframes ken-burns {
   0%   { transform: scale(1.06) translateX(0)     translateY(0); }
   33%  { transform: scale(1.09) translateX(-0.8%) translateY(-0.5%); }
@@ -383,12 +378,12 @@
   100% { transform: scale(1.0)  translateX(0)     translateY(0); }
 }
 
-/* Slide active: Ken Burns plays over 8 seconds; inactive: static zoom */
+
 .hero-slide.active img {
   animation: ken-burns 8s var(--ease-cinematic) forwards;
 }
 
-/* ── SCROLL CUE ── */
+
 .hero-scroll-cue {
   position: absolute;
   bottom: var(--space-8);
@@ -421,7 +416,7 @@
   100% { transform: scaleY(1) translateY(10px); opacity: 0; }
 }
 
-/* ── RESPONSIVE ── */
+
 @media (max-width: 992px) {
   .hero-thumbs { display: none; }
   .hero-title { font-size: clamp(3rem, 8vw, 6rem); }

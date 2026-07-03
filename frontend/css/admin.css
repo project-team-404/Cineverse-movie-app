@@ -1,23 +1,16 @@
-/* ============================================================
-   admin.css — CineVerse Admin Panel
-   Premium Cinematic Dark UI  ·  Production Ready
-   Netflix + Linear + Vercel aesthetic
-   ============================================================ */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap');
 
-/* ============================================================
-   §1  DESIGN TOKENS
-   ============================================================ */
+
 :root {
-  /* — Backgrounds — */
+ 
   --bg-base:        #09090F;
   --bg-raised:      #11111B;
   --bg-elevated:    #161625;
   --bg-overlay:     #1C1C2E;
   --bg-subtle:      rgba(255,255,255,0.02);
 
-  /* — Gold Accent — */
   --gold:           #E8A838;
   --gold-light:     #F5C451;
   --gold-dim:       rgba(232,168,56,0.10);
@@ -25,7 +18,7 @@
   --gold-border:    rgba(232,168,56,0.22);
   --gold-gradient:  linear-gradient(135deg, #E8A838 0%, #F5C451 50%, #E8A838 100%);
 
-  /* — Status — */
+  
   --danger:         #EF4444;
   --danger-dim:     rgba(239,68,68,0.12);
   --danger-border:  rgba(239,68,68,0.25);
@@ -35,19 +28,18 @@
   --warning:        #F59E0B;
   --warning-dim:    rgba(245,158,11,0.12);
 
-  /* — Text — */
   --text-primary:   #FFFFFF;
   --text-secondary: rgba(255,255,255,0.70);
   --text-muted:     rgba(255,255,255,0.50);
   --text-dim:       rgba(255,255,255,0.25);
   --text-ghost:     rgba(255,255,255,0.12);
 
-  /* — Borders — */
+  
   --border:         rgba(255,255,255,0.06);
   --border-subtle:  rgba(255,255,255,0.04);
   --border-strong:  rgba(255,255,255,0.12);
 
-  /* — Radius — */
+  
   --r-xs:   6px;
   --r-sm:   10px;
   --r-md:   14px;
@@ -55,13 +47,13 @@
   --r-xl:   24px;
   --r-full: 9999px;
 
-  /* — Shadows — */
+  
   --shadow-sm:   0 2px 8px rgba(0,0,0,0.35);
   --shadow-md:   0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(232,168,56,0.04);
   --shadow-lg:   0 20px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.04);
   --shadow-gold: 0 0 32px rgba(232,168,56,0.22), 0 0 0 1px rgba(232,168,56,0.14);
 
-  /* — Transitions — */
+  
   --ease:       cubic-bezier(0.16, 1, 0.3, 1);
   --ease-snappy: cubic-bezier(0.4, 0, 0.2, 1);
   --t-fast:     0.14s;
@@ -69,9 +61,7 @@
   --t-slow:     0.38s;
 }
 
-/* ============================================================
-   §2  KEYFRAME ANIMATIONS
-   ============================================================ */
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
@@ -118,9 +108,7 @@
   100% { background-position: 0%   50%; }
 }
 
-/* ============================================================
-   §3  RESET & BASE
-   ============================================================ */
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -144,7 +132,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar — webkit */
+
 ::-webkit-scrollbar               { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track         { background: var(--bg-raised); }
 ::-webkit-scrollbar-thumb         { background: rgba(255,255,255,0.10); border-radius: var(--r-full); }
@@ -155,9 +143,7 @@ body {
   color: var(--text-primary);
 }
 
-/* ============================================================
-   §4  TOP NAVIGATION BAR
-   ============================================================ */
+
 .admin-topbar {
   position: sticky;
   top: 0;
@@ -169,7 +155,6 @@ body {
   justify-content: space-between;
   gap: 24px;
 
-  /* Glassmorphism */
   background: rgba(9,9,15,0.75);
   backdrop-filter: blur(20px) saturate(1.6);
   -webkit-backdrop-filter: blur(20px) saturate(1.6);
@@ -177,7 +162,6 @@ body {
   box-shadow: 0 1px 0 rgba(232,168,56,0.05);
 }
 
-/* Brand mark */
 .admin-topbar-brand {
   display: flex;
   align-items: center;
@@ -218,7 +202,7 @@ body {
   animation: pulse-ring 2.8s ease infinite;
 }
 
-/* Nav links */
+
 .admin-nav {
   display: flex;
   align-items: center;
@@ -290,9 +274,7 @@ body {
   background: var(--bg-raised);
 }
 
-/* ============================================================
-   §5  PAGE LAYOUT
-   ============================================================ */
+
 .admin-page {
   padding: 40px 32px;
   max-width: 1280px;
@@ -325,9 +307,7 @@ body {
   line-height: 1.5;
 }
 
-/* ============================================================
-   §6  STATISTICS CARDS
-   ============================================================ */
+
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -346,12 +326,12 @@ body {
   overflow: hidden;
   transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
 
-  /* Gradient border via pseudo-element */
+
   border: 1px solid var(--border);
   box-shadow: var(--shadow-md);
 }
 
-/* Animated top-edge gradient border */
+
 .stat-card::before {
   content: '';
   position: absolute;
@@ -367,7 +347,6 @@ body {
   transition: opacity var(--t-base) var(--ease);
 }
 
-/* Shine sweep on hover */
 .stat-card::after {
   content: '';
   position: absolute;
@@ -446,9 +425,7 @@ body {
   text-transform: uppercase;
 }
 
-/* ============================================================
-   §7  QUICK LINK CARDS
-   ============================================================ */
+
 .quick-links {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -526,9 +503,7 @@ body {
   line-height: 1.45;
 }
 
-/* ============================================================
-   §8  BUTTONS
-   ============================================================ */
+
 .btn {
   position: relative;
   display: inline-flex;
@@ -555,7 +530,7 @@ body {
   user-select: none;
 }
 
-/* Shine sweep on buttons */
+
 .btn::before {
   content: '';
   position: absolute;
@@ -571,7 +546,7 @@ body {
 .btn:hover::before { animation: shineEffect 0.5s var(--ease) forwards; }
 .btn:active { transform: translateY(0) scale(0.97); }
 
-/* Gold (primary) */
+
 .btn-gold {
   background: var(--gold-gradient);
   background-size: 200% 200%;
@@ -584,7 +559,7 @@ body {
   animation: gradientShift 2s ease infinite;
 }
 
-/* Ghost */
+
 .btn-ghost {
   background: transparent;
   color: var(--text-secondary);
@@ -597,7 +572,7 @@ body {
   background: var(--bg-elevated);
 }
 
-/* Danger */
+
 .btn-danger {
   background: var(--danger-dim);
   color: var(--danger);
@@ -609,14 +584,14 @@ body {
   box-shadow: 0 0 20px rgba(239,68,68,0.20);
 }
 
-/* Small */
+
 .btn-sm {
   padding: 6px 14px;
   font-size: 12.5px;
   border-radius: var(--r-sm);
 }
 
-/* Disabled */
+
 .btn:disabled {
   opacity: 0.38;
   cursor: not-allowed;
@@ -624,9 +599,7 @@ body {
   transform: none;
 }
 
-/* ============================================================
-   §9  TABLE
-   ============================================================ */
+
 .table-card {
   background: var(--bg-raised);
   border: 1px solid var(--border);
@@ -654,7 +627,6 @@ body {
   color: var(--text-primary);
 }
 
-/* Scrollable table wrapper */
 .table-scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -690,7 +662,7 @@ tbody tr {
   transition: background var(--t-fast) var(--ease);
 }
 
-/* Alternating row tint */
+
 tbody tr:nth-child(even) {
   background: rgba(255,255,255,0.015);
 }
@@ -708,7 +680,7 @@ tbody td {
   vertical-align: middle;
 }
 
-/* Poster thumbnails */
+
 .movie-poster-thumb {
   width: 40px;
   height: 56px;
@@ -731,7 +703,7 @@ tbody td {
   color: var(--text-ghost);
 }
 
-/* Badges */
+
 .badge {
   display: inline-flex;
   align-items: center;
@@ -763,9 +735,7 @@ tbody td {
   justify-content: flex-end;
 }
 
-/* ============================================================
-   §10  EMPTY STATE
-   ============================================================ */
+
 .empty-state {
   padding: 80px 24px;
   text-align: center;
@@ -796,9 +766,7 @@ tbody td {
   margin: 0 auto;
 }
 
-/* ============================================================
-   §10b  FILTER CARD — Reviews Page
-   ============================================================ */
+
 .filter-card {
   background: var(--bg-raised);
   border: 1px solid var(--border);
@@ -822,9 +790,7 @@ tbody td {
   width: 100%;
 }
 
-/* ============================================================
-   §10c  AI SUMMARY CARD — Reviews Page
-   ============================================================ */
+
 .ai-summary-card {
   background: linear-gradient(135deg, rgba(232,168,56,0.08) 0%, rgba(232,168,56,0.04) 100%);
   border: 1px solid var(--gold-border);
@@ -889,9 +855,7 @@ tbody td {
   margin: 0;
 }
 
-/* ============================================================
-   §10d  REVIEW TEXT — Reviews Table
-   ============================================================ */
+
 .review-text {
   display: block;
   font-size: 13px;
@@ -903,9 +867,7 @@ tbody td {
   white-space: normal;
 }
 
-/* ============================================================
-   §11  PAGINATION
-   ============================================================ */
+
 .pagination {
   display: flex;
   align-items: center;
@@ -925,7 +887,7 @@ tbody td {
   align-items: center;
 }
 
-/* Pill-style page buttons */
+
 .pagination-btns .btn {
   min-width: 36px;
   height: 36px;
@@ -940,9 +902,7 @@ tbody td {
   box-shadow: 0 0 16px rgba(232,168,56,0.35);
 }
 
-/* ============================================================
-   §12  MODAL
-   ============================================================ */
+
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -976,7 +936,7 @@ tbody td {
   transition: transform var(--t-slow) var(--ease);
   box-shadow: var(--shadow-lg), 0 0 0 1px rgba(232,168,56,0.06);
 
-  /* Top-edge gold shimmer */
+  
   background-image: linear-gradient(180deg, rgba(232,168,56,0.04) 0%, transparent 60px);
 }
 
@@ -1043,9 +1003,7 @@ tbody td {
   background: linear-gradient(0deg, rgba(9,9,15,0.30) 0%, transparent 100%);
 }
 
-/* ============================================================
-   §13  FORMS
-   ============================================================ */
+
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1128,9 +1086,7 @@ select.form-control option {
   color: var(--text-primary);
 }
 
-/* ============================================================
-   §14  CONFIRM / ALERT MODAL
-   ============================================================ */
+
 .confirm-body {
   text-align: center;
   padding: 40px 28px 32px;
@@ -1159,9 +1115,7 @@ select.form-control option {
   margin: 0 auto;
 }
 
-/* ============================================================
-   §15  IMAGE GRID & UPLOAD AREA
-   ============================================================ */
+
 .image-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
@@ -1218,7 +1172,7 @@ select.form-control option {
   transform: scale(1);
 }
 
-/* Upload area */
+
 .upload-area {
   position: relative;
   border: 2px dashed rgba(232,168,56,0.20);
@@ -1234,7 +1188,7 @@ select.form-control option {
   overflow: hidden;
 }
 
-/* Animated border on hover via pseudo-element */
+
 .upload-area::before {
   content: '';
   position: absolute;
@@ -1265,9 +1219,7 @@ select.form-control option {
   line-height: 1.55;
 }
 
-/* ============================================================
-   §16  LOADING SPINNER
-   ============================================================ */
+
 .loading-spinner {
   display: flex;
   align-items: center;
@@ -1290,9 +1242,7 @@ select.form-control option {
   filter: drop-shadow(0 0 6px rgba(232,168,56,0.45));
 }
 
-/* ============================================================
-   §17  TOAST NOTIFICATIONS
-   ============================================================ */
+
 .toast-container {
   position: fixed;
   top: 80px;
@@ -1344,9 +1294,7 @@ select.form-control option {
   line-height: 1.45;
 }
 
-/* ============================================================
-   §18  AI SUMMARY CARD
-   ============================================================ */
+
 .ai-card {
   position: relative;
   background: linear-gradient(145deg, var(--bg-raised) 0%, rgba(22,22,37,0.80) 100%);
@@ -1394,9 +1342,7 @@ select.form-control option {
   line-height: 1.65;
 }
 
-/* ============================================================
-   §19  SIDEBAR (optional)
-   ============================================================ */
+
 .admin-sidebar {
   width: 240px;
   min-height: 100vh;
@@ -1458,11 +1404,9 @@ select.form-control option {
   padding: 16px 14px 6px;
 }
 
-/* ============================================================
-   §20  MISC UTILITIES
-   ============================================================ */
 
-/* Search input */
+
+
 .search-input-wrap {
   position: relative;
   display: flex;
@@ -1481,30 +1425,26 @@ select.form-control option {
   padding-left: 40px;
 }
 
-/* Status pill variants */
+
 .badge-success { background: var(--success-dim); color: var(--success); border-color: var(--success-border); }
 .badge-danger  { background: var(--danger-dim);  color: var(--danger);  border-color: var(--danger-border);  }
 .badge-warning { background: var(--warning-dim); color: var(--warning); border-color: rgba(245,158,11,0.25); }
 
-/* Divider */
+
 .divider {
   height: 1px;
   background: var(--border);
   margin: 20px 0;
 }
 
-/* ============================================================
-   §21  RESPONSIVE — TABLET (≤ 1024px)
-   ============================================================ */
+
 @media (max-width: 1024px) {
   .admin-page  { padding: 32px 24px; }
   .stat-grid   { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
   .quick-links { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
 }
 
-/* ============================================================
-   §22  RESPONSIVE — MOBILE (≤ 768px)
-   ============================================================ */
+
 @media (max-width: 768px) {
   .admin-topbar {
     padding: 0 18px;
@@ -1523,7 +1463,7 @@ select.form-control option {
 
   .table-card  { border-radius: var(--r-lg); }
 
-  /* Hide lower-priority table columns */
+ 
   thead th:nth-child(n+4),
   tbody td:nth-child(n+4) { display: none; }
 
@@ -1534,9 +1474,7 @@ select.form-control option {
   .toast { min-width: unset; max-width: 100%; }
 }
 
-/* ============================================================
-   §23  RESPONSIVE — SMALL MOBILE (≤ 480px)
-   ============================================================ */
+
 @media (max-width: 480px) {
   .stat-grid   { grid-template-columns: 1fr; }
   .btn { width: 100%; justify-content: center; }
@@ -1544,9 +1482,7 @@ select.form-control option {
   .table-toolbar { flex-direction: column; align-items: flex-start; }
 }
 
-/* ============================================================
-   §24  REDUCED MOTION
-   ============================================================ */
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

@@ -1,10 +1,4 @@
-/* ================================================================
-   CINEVERSE — watch-history.css
-   Blue accent variant of favorites.css / watchlist.css.
-   Reuses all .fwl-* base classes; only adds wh-* specific styles.
-================================================================ */
 
-/* ── Hero accent overrides (blue variant) ──────────────────── */
 .wh-hero-bg {
   background:
     radial-gradient(ellipse 60% 50% at 50% 0%, rgba(99,102,241,0.12) 0%, transparent 70%),
@@ -42,7 +36,7 @@
   50%       { box-shadow: 0 0 0 8px rgba(99,102,241,0.08); }
 }
 
-/* ── Statistics Section ────────────────────────────────────── */
+
 .wh-stats-section {
   max-width: 1400px;
   margin: 0 auto;
@@ -124,7 +118,7 @@
   color: rgba(255,255,255,0.4);
 }
 
-/* ── Section Header ────────────────────────────────────────── */
+
 .wh-section {
   margin-bottom: 48px;
 }
@@ -160,7 +154,7 @@
   flex-shrink: 0;
 }
 
-/* ── Carousel Nav Buttons ──────────────────────────────────── */
+
 .wh-carousel-nav {
   display: flex;
   gap: 8px;
@@ -185,7 +179,7 @@
   color: #818cf8;
 }
 
-/* ── Carousel Layout ───────────────────────────────────────── */
+
 .wh-carousel-wrap {
   overflow: hidden;
   position: relative;
@@ -198,7 +192,7 @@
   will-change: transform;
 }
 
-/* ── Continue Watching Card ────────────────────────────────── */
+
 .wh-cw-card {
   flex: 0 0 200px;
   border-radius: 16px;
@@ -266,7 +260,7 @@
   overflow: hidden;
 }
 
-/* Progress bar */
+
 .wh-progress-bar {
   height: 4px;
   background: rgba(255,255,255,0.1);
@@ -312,8 +306,7 @@
 
 .wh-resume-btn svg { flex-shrink: 0; }
 
-/* ── History Grid Card ─────────────────────────────────────── */
-/* #wh-grid is a div.fwl-grid — target by id so the selector actually hits */
+
 #wh-grid .mgc { animation: fwlFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
 .wh-card-extra {
@@ -401,7 +394,7 @@
   color: #22d3a0;
 }
 
-/* Completed badge overlay on poster */
+
 .wh-completed-badge {
   position: absolute;
   top: 10px; left: 10px;
@@ -420,7 +413,7 @@
   z-index: 2;
 }
 
-/* ── Browse Button (blue variant override) ─────────────────── */
+
 .fwl-main .fwl-browse-btn {
   background: linear-gradient(135deg, #6366f1, #818cf8);
   color: #fff;
@@ -430,20 +423,20 @@
   box-shadow: 0 8px 24px rgba(99,102,241,0.35);
 }
 
-/* ── Reuse fwl-empty icon accent ───────────────────────────── */
+
 #wh-empty .fwl-empty__icon,
 #wh-auth .fwl-empty__icon {
   color: rgba(99,102,241,0.4);
 }
 
-/* ── Responsive ─────────────────────────────────────────────── */
+
 @media (max-width: 640px) {
   .wh-stats-section { padding: 0 16px 32px; }
   .wh-cw-card { flex: 0 0 160px; }
   .wh-section__title { font-size: 1.3rem; }
 }
 
-/* ── fwl-grid & skeleton — self-contained (not loading favorites.css) ── */
+
 .fwl-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -536,7 +529,7 @@
   .fwl-grid { gap: 16px; }
 }
 
-/* Re-declare fwl animations so watch-history.css is self-contained */
+
 @keyframes fwlFadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }

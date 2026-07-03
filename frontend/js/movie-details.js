@@ -1,8 +1,4 @@
-/* ================================================================
-   CINEVERSE — MOVIE DETAILS PAGE CONTROLLER  v2.0
-   API: https://movie-app-qhzc.onrender.com
-   Reads ?id= from URL, fetches movie and related data.
-================================================================ */
+
 
 'use strict';
 

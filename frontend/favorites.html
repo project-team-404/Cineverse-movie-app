@@ -5,31 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CineVerse — My Favorites</title>
 
-  <!-- Google Fonts (same as rest of project) -->
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 
-  <!-- Existing project stylesheets -->
+  
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/navbar_home.css">
   <link rel="stylesheet" href="css/cards.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/footer.css">
-  <!-- Favorites-specific -->
+  
   <link rel="stylesheet" href="css/favorites.css">
 </head>
 <body>
 
-  <!-- Noise overlay -->
+ 
   <div class="noise-overlay" aria-hidden="true"></div>
-  <!-- Page transition -->
+  
   <div id="page-transition" aria-hidden="true"></div>
-  <!-- Toast -->
+  
   <div id="toast-container" role="status" aria-live="polite"></div>
 
-  <!-- ============ NAVBAR ============ -->
+  
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="home.html" class="nav-logo" aria-label="CineVerse Home">
@@ -134,7 +134,7 @@
     </nav>
   </nav>
 
-  <!-- ============ PAGE HERO ============ -->
+  
   <header class="fwl-hero" id="page-hero">
     <div class="fwl-hero__bg" aria-hidden="true"></div>
     <div class="fwl-hero__glow fwl-hero__glow--gold" aria-hidden="true"></div>
@@ -151,10 +151,10 @@
     </div>
   </header>
 
-  <!-- ============ MAIN CONTENT ============ -->
+  
   <main class="fwl-main">
 
-    <!-- Loading skeletons -->
+    
     <div class="fwl-grid" id="skeleton-grid" aria-hidden="true">
       <div class="fwl-skeleton-card" aria-hidden="true"><div class="fwl-skeleton fwl-skeleton--poster"></div><div class="fwl-skeleton fwl-skeleton--title"></div><div class="fwl-skeleton fwl-skeleton--meta"></div></div>
       <div class="fwl-skeleton-card" aria-hidden="true"><div class="fwl-skeleton fwl-skeleton--poster"></div><div class="fwl-skeleton fwl-skeleton--title"></div><div class="fwl-skeleton fwl-skeleton--meta"></div></div>
@@ -164,10 +164,10 @@
       <div class="fwl-skeleton-card" aria-hidden="true"><div class="fwl-skeleton fwl-skeleton--poster"></div><div class="fwl-skeleton fwl-skeleton--title"></div><div class="fwl-skeleton fwl-skeleton--meta"></div></div>
     </div>
 
-    <!-- Movies grid -->
+   
     <div class="fwl-grid" id="fav-grid" style="display:none" role="list" aria-label="Favorite movies"></div>
 
-    <!-- Empty state -->
+    
     <div class="fwl-empty" id="fav-empty" style="display:none">
       <div class="fwl-empty__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64">
@@ -179,7 +179,7 @@
       <a href="movie_page.html" class="fwl-browse-btn">Browse Movies</a>
     </div>
 
-    <!-- Auth required state -->
+    
     <div class="fwl-empty" id="fav-auth" style="display:none">
       <div class="fwl-empty__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64">
@@ -193,7 +193,7 @@
 
   </main>
 
-  <!-- ============ FOOTER ============ -->
+  
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-logo">
@@ -204,7 +204,7 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
+  
 <script src="js/auth/config/api.js"></script>
   <script src="js/cv-api.js"></script>
   <script src="js/favorites.js"></script>
