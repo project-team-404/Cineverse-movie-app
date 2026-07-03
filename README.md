@@ -17,10 +17,10 @@
 [![Render](https://img.shields.io/badge/Deployed_on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com)
 [![JWT](https://img.shields.io/badge/Auth-JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)](https://jwt.io)
 [![LangChain](https://img.shields.io/badge/LangChain-AI-1C3C3C?style=for-the-badge&logo=chainlink&logoColor=white)](https://langchain.com)
-
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
-[![Made with ❤️](https://img.shields.io/badge/Made%20with-❤️-red.svg?style=flat-square)](#contributors)
+
 
 [Live Demo](https://cineverse-movie-app.onrender.com) · [API Docs](https://cineverse-movie-app.onrender.com/scalar) · [Report Bug](issues) · [Request Feature](issues)
 
@@ -382,18 +382,7 @@ Natural language queries like *"show me sci-fi movies after 2020 similar to Inte
 
 ---
 
-## 🗺 Backend Roadmap
 
-| Version | Features | Status |
-|---|---|---|
-| V1 | Auth, Movies CRUD, Genres, Admin, Search, Docker | ✅ Complete |
-| V2 | Favorites, Reviews, Ratings | ✅ Complete |
-| V3 | AI Review Summary, Watchlist, Watch History, Profile | ✅ Complete |
-| V4 | Home API, Recently Added, Top Rated, Latest | ✅ Complete |
-| V5 | AI Recommendations, Semantic Search, Local LLM | 🔄 In Progress |
-| V6 | OTP Email, Redis, Rate Limiting, CD, Monitoring | 📋 Planned |
-
----
 
 ## ☁️ Deployment
 
