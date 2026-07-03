@@ -21,8 +21,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
-
-[Live Demo](https://cineverse-movie-app.onrender.com) · [API Docs](https://cineverse-movie-app.onrender.com/scalar) · [Report Bug](issues) · [Request Feature](issues)
+[Frontend](https://cineverse-movie-app-1.onrender.com/home.html) · [Backend API](https://cineverse-movie-app.onrender.com) · [API Docs](https://cineverse-movie-app.onrender.com/scalar) · [Report Bug](issues) · [Request Feature](issues)
 
 </div>
 
@@ -389,8 +388,14 @@ Natural language queries like *"show me sci-fi movies after 2020 similar to Inte
 The backend is deployed on **Render** using Docker.
 
 ```
-Backend URL:  https://cineverse-movie-app.onrender.com
-API Docs:     https://cineverse-movie-app.onrender.com/scalar
+Frontend URL:
+https://cineverse-movie-app-1.onrender.com/home.html
+
+Backend URL:
+https://cineverse-movie-app.onrender.com
+
+API Documentation:
+https://cineverse-movie-app.onrender.com/scalar
 ```
 
 **Deployment steps:**
@@ -517,6 +522,23 @@ https://your-service-name.onrender.com/scalar
 > ⚠️ **Note:** Free tier Render services spin down after 15 minutes of inactivity. The first request after sleep may take 30–60 seconds to respond.
  
 ---
+## ⚠️ Deployment Limitations
+
+The CineVerse application is successfully deployed on Render and all core features such as authentication, movie browsing, watchlist, favorites, reviews, profile management, and the admin dashboard are fully functional.
+
+However, the following features are available **only when running the project locally**:
+
+### 🤖 AI Movie Recommendations
+- Uses Hugging Face Embeddings together with a local ChromaDB vector database.
+- Render's free tier does not support the required local vector storage and embedding generation used by the recommendation pipeline.
+- As a result, AI movie recommendations are disabled in the deployed version but work correctly in a local environment.
+
+### 📧 OTP Email Verification
+- The OTP email service is configured only for local development.
+- For security reasons, the required SMTP credentials are not configured in the public Render deployment.
+- Therefore, OTP registration, email verification, and password reset via email are available only when running the project locally.
+
+> **Note:** These limitations are related to the deployment environment and free-tier hosting constraints, not the application itself. Running the project locally with the required environment variables and API keys enables all features.
 
 ## 🔮 Future Improvements
 
@@ -597,6 +619,13 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 <div align="center">
 
 Built by the CineVerse Team
+
+> **Note**
+>
+> The deployed application demonstrates the complete frontend and backend functionality.
+>
+> The AI Movie Recommendation feature is available only when running the project locally due to Render free-tier limitations with Hugging Face embeddings and the local ChromaDB vector store required by the recommendation pipeline.
+>
 
 **[⬆ Back to top](#-cineverse)**
 
