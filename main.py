@@ -63,7 +63,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+@app.middleware("http")
 async def log_requests(request: Request, call_next):
     start = time.perf_counter()
     response = await call_next(request)
