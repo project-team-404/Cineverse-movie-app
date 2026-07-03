@@ -4,11 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manage Reviews — CineVerse Admin</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png">
+<meta name="title" content="CineVerse Admin — Manage Reviews">
+<meta name="description" content="Review moderation dashboard for CineVerse. Manage user reviews, ratings, and maintain community quality.">
+<meta name="keywords" content="CineVerse, Admin, Reviews, Movie Reviews, Moderation">
+<meta name="author" content="CineVerse Team">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0F111A">
+
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CineVerse">
+<meta property="og:title" content="CineVerse Admin — Manage Reviews">
+<meta property="og:description" content="Moderate user reviews and ratings on CineVerse.">
+<meta property="og:url" content="https://cineverse-movie-app.onrender.com/manage-reviews.html">
   <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
 
-  <!-- ── Top Bar ── -->
+  
   <header class="admin-topbar">
     <a href="home.html" class="admin-topbar-brand">
       <span class="brand-name">CineVerse</span>
@@ -27,7 +41,7 @@
 
   <main class="admin-page">
 
-    <!-- ── Page Header ── -->
+   
     <div class="admin-page-header">
       <div>
         <h1 class="admin-page-title">Manage Reviews</h1>
@@ -35,7 +49,7 @@
       </div>
     </div>
 
-    <!-- ── Movie Filter Section ── -->
+    
     <div class="filter-card">
       <label class="filter-label">Movie</label>
       <select id="movie-filter" class="form-control">
@@ -43,7 +57,7 @@
       </select>
     </div>
 
-    <!-- ── Statistics Cards ── -->
+    
     <div class="stat-grid">
 
       <div class="stat-card">
@@ -72,7 +86,7 @@
 
     </div>
 
-    <!-- ── ai Summary Card ── -->
+    
     <div class="ai-summary-card">
       <div class="ai-summary-header">
         <h2 class="ai-summary-title">✨ AI Review Summary</h2>
@@ -81,7 +95,7 @@
       <p class="ai-summary-text" id="summary-text">Select a movie to analyze reviews</p>
     </div>
 
-    <!-- ── Reviews Table ── -->
+    
     <div class="table-card">
       <div id="reviews-table-body">
         <div class="empty-state"><div class="empty-state-icon">💬</div><h3>Select a movie</h3><p>Choose a movie from the filter above to view its reviews.</p></div>
@@ -90,7 +104,7 @@
 
   </main>
 
-  <!-- ══ DELETE CONFIRM MODAL ══ -->
+  
   <div class="modal-overlay" id="delete-review-modal">
     <div class="modal" style="max-width:400px">
       <div class="modal-header">
@@ -108,10 +122,10 @@
       </div>
     </div>
   </div>
-
+<script src="js/auth/config/api.js"></script>
   <script src="js/cv-api.js"></script>
   <script src="js/manage-reviews.js"></script>
-  <script src="config/api.js"></script>
+  
 
 </body>
 </html>

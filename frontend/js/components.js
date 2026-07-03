@@ -1,8 +1,4 @@
-/* ============================================================
-   CINEVERSE — COMPONENT BUILDERS
-   ============================================================ */
 
-/* ── SVG ICONS ── */
 const Icons = {
   play: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`,
   plus: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>`,
@@ -21,7 +17,7 @@ const Icons = {
   chevronDown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`,
 };
 
-/* ── SKELETON CARDS ── */
+
 function skeletonCards(count = 6, variant = '') {
   return Array.from({ length: count }, () =>
     `<div class="movie-card-skeleton movie-card${variant ? '-' + variant : ''} skeleton-wrap">
@@ -32,7 +28,7 @@ function skeletonCards(count = 6, variant = '') {
   ).join('');
 }
 
-/* ── MOVIE CARD ── */
+
 function buildMovieCard(movie, variant = '') {
   const poster = TMDB.posterURL(movie.poster_path, 'poster_md') || FALLBACK_POSTER;
   const year   = fmtYear(movie.release_date);
@@ -92,7 +88,6 @@ function buildMovieCard(movie, variant = '') {
   </article>`;
 }
 
-/* ── CONTINUE WATCHING CARD ── */
 function buildCWCard(movie) {
   const backdrop = TMDB.backdropURL(movie.backdrop_path || movie.poster_path, 'backdrop_sm') || FALLBACK_POSTER;
   const pct = Math.round((movie.progress || 0.3) * 100);
@@ -126,7 +121,7 @@ function buildCWCard(movie) {
   </article>`;
 }
 
-/* ── CAROUSEL SECTION ── */
+
 function buildCarouselSection({ id, eyebrow, title, subtitle, link = '#', cards, variant = '' }) {
   return `
   <section class="section" id="${id}" aria-label="${title}">
@@ -154,7 +149,7 @@ function buildCarouselSection({ id, eyebrow, title, subtitle, link = '#', cards,
   </section>`;
 }
 
-/* ── FEATURED SIDEBAR CARD ── */
+
 function buildFeaturedSidebarCard(movie, rank) {
   const poster = TMDB.posterURL(movie.poster_path, 'poster_sm') || FALLBACK_POSTER;
   return `
@@ -172,7 +167,7 @@ function buildFeaturedSidebarCard(movie, rank) {
   </div>`;
 }
 
-/* ── GENRE GRID CARD ── */
+
 const GENRE_IMAGES = {
   28:    'https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?w=600&q=70',
   12:    'https://images.unsplash.com/photo-1533240332313-0db49b459ad6?w=600&q=70',
@@ -207,15 +202,15 @@ function buildGenreCard(genreId) {
   </a>`;
 }
 
-/* ── BIND CARD INTERACTIONS ── */
+
 function bindCardEvents(container) {
   container.addEventListener('click', e => {
-    // Watchlist
+    
     const wlBtn = e.target.closest('.wl-btn');
     if (wlBtn) {
       e.stopPropagation();
       const id = parseInt(wlBtn.dataset.id);
-      // Find movie data from DOM (simplified — real app would keep a data store)
+      
       const card = wlBtn.closest('.movie-card');
       const title = card?.querySelector('.movie-card-title')?.textContent || 'Movie';
       Watchlist.add({ id, title, poster_path: null, vote_average: 0, release_date: '', genre_ids: [] });
@@ -224,7 +219,7 @@ function bindCardEvents(container) {
       return;
     }
 
-    // Favorites
+    
     const favBtn = e.target.closest('.fav-btn');
     if (favBtn) {
       e.stopPropagation();
@@ -237,14 +232,14 @@ function bindCardEvents(container) {
       return;
     }
 
-    // Navigate to details
+   
     const card = e.target.closest('.movie-card');
     if (card?.dataset.id) {
       window.location.href = `movie-details.html?id=${card.dataset.id}`;
     }
   });
 
-  // Keyboard nav
+  
   container.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
       const card = e.target.closest('.movie-card');

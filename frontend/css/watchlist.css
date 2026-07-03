@@ -1,10 +1,4 @@
-/* ================================================================
-   CINEVERSE — watchlist.css
-   Teal/blue accent variant of favorites.css.
-================================================================ */
 
-/* ── Import all shared fwl styles from favorites.css ── */
-/* (Both pages load this file separately so we redeclare all styles) */
 
 .fwl-hero {
   position: relative;
@@ -233,26 +227,22 @@
   .fwl-grid { gap: 16px; }
 }
 
-/* ================================================================
-   FULL RESPONSIVE BREAKPOINT SYSTEM (WATCHLIST PAGE)
-   Loaded last in the cascade so it can safely override navbar/card
-   defaults from earlier stylesheets without touching those files.
-   ================================================================ */
+
 
 html, body { max-width: 100%; overflow-x: hidden; }
 .fwl-main, .fwl-hero, .fwl-grid, .fwl-empty { max-width: 100%; }
 
-/* Profile dropdown overflow guard (shared navbar markup) */
+
 .profile-dropdown {
   max-width: calc(100vw - 32px);
 }
 
-/* ========= 1920px+ (Large Desktop) ========= */
+
 @media (min-width: 1920px) {
   .fwl-hero__title { font-size: clamp(3rem, 5vw, 6rem); }
 }
 
-/* ========= 1600px / 1440px / 1366px ========= */
+
 @media (max-width: 1600px) {
   .fwl-main { max-width: 1300px; }
 }
@@ -263,14 +253,14 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .fwl-main { padding: 44px 28px 72px; }
 }
 
-/* ========= 1024px (Tablet Landscape) ========= */
+
 @media (max-width: 1024px) {
   .fwl-hero { padding: 110px 0 56px; }
   .fwl-main { padding: 40px 24px 64px; }
   .fwl-grid { gap: 20px; }
 }
 
-/* ========= 768px (Tablet Portrait) ========= */
+
 @media (max-width: 768px) {
   .fwl-hero { padding: 96px 0 44px; }
   .fwl-hero__icon { width: 60px; height: 60px; }
@@ -280,7 +270,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .fwl-empty { padding: 64px 20px; }
 }
 
-/* ========= 576px (Large Mobile) ========= */
+
 @media (max-width: 576px) {
   .fwl-hero { padding: 88px 0 40px; }
   .fwl-hero__subtitle { font-size: 0.85rem; letter-spacing: 0.1em; }
@@ -292,7 +282,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .profile-dropdown { width: min(260px, calc(100vw - 32px)); right: -8px; }
 }
 
-/* ========= 480px (Medium Mobile) ========= */
+
 @media (max-width: 480px) {
   .fwl-hero { padding: 80px 0 36px; }
   .fwl-hero__icon { width: 52px; height: 52px; margin-bottom: 4px; }
@@ -303,14 +293,14 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .fwl-empty__icon { width: 80px; height: 80px; }
 }
 
-/* ========= 375px (Small Mobile) ========= */
+
 @media (max-width: 375px) {
   .fwl-main { padding: 24px 12px 48px; }
   .fwl-grid { gap: 10px; }
   .fwl-hero__title { letter-spacing: 0.05em; }
 }
 
-/* ========= 320px (Very Small Devices) ========= */
+
 @media (max-width: 320px) {
   .fwl-hero { padding: 72px 0 32px; }
   .fwl-main { padding: 20px 10px 44px; }

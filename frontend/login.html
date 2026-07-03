@@ -4,6 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CineVerse — Sign In</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+   <meta name="title" content="CineVerse — Sign In">
+  <meta name="description" content="Sign in to CineVerse and continue your cinematic journey. Discover movies, manage your watchlist, favorites, reviews, and personalized recommendations.">
+  <meta name="keywords" content="CineVerse, Movies, Streaming, Watchlist, Favorites, Movie Reviews, Cinema">
+  <meta name="author" content="CineVerse Team">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0f111a">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CineVerse — Sign In">
+  <meta property="og:description" content="Sign in to CineVerse and continue your cinematic journey.">
+  <meta property="og:image" content="assets/images/logo.png">
+  <meta property="og:url" content="https://cineverse-movie-app.onrender.com">
+  <meta property="og:site_name" content="CineVerse">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CineVerse — Sign In">
+  <meta name="twitter:description" content="Sign in to CineVerse and continue your cinematic journey.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -11,20 +32,20 @@
 </head>
 <body>
 
-  <!-- Ambient background particles -->
+  
   <canvas id="particle-canvas"></canvas>
 
-  <!-- Cinematic background glow orbs -->
+  
   <div class="bg-orb bg-orb--gold"></div>
   <div class="bg-orb bg-orb--purple"></div>
 
-  <!-- Film grain overlay -->
+  
   <div class="grain-overlay"></div>
 
-  <!-- Page wrapper -->
+  
   <div class="page-wrapper" id="page-wrapper">
 
-    <!-- Brand bar -->
+    
     <header class="brand-bar">
       <a href="#" class="brand-logo">
         <span class="brand-logo__icon">▶</span>
@@ -32,26 +53,26 @@
       </a>
     </header>
 
-    <!-- Main auth card -->
+    
     <main class="auth-stage">
       <div class="auth-card" id="auth-card">
 
-        <!-- Card glow border -->
+        
         <div class="auth-card__border"></div>
 
-        <!-- Card inner content -->
+        
         <div class="auth-card__inner">
 
-          <!-- Heading -->
+          
           <div class="auth-card__head">
             <h1 class="auth-card__title">Welcome Back</h1>
             <p class="auth-card__subtitle">Sign in to continue your cinematic journey</p>
           </div>
 
-          <!-- Form -->
+          
           <form class="auth-form" id="login-form" novalidate>
 
-            <!-- Email field -->
+            
             <div class="field-group" id="field-email">
               <label class="field-label" for="email">Email Address</label>
               <div class="field-wrap">
@@ -71,7 +92,7 @@
               <span class="field-error" id="email-error"></span>
             </div>
 
-            <!-- Password field -->
+            
             <div class="field-group" id="field-password">
               <label class="field-label" for="password">Password</label>
               <div class="field-wrap">
@@ -97,7 +118,7 @@
             <div class="forgot-password">
     <a href="#" id="forgot-password-link">Forgot Password?</a>
 </div>
-            <!-- Submit button -->
+            
             <button type="submit" class="btn-primary" id="login-btn">
               <span class="btn-primary__text">Sign In</span>
               <span class="btn-primary__spinner" aria-hidden="true"></span>
@@ -106,12 +127,12 @@
            
           </form>
 
-          <!-- Divider -->
+          
           <div class="auth-divider">
             <span>or</span>
           </div>
 
-          <!-- Footer link -->
+          
           <p class="auth-footer-text">
             New to CineVerse?
             <a href="signup.html" class="auth-link">Create an account</a>
@@ -137,14 +158,14 @@
         <div class="field-group">
           <label class="field-label" for="request-id">Request ID</label>
           <div class="field-wrap">
-            <span class="field-icon"><!-- your icon svg --></span>
+            <span class="field-icon"></span>
             <input class="field-input" type="text" id="request-id" placeholder="e.g. REQ-00421">
           </div>
         </div>
 <div class="field-group">
   <label class="field-label" for="new-password">New Password</label>
   <div class="field-wrap">
-    <span class="field-icon"><!-- lock icon --></span>
+    <span class="field-icon"></span>
     <input class="field-input" type="password" id="new-password" placeholder="New password">
     <button type="button" class="field-toggle" id="toggle-new-password" aria-label="Show password">
       <svg id="eye-new" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -155,7 +176,7 @@
 <div class="field-group">
   <label class="field-label" for="confirm-new-password">Confirm Password</label>
   <div class="field-wrap">
-    <span class="field-icon"><!-- lock icon --></span>
+    <span class="field-icon"></span>
     <input class="field-input" type="password" id="confirm-new-password" placeholder="Confirm password">
     <button type="button" class="field-toggle" id="toggle-confirm-password" aria-label="Show password">
       <svg id="eye-confirm" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -177,7 +198,7 @@
   </div>
   
 </div>
-  <!-- Toast container -->
+  
   <div class="toast-container" id="toast-container" aria-live="polite"></div>
 <script src="js/auth/config/api.js"></script>
   <script src="js/login.js"></script>

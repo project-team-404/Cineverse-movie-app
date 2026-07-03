@@ -4,6 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CineVerse — Watch History</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+<meta name="title" content="CineVerse — Watch History">
+<meta name="description" content="View your complete watch history, continue watching unfinished movies, and track your movie-watching progress on CineVerse.">
+<meta name="keywords" content="CineVerse, Watch History, Movies, Continue Watching, Streaming, Cinema">
+<meta name="author" content="CineVerse Team">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0F111A">
+
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CineVerse">
+<meta property="og:title" content="CineVerse — Watch History">
+<meta property="og:description" content="Track your movie journey and continue watching your favorite films with CineVerse.">
+
+<meta property="og:url" content="https://cineverse-movie-app.onrender.com/watch-history.html">
+
+
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +40,7 @@
   <div id="page-transition" aria-hidden="true"></div>
   <div id="toast-container" role="status" aria-live="polite"></div>
 
-  <!-- ============ NAVBAR ============ -->
+  
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="home.html" class="nav-logo" aria-label="CineVerse Home">
@@ -78,7 +95,7 @@
     </nav>
   </nav>
 
-  <!-- ============ PAGE HERO ============ -->
+ 
   <header class="fwl-hero" id="page-hero">
     <div class="fwl-hero__bg wh-hero-bg" aria-hidden="true"></div>
     <div class="fwl-hero__glow wh-hero-glow--blue"   aria-hidden="true"></div>
@@ -96,7 +113,7 @@
     </div>
   </header>
 
-  <!-- ============ STATISTICS ============ -->
+  
   <section class="wh-stats-section" id="wh-stats-section" aria-label="Watch statistics">
     <div class="wh-stats-grid stagger-children" id="wh-stats-grid">
       <div class="wh-stat-card">
@@ -138,10 +155,10 @@
     </div>
   </section>
 
-  <!-- ============ MAIN CONTENT ============ -->
+  
   <main class="fwl-main">
 
-    <!-- ── Continue Watching Section ── -->
+   
     <section class="wh-section" id="wh-continue-section" style="display:none" aria-label="Continue watching">
       <div class="wh-section__head">
         <h2 class="wh-section__title">
@@ -166,7 +183,7 @@
       </div>
     </section>
 
-    <!-- ── Watch History Section ── -->
+    
     <section class="wh-section" id="wh-history-section" aria-label="Watch history">
       <div class="wh-section__head">
         <h2 class="wh-section__title">
@@ -179,7 +196,7 @@
         </h2>
       </div>
 
-      <!-- Skeletons -->
+      
       <div class="fwl-grid" id="wh-skeleton-grid" aria-hidden="true">
         <div class="fwl-skeleton-card"><div class="fwl-skeleton fwl-skeleton--poster"></div><div class="fwl-skeleton fwl-skeleton--title"></div><div class="fwl-skeleton fwl-skeleton--meta"></div></div>
         <div class="fwl-skeleton-card"><div class="fwl-skeleton fwl-skeleton--poster"></div><div class="fwl-skeleton fwl-skeleton--title"></div><div class="fwl-skeleton fwl-skeleton--meta"></div></div>
@@ -189,10 +206,10 @@
         <div class="fwl-skeleton-card"><div class="fwl-skeleton fwl-skeleton--poster"></div><div class="fwl-skeleton fwl-skeleton--title"></div><div class="fwl-skeleton fwl-skeleton--meta"></div></div>
       </div>
 
-      <!-- History grid -->
+      
       <div class="fwl-grid" id="wh-grid" style="display:none" role="list" aria-label="Watch history movies"></div>
 
-      <!-- Empty state -->
+      
       <div class="fwl-empty" id="wh-empty" style="display:none">
         <div class="fwl-empty__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64">
@@ -204,7 +221,7 @@
         <a href="movie_page.html" class="fwl-browse-btn">Browse Movies</a>
       </div>
 
-      <!-- Auth required -->
+     
       <div class="fwl-empty" id="wh-auth" style="display:none">
         <div class="fwl-empty__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64">
@@ -220,7 +237,7 @@
 
   </main>
 
-  <!-- ============ FOOTER ============ -->
+ 
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-logo">

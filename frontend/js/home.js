@@ -1,18 +1,4 @@
-/* ============================================================
-   CINEVERSE - HOME PAGE CONTROLLER
-   Synced to FastAPI backend: https://cineverse-movie-app.onrender.com
-   API fields used exactly as returned:
-     movie: id, title, description, release_year, duration,
-            language, rating, poster_url, trailer_url,
-            genre{id,name}, images[{id,image_url}]
-     genre: id, name
-   Home endpoint: GET /movies/home/ → {top_rated, latest, recently_added}
-     top_rated      → Top Rated All Time section
-     recently_added → Recently Added section
-     latest         → Latest Releases section
-   ============================================================ */
 
-/* ── BASE CONFIG ── */
 const CINEVERSE_API_BASE =
     window.API_BASE ||
     "https://cineverse-movie-app.onrender.com";
@@ -22,16 +8,16 @@ const CV_BACKDROP_FALLBACK =
   (typeof FALLBACK_BACKDROPS !== 'undefined' && Array.isArray(FALLBACK_BACKDROPS) && FALLBACK_BACKDROPS[0])
   || '';
 
-/* ── STATE (fetched once, reused everywhere) ── */
-let homeMovies      = [];   // all movies from GET /movies/
-let homeData        = null; // structured data from GET /movies/home/
-let cachedGenres    = [];   // raw list from GET /genres/
-let genreMap        = {};   // {id: name} built from cachedGenres
+
+let homeMovies      = [];   
+let homeData        = null; 
+let cachedGenres    = [];  
+let genreMap        = {};   
 let heroMovies      = [];
 let heroIndex       = 0;
 let heroTimer       = null;
 
-/* ── PATCH TMDB IF PRESENT ── */
+
 if (typeof TMDB !== 'undefined' && TMDB) {
   const _posterURL   = TMDB.posterURL.bind(TMDB);
   const _backdropURL = TMDB.backdropURL.bind(TMDB);
@@ -39,9 +25,7 @@ if (typeof TMDB !== 'undefined' && TMDB) {
   TMDB.backdropURL = (path, size) => resolveApiImage(path) || _backdropURL(path, size);
 }
 
-/* ============================================================
-   API HELPERS
-============================================================ */
+
 function normalizeBaseUrl(v) {
   const s = String(v || '').trim();
   return s.endsWith('/') ? s : s + '/';
@@ -57,11 +41,7 @@ async function apiGet(path, params = {}) {
   return res.json();
 }
 
-/* ============================================================
-   IMAGE RESOLUTION
-   Backend poster_url is always an absolute URL (http/https).
-   Never double-prepend the base.
-============================================================ */
+
 function resolveApiImage(value) {
   const raw = String(value || '').trim();
   if (!raw || raw === 'null' || raw === 'undefined') return '';
@@ -72,7 +52,7 @@ function resolveApiImage(value) {
 }
 
 function getPoster(movie) {
-  /* Priority: poster_url (backend field) → images[0].image_url → placeholder */
+  
   const url = resolveApiImage(
     movie?.poster_url ||
     movie?.poster_path ||
@@ -83,7 +63,7 @@ function getPoster(movie) {
 }
 
 function getBackdrop(movie) {
-  /* Prefer images[1] as backdrop, then images[0], then poster_url */
+ 
   const url = resolveApiImage(
     movie?.backdrop_url ||
     (movie?.images && movie.images[1] && movie.images[1].image_url) ||
@@ -95,32 +75,28 @@ function getBackdrop(movie) {
   return url || getPoster(movie) || CV_BACKDROP_FALLBACK;
 }
 
-/* ============================================================
-   MOVIE NORMALIZATION
-   Maps every backend field to a unified shape used by all UI builders.
-   release_year (int) → release_date string for fmtYear compatibility.
-============================================================ */
+
 function normalizeMovie(raw) {
   if (!raw || raw.id == null) return null;
 
   const images      = Array.isArray(raw.images) ? raw.images : [];
-  // Backend: genre is an object {id, name}
+  
   const genreObj    = (raw.genre && typeof raw.genre === 'object') ? raw.genre : {};
   const genreId     = genreObj.id ?? raw.genre_id ?? null;
   const genreName   = genreObj.name || (genreId != null ? genreMap[genreId] : null) || 'Film';
 
-  // Backend: release_year is an integer, not a date string
+ 
   const releaseYear = raw.release_year || yearFromStr(raw.release_date) || null;
-  // Construct a sortable date string so byRecent() works
+  
   const releaseDate = raw.release_date || (releaseYear ? String(releaseYear) + '-01-01' : '');
 
-  // Backend: rating (not vote_average)
+  
   const rating      = Number(raw.rating ?? raw.vote_average ?? 0);
 
-  // Resolve poster — primary field is poster_url
+
   const poster      = resolveApiImage(raw.poster_url || raw.poster_path ||
                         (images[0] && images[0].image_url) || '');
-  // Backdrop: try images[1] first, fall back to images[0]/poster
+  
   const backdrop    = resolveApiImage(
                         (images[1] && images[1].image_url) ||
                         (images[0] && images[0].image_url) ||
@@ -137,7 +113,7 @@ function normalizeMovie(raw) {
     language:     raw.language || '',
     vote_average: rating,
     rating,
-    // Use rating as popularity proxy since backend has no popularity field
+    
     popularity:   Number(raw.popularity ?? rating),
     poster_path:  poster,
     poster_url:   poster,
@@ -159,18 +135,16 @@ function normalizeMovieList(data) {
   return list.map(normalizeMovie).filter(Boolean);
 }
 
-/* ============================================================
-   DATA FETCHING  — fetch once, cache, never duplicate requests
-============================================================ */
+
 async function fetchAllData() {
-  // Fetch genres and movies in parallel
+  
   const [genresRaw, moviesRaw, homeRaw] = await Promise.allSettled([
     apiGet('/genres/'),
     apiGet('/movies/', { page: 1, limit: CINEVERSE_API_LIMIT }),
     apiGet('/movies/home/'),
   ]);
 
-  /* ── Genres ── */
+  
   if (genresRaw.status === 'fulfilled' && Array.isArray(genresRaw.value)) {
     cachedGenres = genresRaw.value.filter(g => g?.id != null && g?.name);
     genreMap = {};
@@ -182,7 +156,7 @@ async function fetchAllData() {
     console.warn('GET /genres/ failed:', genresRaw.reason?.message);
   }
 
-  /* ── Movies (full list) ── */
+  
   if (moviesRaw.status === 'fulfilled') {
     homeMovies = normalizeMovieList(moviesRaw.value);
   } else {
@@ -190,7 +164,7 @@ async function fetchAllData() {
     homeMovies = [];
   }
 
-  /* ── Home structured data ── */
+
   if (homeRaw.status === 'fulfilled' && homeRaw.value && typeof homeRaw.value === 'object') {
     const h = homeRaw.value;
     homeData = {
@@ -209,16 +183,12 @@ async function searchBackendMovies(query) {
   return normalizeMovieList(data);
 }
 
-/* ============================================================
-   SORT HELPERS  (client-side, on cached data)
-============================================================ */
+
 function byRating(list)      { return [...list].sort((a, b) => (b.vote_average || 0) - (a.vote_average || 0)); }
 function byRecent(list)      { return [...list].sort((a, b) => String(b.release_date || '').localeCompare(String(a.release_date || ''))); }
 function byPopularity(list)  { return [...list].sort((a, b) => (b.popularity || b.vote_average || 0) - (a.popularity || a.vote_average || 0)); }
 
-/* ============================================================
-   UTILITY
-============================================================ */
+
 function yearFromStr(v) {
   const m = String(v || '').match(/\d{4}/);
   return m ? Number(m[0]) : null;
@@ -237,11 +207,7 @@ function escHtml(v) {
 }
 function escAttr(v) { return escHtml(v); }
 
-/* ============================================================
-   HERO
-   Uses top-rated movies from /movies/home/ if available,
-   otherwise falls back to byPopularity(homeMovies).
-============================================================ */
+
 function initHero() {
   heroMovies = (homeData?.top_rated?.length ? homeData.top_rated : byPopularity(homeMovies)).slice(0, 8);
   if (!heroMovies.length) return;
@@ -316,16 +282,16 @@ function renderHeroContent(movie) {
   const playBtn  = document.querySelector('.hero-play-btn');
   const moreBtn  = document.querySelector('.hero-more-btn');
 
-  // Split title: last word gets gold accent
+  
   const words = String(movie.title || '').split(' ');
   const last  = words.pop() || '';
   if (titleEl) titleEl.innerHTML = `${escHtml(words.join(' '))}${words.length ? ' ' : ''}<span class="title-accent">${escHtml(last)}</span>`;
 
-  // Backend field: description (not overview)
+
   if (descEl)   descEl.textContent   = (movie.description || movie.overview || '').slice(0, 190);
-  // Backend field: rating (not vote_average) — but normalizeMovie maps both to vote_average
+  
   if (ratingEl) ratingEl.textContent = fmtRating(movie.vote_average);
-  // Backend field: release_year (int) — fmtYear handles the constructed release_date string
+  
   if (yearEl)   yearEl.textContent   = movie.release_year || fmtYear(movie.release_date) || '—';
   if (genreEl)  genreEl.innerHTML    = `<span class="hero-genre-tag">${escHtml(genreLabel(movie))}</span>`;
   if (playBtn)  playBtn.dataset.id   = movie.id;
@@ -355,10 +321,7 @@ function startHeroAutoplay() {
 
 function resetHeroAutoplay() { startHeroAutoplay(); }
 
-/* ============================================================
-   FEATURED SPOTLIGHT
-   Uses byPopularity from homeMovies (top 5)
-============================================================ */
+
 function loadFeaturedSection() {
   const mainArea    = document.querySelector('.featured-main');
   const sidebarArea = document.querySelector('.featured-sidebar');
@@ -417,10 +380,7 @@ function showFeaturedMain(movie) {
   if (typeof initMagnetic === 'function') initMagnetic();
 }
 
-/* ============================================================
-   TRENDING THIS WEEK
-   Uses byPopularity from homeMovies (top 10)
-============================================================ */
+
 function loadTrendingSection() {
   const target = document.getElementById('trending-track');
   if (!target) return;
@@ -504,12 +464,7 @@ function updateTrendingDetail(movie, index) {
   }, 160);
 }
 
-/* ============================================================
-   TOP RATED ALL TIME
-   Uses homeData.top_rated from GET /movies/home/ (sorted by backend),
-   falls back to byRating(homeMovies).
-   Renders with the same trending-card style + detail panel.
-============================================================ */
+
 function loadTopRatedSection() {
   const track  = document.getElementById('toprated-track');
   const detail = document.getElementById('toprated-detail');
@@ -570,33 +525,24 @@ function updateTopRatedDetail(movie, index) {
   }, 160);
 }
 
-/* ============================================================
-   RECENTLY ADDED  — uses homeData.recently_added from GET /movies/home/
-   Falls back to byRecent(homeMovies)
-============================================================ */
+
 function loadNowPlayingSection() {
   const movies = (homeData?.recently_added?.length ? homeData.recently_added : byRecent(homeMovies)).slice(0, 14);
   fillMovieTrack('nowplaying-track', movies);
 }
 
-/* ============================================================
-   LATEST RELEASES  — uses homeData.latest from GET /movies/home/
-   Falls back to byRecent(homeMovies)
-============================================================ */
+
 function loadUpcomingSection() {
   const movies = (homeData?.latest?.length ? homeData.latest : byRecent(homeMovies)).slice(0, 14);
   fillMovieTrack('upcoming-track', movies, 'wide');
 }
 
-/* ============================================================
-   RECOMMENDED FOR YOU
-   Uses mid-tier by rating (not shown in top-rated already)
-============================================================ */
+
 function loadRecommended() {
   const track  = document.getElementById('recommended-track');
   if (!track) return;
 
-  // Use all movies sorted by rating, offset by 5 to avoid top-rated duplication
+ 
   const movies = byRating(homeMovies).slice(5, 20);
   if (!movies.length) { setTrackEmpty(track); return; }
 
@@ -613,9 +559,7 @@ function loadRecommended() {
   lazyLoadImages();
 }
 
-/* ============================================================
-   CONTINUE WATCHING
-============================================================ */
+
 function loadContinueWatching() {
   const track = document.getElementById('cw-track');
   if (!track) return;
@@ -632,9 +576,7 @@ function loadContinueWatching() {
   lazyLoadImages();
 }
 
-/* ============================================================
-   GENERIC TRACK FILLER
-============================================================ */
+
 function fillMovieTrack(id, movies, variant = '') {
   const track = document.getElementById(id);
   if (!track) return;
@@ -645,12 +587,7 @@ function fillMovieTrack(id, movies, variant = '') {
   lazyLoadImages();
 }
 
-/* ============================================================
-   GENRE COLLECTIONS
-   Fetched from GET /genres/ — names always come from backend.
-   Decorative background images are local assets keyed by genre name.
-   If a new genre is added to the backend it appears automatically.
-============================================================ */
+
 const GENRE_BG_MAP = {
   'action':           'assets/images/genres/action.jpg',
   'adventure':        'assets/images/genres/adventure.jpg',
@@ -726,9 +663,7 @@ function loadGenreGrid() {
   }).join('');
 }
 
-/* ============================================================
-   SEARCH  — uses GET /movies/search/?q=
-============================================================ */
+
 function initSearch() {
   const input     = document.getElementById('search-overlay-input');
   const resultsEl = document.getElementById('search-live-results');
@@ -748,7 +683,7 @@ function initSearch() {
         console.warn('Search endpoint failed:', err.message);
       }
 
-      // Client-side fallback from cached movies
+      
       if (!results.length) {
         const qLow = q.toLowerCase();
         results = homeMovies.filter(m =>
@@ -781,9 +716,7 @@ function initSearch() {
   });
 }
 
-/* ============================================================
-   STATS BANNER
-============================================================ */
+
 function initStatsBanner() {
   const banner = document.getElementById('stats-banner');
   if (!banner) return;
@@ -804,9 +737,6 @@ function initStatsBanner() {
   io.observe(banner);
 }
 
-/* ============================================================
-   INIT  — single entry point
-============================================================ */
 async function init() {
   if (typeof hideLoadingScreen === 'function') hideLoadingScreen();
   if (typeof initNavbar        === 'function') initNavbar();

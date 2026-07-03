@@ -1,13 +1,10 @@
-// manage-movies.js — CineVerse Manage Movies
 
-// ── Auth Guard ─────────────────────────────────
 (function() {
   if (!localStorage.getItem('access_token')) {
     window.location.href = 'login.html';
   }
 })();
 
-// ── State ─────────────────────────────────────
 var currentPage   = 1;
 var pageLimit     = 10;
 var totalMovies   = [];
@@ -15,7 +12,6 @@ var allGenres     = [];
 var deleteMovieId = null;
 var editMovieId   = null;
 
-// ── Modal Helpers ─────────────────────────────
 function openModal(id) {
   document.getElementById(id).classList.add('open');
 }
@@ -24,14 +20,14 @@ function closeModal(id) {
   document.getElementById(id).classList.remove('open');
 }
 
-// Close modal on overlay click
+
 document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) overlay.classList.remove('open');
   });
 });
 
-// ── Render Movies Table ───────────────────────
+
 function renderMoviesTable(movies) {
   var container = document.getElementById('movies-table-body');
   var countLabel = document.getElementById('movies-count-label');
@@ -90,7 +86,7 @@ function renderMoviesTable(movies) {
   document.getElementById('next-btn').disabled = movies.length !== pageLimit;
 }
 
-// ── Load Movies ───────────────────────────────
+
 async function loadMovies() {
   document.getElementById('movies-table-body').innerHTML =
     '<div class="loading-spinner"><div class="spinner"></div> Loading movies...</div>';
@@ -106,7 +102,7 @@ async function loadMovies() {
   }
 }
 
-// ── Load Genres for Dropdowns ─────────────────
+
 async function loadGenres() {
 
   try {
@@ -148,14 +144,14 @@ function populateGenreDropdowns() {
     '<option value="">Select genre</option>' + options;
 
 }
-// ── Pagination ────────────────────────────────
+
 function changePage(dir) {
   currentPage += dir;
   if (currentPage < 1) currentPage = 1;
   loadMovies();
 }
 
-// ── Add Movie ─────────────────────────────────
+
 function openAddModal() {
   document.getElementById('add-title').value       = '';
   document.getElementById('add-description').value = '';
@@ -178,7 +174,7 @@ async function submitAddMovie() {
     return;
   }
 
-  // Genre validation
+ 
   const genre = document.getElementById('add-genre').value;
 
   if (!genre) {
@@ -282,7 +278,7 @@ async function submitAddMovie() {
 
 }
 
-// ── Edit Movie ────────────────────────────────
+
 function openEditModal(movieId) {
   var movie = totalMovies.find(function(m) { return m.id === movieId; });
   if (!movie) return;
@@ -413,7 +409,7 @@ async function submitEditMovie() {
 
 }
 
-// ── Delete Movie ──────────────────────────────
+
 function openDeleteModal(movieId, movieTitle) {
   deleteMovieId = movieId;
   document.getElementById('delete-movie-title').textContent = movieTitle;
@@ -444,7 +440,6 @@ async function submitDeleteMovie() {
   }
 }
 
-// ── Movie Images ──────────────────────────────
 function openImagesModal(movieId) {
   document.getElementById('images-movie-id').value = movieId;
   openModal('images-modal');
@@ -529,7 +524,7 @@ async function deleteImage(imageId) {
   }
 }
 
-// ── Init ──────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', function() {
   loadGenres();
   loadMovies();

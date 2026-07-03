@@ -1,13 +1,3 @@
-/* ================================================================
-   CINEVERSE — cv-details-patch.js  v2.0
-   Use on: movie-details.html ONLY
-
-   • Loads Favorites & Watchlist on page load
-   • Sets correct initial active states for fav & WL buttons
-   • Replaces existing button listeners with backend-correct ones
-   • ONE request per click, locked while in-flight
-   • Backend always re-fetched after toggle for source of truth
-================================================================ */
 
 'use strict';
 
@@ -20,31 +10,29 @@
   }
 
   async function boot() {
-    /* Get movie ID from URL */
+    
     const movieId = new URLSearchParams(window.location.search).get('id');
     if (!movieId) return;
 
-    /* Load user's lists from backend */
+    
     await cvInit();
 
-    /* Apply initial icon states */
+   
     applyFavState(movieId);
     applyWLState(movieId);
 
-    /* Re-wire all buttons with correct backend handlers */
+    
     wireFavButtons(movieId);
     wireWLButtons(movieId);
   }
 
-  /* ================================================================
-     FAVORITE BUTTONS
-  ================================================================ */
+  
   function wireFavButtons(movieId) {
-    /* IDs used in movie-details.html */
+   
     ['btn-fav-hero', 'float-fav'].forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
-      /* Remove existing listeners by cloning */
+     
       const fresh = el.cloneNode(true);
       el.parentNode.replaceChild(fresh, el);
       fresh.addEventListener('click', () => handleFavToggle(movieId));
@@ -54,14 +42,13 @@
   async function handleFavToggle(movieId) {
     if (!cvLoggedIn()) { cvShowAuthPrompt(); return; }
 
-    /* Lock all fav buttons while in flight */
     setFavLoading(true);
 
     const result = await cvToggleFavorite(movieId);
 
     setFavLoading(false);
 
-    if (result === null) return; /* error already toasted, icon unchanged */
+    if (result === null) return; 
 
     applyFavState(movieId);
     cvToast(result ? '♥ Added to Favorites' : 'Removed from Favorites', result ? 'success' : '');
@@ -90,9 +77,7 @@
     });
   }
 
-  /* ================================================================
-     WATCHLIST BUTTONS
-  ================================================================ */
+ 
   function wireWLButtons(movieId) {
     ['btn-watchlist', 'float-wl'].forEach(id => {
       const el = document.getElementById(id);

@@ -4,6 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CineVerse — My Watchlist</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <meta name="title" content="CineVerse — My Watchlist">
+<meta name="description" content="View and manage your CineVerse watchlist. Save movies to watch later and access your personal collection anytime.">
+<meta name="keywords" content="CineVerse, Watchlist, Movies, Cinema, Movie Collection, Streaming">
+<meta name="author" content="CineVerse Team">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0F111A">
+
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CineVerse">
+<meta property="og:title" content="CineVerse — My Watchlist">
+<meta property="og:description" content="Manage your personal movie watchlist on CineVerse.">
+
+<meta property="og:url" content="https://cineverse-movie-app.onrender.com/watchlist.html">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CineVerse — My Watchlist">
+<meta name="twitter:description" content="Manage your personal movie watchlist on CineVerse.">
+
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +44,7 @@
   <div id="page-transition" aria-hidden="true"></div>
   <div id="toast-container" role="status" aria-live="polite"></div>
 
-  <!-- ============ NAVBAR ============ -->
+  
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="home.html" class="nav-logo" aria-label="CineVerse Home">
@@ -125,7 +146,7 @@
     </nav>
   </nav>
 
-  <!-- ============ PAGE HERO ============ -->
+ 
   <header class="fwl-hero" id="page-hero">
     <div class="fwl-hero__bg" aria-hidden="true"></div>
     <div class="fwl-hero__glow fwl-hero__glow--teal" aria-hidden="true"></div>
@@ -142,10 +163,10 @@
     </div>
   </header>
 
-  <!-- ============ MAIN CONTENT ============ -->
+  
   <main class="fwl-main">
 
-    <!-- Loading skeletons -->
+    
     <div class="fwl-grid" id="skeleton-grid" aria-hidden="true">
       <div class="fwl-skeleton-card"><div class="fwl-skeleton fwl-skeleton--poster"></div><div class="fwl-skeleton fwl-skeleton--title"></div><div class="fwl-skeleton fwl-skeleton--meta"></div></div>
       <div class="fwl-skeleton-card"><div class="fwl-skeleton fwl-skeleton--poster"></div><div class="fwl-skeleton fwl-skeleton--title"></div><div class="fwl-skeleton fwl-skeleton--meta"></div></div>
@@ -155,10 +176,10 @@
       <div class="fwl-skeleton-card"><div class="fwl-skeleton fwl-skeleton--poster"></div><div class="fwl-skeleton fwl-skeleton--title"></div><div class="fwl-skeleton fwl-skeleton--meta"></div></div>
     </div>
 
-    <!-- Movies grid -->
+    
     <div class="fwl-grid" id="wl-grid" style="display:none" role="list" aria-label="Watchlist movies"></div>
 
-    <!-- Empty state -->
+    
     <div class="fwl-empty" id="wl-empty" style="display:none">
       <div class="fwl-empty__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64">
@@ -170,7 +191,7 @@
       <a href="movie_page.html" class="fwl-browse-btn">Browse Movies</a>
     </div>
 
-    <!-- Auth required -->
+    
     <div class="fwl-empty" id="wl-auth" style="display:none">
       <div class="fwl-empty__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64">
@@ -184,7 +205,7 @@
 
   </main>
 
-  <!-- ============ FOOTER ============ -->
+  
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-logo">
@@ -196,7 +217,7 @@
   </footer>
 
  <script src="js/auth/config/api.js"></script>
-  <script src="js/watchlist.js"></script>
   <script src="config/api.js"></script>
+  <script src="js/watchlist.js"></script>
 </body>
 </html>

@@ -1,11 +1,8 @@
-/* ============================================================
-   CINEVERSE — login.js
-   ============================================================ */
 
 const API_BASE = window.API_BASE||
     "https://cineverse-movie-app.onrender.com";;
 
-// ── DOM refs ──────────────────────────────────────────────────
+
 
 const form        = document.getElementById('login-form');
 const emailInput  = document.getElementById('email');
@@ -14,7 +11,7 @@ const loginBtn    = document.getElementById('login-btn');
 const togglePass  = document.getElementById('toggle-password');
 const toastCont   = document.getElementById('toast-container');
 
-// ── Particle canvas ───────────────────────────────────────────
+
 
 (function initParticles() {
   const canvas = document.getElementById('particle-canvas');
@@ -61,7 +58,7 @@ const toastCont   = document.getElementById('toast-container');
   window.addEventListener('resize', () => { resize(); buildParticles(); });
 })();
 
-// ── Token guard — redirect already-logged-in users ────────────
+
 
 (async function checkExistingSession() {
   const token = localStorage.getItem('access_token');
@@ -79,11 +76,11 @@ const toastCont   = document.getElementById('toast-container');
       localStorage.removeItem('user_email');
     }
   } catch {
-    // network error — stay on page
+    
   }
 })();
 
-// ── Password visibility toggle ────────────────────────────────
+
 
 togglePass.addEventListener('click', () => {
   const isHidden = passInput.type === 'password';
@@ -92,7 +89,7 @@ togglePass.addEventListener('click', () => {
   togglePass.querySelector('.eye-closed').style.display = isHidden ? ''     : 'none';
 });
 
-// ── Ripple effect ─────────────────────────────────────────────
+
 
 loginBtn.addEventListener('click', function (e) {
   const r = this.getBoundingClientRect();
@@ -109,7 +106,7 @@ loginBtn.addEventListener('click', function (e) {
   setTimeout(() => ripple.remove(), 560);
 });
 
-// ── Validation helpers ────────────────────────────────────────
+
 
 function setError(fieldId, errorId, msg) {
   document.getElementById(fieldId).classList.add('has-error');
@@ -145,11 +142,11 @@ function validateForm() {
   return valid;
 }
 
-// Clear errors on input
+
 emailInput.addEventListener('input', () => clearError('field-email',    'email-error'));
 passInput.addEventListener('input',  () => clearError('field-password', 'password-error'));
 
-// ── Toast system ──────────────────────────────────────────────
+
 
 function showToast(message, type = 'success') {
   const toast = document.createElement('div');
@@ -165,14 +162,14 @@ function showToast(message, type = 'success') {
   }, 3800);
 }
 
-// ── Button loading state ──────────────────────────────────────
+
 
 function setLoading(on) {
   loginBtn.disabled = on;
   loginBtn.classList.toggle('is-loading', on);
 }
 
-// ── Success overlay ───────────────────────────────────────────
+
 
 function showSuccess() {
   const overlay = document.createElement('div');
@@ -184,7 +181,7 @@ function showSuccess() {
   document.body.appendChild(overlay);
 }
 
-// ── Login flow ────────────────────────────────────────────────
+
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -220,10 +217,10 @@ form.addEventListener('submit', async (e) => {
 
     const { access_token } = await loginRes.json();
 
-    // 2. Store token
+    
     localStorage.setItem('access_token', access_token);
 
-    // 3. GET /auth/me
+    
     const meRes = await fetch(`${API_BASE}/auth/me`, {
       headers: { 'Authorization': `Bearer ${access_token}` }
     });
@@ -234,7 +231,6 @@ form.addEventListener('submit', async (e) => {
       localStorage.setItem('user_email', user.email);
     }
 
-    // 4. Success UX → redirect
     setLoading(false);
     showSuccess();
     showToast('Signed in successfully!', 'success');

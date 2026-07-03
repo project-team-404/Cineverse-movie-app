@@ -11,13 +11,13 @@
   <meta property="og:type" content="website">
 
   <title>AI Recommendations — CineVerse</title>
-
-  <!-- Google Fonts -->
+<link rel="icon" type="image/png" href="assets/images/logo.png">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 
-  <!-- Stylesheets — DO NOT CHANGE ORDER -->
+  
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/navbar_home.css">
@@ -30,18 +30,16 @@
 
 <body>
 
-  <!-- Noise texture overlay -->
+  
   <div class="noise-overlay" aria-hidden="true"></div>
 
-  <!-- Page transition -->
+  
   <div id="page-transition" aria-hidden="true"></div>
 
-  <!-- Toast container -->
+  
   <div id="toast-container" role="status" aria-live="polite"></div>
 
-  <!-- ============================================================
-       NAVBAR
-  ============================================================ -->
+
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="home.html" class="nav-logo" aria-label="CineVerse Home">
@@ -141,7 +139,7 @@
     </nav>
   </nav>
 
-  <!-- Search Overlay (navbar) -->
+  
   <div id="search-overlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="Search movies">
     <div class="search-box">
       <div class="search-input-wrap">
@@ -361,7 +359,7 @@
   <script src="js/ai_recommendations.js"></script>
 
   <script>
-    /* ── Login modal close ── */
+    
     document.getElementById('air-modal-cancel')?.addEventListener('click', () => {
       document.getElementById('air-login-modal')?.classList.remove('active');
     });
@@ -371,7 +369,7 @@
   </script>
 
   <!-- Enhanced favorites and watchlist functionality -->
-   <script src="js/config/api.js"></script>
+   <script src="js/auth/config/api.js"></script>
   <script src="js/cv-api.js"></script>
   <script src="js/cv-patch.js"></script>
  

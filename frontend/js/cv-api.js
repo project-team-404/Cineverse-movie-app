@@ -1,25 +1,11 @@
-/* ================================================================
-   CINEVERSE — cv-api.js  v3.0  (FIXED to match real backend spec)
 
-   FAVORITES  → POST   /favorites/{movie_id}
-                DELETE /favorites/{movie_id}
-                GET    /favorites/   → [{id, user_id, movie_id}]
-                Active check: item.movie_id
-
-   WATCHLIST  → POST   /watchlist/add/{movie_id}
-                DELETE /watchlist/{movie_id}
-                GET    /watchlist/   → [{id, user_id, movie_id}]
-                Active check: item.movie_id   (SAME shape as Favorites)
-
-   Load this file BEFORE cv-patch.js / cv-details-patch.js on every page.
-================================================================ */
 
 'use strict';
 
 const CV_BASE = window.API_BASE ||
     "https://cineverse-movie-app.onrender.com";;
 
-/* ── Token helpers ─────────────────────────────────────────── */
+
 function cvToken()    { return localStorage.getItem('access_token') || ''; }
 function cvLoggedIn() { return !!cvToken(); }
 
@@ -30,7 +16,7 @@ function cvAuthHeaders() {
   };
 }
 
-/* ── Redirect on 401 ─────────────────────────────────────── */
+
 function cvHandle401() {
   localStorage.removeItem('access_token');
   localStorage.removeItem('user_name');
@@ -38,10 +24,7 @@ function cvHandle401() {
   window.location.href = 'login.html';
 }
 
-/* ================================================================
-   ADMIN API — CV_Admin namespace for backend operations
-   (unchanged — not part of Favorites/Watchlist fix)
-================================================================ */
+
 var CV_Admin = {
   getMovies: async function(page, limit) {
     const res = await fetch(`${CV_BASE}/movies/?page=${page}&limit=${limit}`, { headers: cvAuthHeaders() });
@@ -142,10 +125,7 @@ var CV_Admin = {
   }
 };
 
-/* ================================================================
-   PROFILE API — CV_Profile namespace
-   (unchanged — not part of Favorites/Watchlist fix)
-================================================================ */
+
 var CV_Profile = {
   getProfile: async function () {
     return fetch(CV_BASE + '/profile/', { headers: cvAuthHeaders() });
@@ -172,13 +152,11 @@ var CV_Profile = {
   }
 };
 
-/* ================================================================
-   STATE — single source of truth, never persisted to localStorage
-================================================================ */
+
 const CV_State = {
-  /* Set<string> of movie_id values the user has favorited */
+  
   favoriteIds:  new Set(),
-  /* Set<string> of movie_id values in the user's watchlist */
+  
   watchlistIds: new Set(),
   _fetchingFav: false,
   _fetchingWL:  false,
@@ -186,12 +164,7 @@ const CV_State = {
   _wlLocks:  {},
 };
 
-/* ================================================================
-   FAVORITES
-   GET    /favorites/         → [{id, user_id, movie_id}]
-   POST   /favorites/{id}     → adds
-   DELETE /favorites/{id}     → removes
-================================================================ */
+
 
 async function cvLoadFavorites() {
   if (!cvLoggedIn()) { CV_State.favoriteIds = new Set(); return; }
@@ -202,7 +175,7 @@ async function cvLoadFavorites() {
     if (res.status === 401) { cvHandle401(); return; }
     if (!res.ok) throw new Error(`GET /favorites/ → ${res.status}`);
     const list = await res.json();
-    /* list = [{id, user_id, movie_id}] */
+   
     CV_State.favoriteIds = new Set(
       (Array.isArray(list) ? list : []).map(item => String(item.movie_id))
     );
@@ -217,15 +190,12 @@ function cvIsFavorite(movieId) {
   return CV_State.favoriteIds.has(String(movieId));
 }
 
-/**
- * Toggle favorite. Sends only ONE request. Re-fetches from backend
- * after success so the UI is always driven by the server.
- * Returns: true = now favorited, false = removed, null = error/locked
- */
+
+ 
 async function cvToggleFavorite(movieId) {
   if (!cvLoggedIn()) { cvShowAuthPrompt(); return null; }
   const id = String(movieId);
-  if (CV_State._favLocks[id]) return null; /* request already in flight */
+  if (CV_State._favLocks[id]) return null; 
   CV_State._favLocks[id] = true;
 
   const wasFav = CV_State.favoriteIds.has(id);
@@ -239,10 +209,10 @@ async function cvToggleFavorite(movieId) {
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
       cvToast(body?.detail || 'Something went wrong. Please try again.', 'error');
-      return null; /* do NOT change icon */
+      return null; 
     }
 
-    /* Refresh from backend — always source of truth */
+    
     await cvLoadFavorites();
     return CV_State.favoriteIds.has(id);
 
@@ -255,12 +225,7 @@ async function cvToggleFavorite(movieId) {
   }
 }
 
-/* ================================================================
-   WATCHLIST
-   GET    /watchlist/             → [{id, user_id, movie_id}]
-   POST   /watchlist/add/{id}     → adds
-   DELETE /watchlist/{id}         → removes
-================================================================ */
+
 
 async function cvLoadWatchlist() {
   if (!cvLoggedIn()) { CV_State.watchlistIds = new Set(); return; }
@@ -271,7 +236,7 @@ async function cvLoadWatchlist() {
     if (res.status === 401) { cvHandle401(); return; }
     if (!res.ok) throw new Error(`GET /watchlist/ → ${res.status}`);
     const list = await res.json();
-    /* list = [{id, user_id, movie_id}] — same shape as favorites */
+   
     CV_State.watchlistIds = new Set(
       (Array.isArray(list) ? list : []).map(item => String(item.movie_id))
     );
@@ -286,9 +251,7 @@ function cvIsWatchlisted(movieId) {
   return CV_State.watchlistIds.has(String(movieId));
 }
 
-/**
- * Toggle watchlist. One request only. Backend is source of truth.
- */
+
 async function cvToggleWatchlist(movieId) {
   if (!cvLoggedIn()) { cvShowAuthPrompt(); return null; }
   const id = String(movieId);
@@ -309,7 +272,7 @@ async function cvToggleWatchlist(movieId) {
       return null;
     }
 
-    /* Refresh from backend */
+    
     await cvLoadWatchlist();
     return CV_State.watchlistIds.has(id);
 
@@ -322,17 +285,13 @@ async function cvToggleWatchlist(movieId) {
   }
 }
 
-/* ================================================================
-   INIT — call on every page after DOM ready
-================================================================ */
+
 async function cvInit() {
   if (!cvLoggedIn()) return;
   await Promise.all([cvLoadFavorites(), cvLoadWatchlist()]);
 }
 
-/* ================================================================
-   AUTH PROMPT
-================================================================ */
+
 function cvShowAuthPrompt() {
   document.getElementById('cv-auth-modal')?.remove();
 
@@ -403,9 +362,7 @@ function cvShowAuthPrompt() {
   document.body.appendChild(modal);
 }
 
-/* ================================================================
-   TOAST
-================================================================ */
+
 function cvToast(message, type = 'success') {
   let container = document.getElementById('toast-container');
   if (!container) {

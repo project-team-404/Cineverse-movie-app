@@ -1,6 +1,4 @@
-/* ====================================================
-   CINEVERSE — Login / Signup shared design system
-   ==================================================== */
+
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -25,7 +23,7 @@
   --transition:    0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* ── Base ─────────────────────────────────────────── */
+
 
 html { font-size: 16px; -webkit-font-smoothing: antialiased; }
 
@@ -37,7 +35,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ── Particle canvas ──────────────────────────────── */
+
 
 #particle-canvas {
   position: fixed;
@@ -47,7 +45,7 @@ body {
   opacity: 0.55;
 }
 
-/* ── Background ambient orbs ─────────────────────── */
+
 
 .bg-orb {
   position: fixed;
@@ -81,7 +79,7 @@ body {
   to   { transform: translate(30px, 20px) scale(1.08); }
 }
 
-/* ── Film grain ───────────────────────────────────── */
+
 
 .grain-overlay {
   position: fixed;
@@ -92,7 +90,7 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
 }
 
-/* ── Page wrapper ─────────────────────────────────── */
+
 
 .page-wrapper {
   position: relative;
@@ -110,7 +108,7 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Brand bar ────────────────────────────────────── */
+
 
 .brand-bar {
   width: 100%;
@@ -145,7 +143,7 @@ body {
   background-clip: text;
 }
 
-/* ── Auth stage ───────────────────────────────────── */
+
 
 .auth-stage {
   flex: 1;
@@ -156,7 +154,7 @@ body {
   width: 100%;
 }
 
-/* ── Auth card ────────────────────────────────────── */
+
 
 .auth-card {
   position: relative;
@@ -215,7 +213,7 @@ body {
     inset 0 1px 0 rgba(255,255,255,0.09);
 }
 
-/* ── Card head ────────────────────────────────────── */
+
 
 .auth-card__head {
   text-align: center;
@@ -239,7 +237,7 @@ body {
   letter-spacing: 0.01em;
 }
 
-/* ── Form ─────────────────────────────────────────── */
+
 
 .auth-form {
   display: flex;
@@ -247,7 +245,7 @@ body {
   gap: 20px;
 }
 
-/* ── Field group ──────────────────────────────────── */
+
 
 .field-group {
   display: flex;
@@ -362,7 +360,7 @@ body {
   100%{ transform: translateX(0); opacity: 1; }
 }
 
-/* ── Primary button ───────────────────────────────── */
+
 
 .btn-primary {
   position: relative;
@@ -407,7 +405,7 @@ body {
   cursor: not-allowed;
 }
 
-/* Shine sweep effect */
+
 .btn-primary__shine {
   position: absolute;
   top: 0; left: -100%;
@@ -424,7 +422,7 @@ body {
   100% { left: 130%; }
 }
 
-/* Spinner */
+
 .btn-primary__spinner {
   display: none;
   width: 18px;
@@ -443,7 +441,7 @@ body {
 .btn-primary.is-loading .btn-primary__text { opacity: 0.5; }
 .btn-primary.is-loading .btn-primary__spinner { display: block; }
 
-/* Ripple */
+
 .btn-ripple {
   position: absolute;
   border-radius: 50%;
@@ -457,7 +455,7 @@ body {
   to { transform: scale(4); opacity: 0; }
 }
 
-/* ── Divider ──────────────────────────────────────── */
+
 
 .auth-divider {
   display: flex;
@@ -481,7 +479,7 @@ body {
   letter-spacing: 0.1em;
 }
 
-/* ── Footer text & link ───────────────────────────── */
+
 
 .auth-footer-text {
   text-align: center;
@@ -509,7 +507,7 @@ body {
 .auth-link:hover::after { width: 100%; }
 .auth-link:hover { color: #ffd066; }
 
-/* ── Toast notifications ──────────────────────────── */
+
 
 .toast-container {
   position: fixed;
@@ -579,7 +577,7 @@ body {
   to   { transform: translateX(120%); opacity: 0; }
 }
 
-/* ── Success overlay ──────────────────────────────── */
+
 
 .success-overlay {
   position: fixed;
@@ -630,7 +628,6 @@ body {
   to   { opacity: 1; }
 }
 
-/* ── Responsive ───────────────────────────────────── */
 
 @media (max-width: 520px) {
   .brand-bar { padding: 20px 20px; }
@@ -642,7 +639,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
-/* ── Modal overlay ────────────────────────────────── */
+
 
 .modal-overlay {
   position: fixed;
@@ -662,11 +659,11 @@ body {
   to   { opacity: 1; }
 }
 
-/* ── Hidden utility ───────────────────────────────── */
+
 
 .hidden { display: none !important; }
 
-/* ── Reset modal ──────────────────────────────────── */
+
 
 .reset-modal {
   position: relative;
@@ -682,7 +679,7 @@ body {
   to   { transform: translateY(0)    scale(1);    opacity: 1; }
 }
 
-/* Animated gradient border */
+
 .reset-modal__border {
   position: absolute;
   inset: -1px;
@@ -698,7 +695,7 @@ body {
   background-size: 300% 300%;
 }
 
-/* border-shimmer already defined in shared styles */
+
 
 .reset-modal__inner {
   position: relative;
