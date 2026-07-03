@@ -400,6 +400,123 @@ API Docs:     https://cineverse-movie-app.onrender.com/scalar
 4. Docker image built from `Dockerfile` in project root
 
 ---
+### 🐳 Docker Deployment (Local)
+ 
+**Step 1 — Make sure Docker Desktop is running on your machine**
+ 
+**Step 2 — Clone the repository**
+ 
+```bash
+git clone https://github.com/project-team-404/Cineverse-movie-app.git
+cd Cineverse-movie-app
+```
+ 
+**Step 3 — Create your `.env` file**
+ 
+```bash
+cp .env.example .env
+# Fill in your DATABASE_URL, SECRET_KEY, and other values
+```
+ 
+**Step 4 — Build and start all services**
+ 
+```bash
+docker compose up --build
+```
+ 
+This spins up:
+- `backend` — FastAPI app on port `8000`
+- `db` — PostgreSQL on port `5432`
+**Step 5 — Verify it's running**
+ 
+```
+API:      http://localhost:8000
+Docs:     http://localhost:8000/docs
+Scalar:   http://localhost:8000/scalar
+```
+ 
+**Step 6 — Stop the containers**
+ 
+```bash
+docker compose down
+ 
+# To also remove volumes (wipes database)
+docker compose down -v
+```
+ 
+**Useful Docker commands**
+ 
+```bash
+# View running containers
+docker ps
+ 
+# View logs
+docker compose logs -f
+ 
+# Rebuild after code changes
+docker compose up --build
+ 
+# Access the database container
+docker exec -it cineverse_db psql -U postgres -d cineverse_db
+```
+ 
+---
+### ⚡ FastAPI Deployment on Render
+ 
+**Step 1 — Push your code to GitHub**
+ 
+```bash
+git add .
+git commit -m "ready for deployment"
+git push origin main
+```
+ 
+**Step 2 — Create a PostgreSQL database on Render**
+ 
+1. Go to [render.com](https://render.com) → **New** → **PostgreSQL**
+2. Give it a name: `cineverse-db`
+3. Choose the free tier
+4. Copy the **Internal Database URL** — you'll need this next
+**Step 3 — Create a Web Service on Render**
+ 
+1. Go to **New** → **Web Service**
+2. Connect your GitHub repo
+3. Configure the service:
+| Setting | Value |
+|---|---|
+| **Name** | `cineverse-backend` |
+| **Runtime** | `Docker` |
+| **Branch** | `main` |
+| **Dockerfile Path** | `./Dockerfile` |
+| **Instance Type** | Free |
+ 
+**Step 4 — Add Environment Variables**
+ 
+In your Render Web Service → **Environment** tab, add:
+ 
+```
+DATABASE_URL        =  <Internal PostgreSQL URL from Step 2>
+SECRET_KEY          =  your_super_secret_key
+ALGORITHM           =  HS256
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
+GROQ_API_KEY        =  your_groq_key
+```
+ 
+**Step 5 — Deploy**
+ 
+Click **Deploy Web Service** — Render builds your Docker image and deploys automatically.
+ 
+Every push to `main` triggers an automatic redeploy.
+ 
+**Step 6 — Verify deployment**
+ 
+```
+https://your-service-name.onrender.com/scalar
+```
+ 
+> ⚠️ **Note:** Free tier Render services spin down after 15 minutes of inactivity. The first request after sleep may take 30–60 seconds to respond.
+ 
+---
 
 ## 🔮 Future Improvements
 
