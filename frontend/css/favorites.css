@@ -1,9 +1,4 @@
-/* ================================================================
-   CINEVERSE — favorites.css
-   Matches the existing dark cinematic Cineverse design exactly.
-================================================================ */
 
-/* ── Page Hero ─────────────────────────────────────────────── */
 .fwl-hero {
   position: relative;
   padding: 120px 0 64px;
@@ -94,7 +89,7 @@
   border-radius: 100px;
 }
 
-/* ── Main Layout ─────────────────────────────────────────────── */
+
 .fwl-main {
   max-width: 1400px;
   margin: 0 auto;
@@ -102,7 +97,7 @@
   min-height: 50vh;
 }
 
-/* ── Movies Grid (matches movie_page.html .movies-grid) ─────── */
+
 .fwl-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -112,12 +107,12 @@
 @media (min-width: 640px)  { .fwl-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); } }
 @media (min-width: 1024px) { .fwl-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 28px; } }
 
-/* ── Movie Card (reuses .mgc from cards.css, same selectors) ── */
+
 .fwl-grid .mgc {
   animation: fwlFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ── Skeleton Loading ────────────────────────────────────────── */
+
 .fwl-skeleton-card {
   display: flex;
   flex-direction: column;
@@ -153,7 +148,7 @@
   border-radius: 6px;
 }
 
-/* ── Empty State ────────────────────────────────────────────── */
+
 .fwl-empty {
   display: flex;
   flex-direction: column;
@@ -214,7 +209,7 @@
   filter: brightness(1.08);
 }
 
-/* ── Footer (matches site-footer if CSS not loaded) ─────────── */
+
 .site-footer {
   border-top: 1px solid rgba(255,255,255,0.06);
   padding: 32px;
@@ -241,7 +236,7 @@
   color: rgba(255,255,255,0.3);
 }
 
-/* ── Animations ─────────────────────────────────────────────── */
+
 @keyframes fwlFadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -257,33 +252,29 @@
   50%       { box-shadow: 0 0 0 8px rgba(232,168,56,0.08); }
 }
 
-/* ── Responsive ─────────────────────────────────────────────── */
+
 @media (max-width: 640px) {
   .fwl-main { padding: 32px 16px 60px; }
   .fwl-hero { padding: 100px 0 48px; }
   .fwl-grid { gap: 16px; }
 }
 
-/* ================================================================
-   FULL RESPONSIVE BREAKPOINT SYSTEM (FAVORITES PAGE)
-   Loaded last in the cascade so it can safely override navbar/card
-   defaults from earlier stylesheets without touching those files.
-   ================================================================ */
+
 
 html, body { max-width: 100%; overflow-x: hidden; }
 .fwl-main, .fwl-hero, .fwl-grid, .fwl-empty { max-width: 100%; }
 
-/* Profile dropdown overflow guard (shared navbar markup) */
+
 .profile-dropdown {
   max-width: calc(100vw - 32px);
 }
 
-/* ========= 1920px+ (Large Desktop) ========= */
+
 @media (min-width: 1920px) {
   .fwl-hero__title { font-size: clamp(3rem, 5vw, 6rem); }
 }
 
-/* ========= 1600px / 1440px / 1366px ========= */
+
 @media (max-width: 1600px) {
   .fwl-main { max-width: 1300px; }
 }
@@ -294,14 +285,14 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .fwl-main { padding: 44px 28px 72px; }
 }
 
-/* ========= 1024px (Tablet Landscape) ========= */
+
 @media (max-width: 1024px) {
   .fwl-hero { padding: 110px 0 56px; }
   .fwl-main { padding: 40px 24px 64px; }
   .fwl-grid { gap: 20px; }
 }
 
-/* ========= 768px (Tablet Portrait) ========= */
+
 @media (max-width: 768px) {
   .fwl-hero { padding: 96px 0 44px; }
   .fwl-hero__icon { width: 60px; height: 60px; }
@@ -311,7 +302,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .fwl-empty { padding: 64px 20px; }
 }
 
-/* ========= 576px (Large Mobile) ========= */
 @media (max-width: 576px) {
   .fwl-hero { padding: 88px 0 40px; }
   .fwl-hero__subtitle { font-size: 0.85rem; letter-spacing: 0.1em; }
@@ -323,7 +313,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .profile-dropdown { width: min(260px, calc(100vw - 32px)); right: -8px; }
 }
 
-/* ========= 480px (Medium Mobile) ========= */
+
 @media (max-width: 480px) {
   .fwl-hero { padding: 80px 0 36px; }
   .fwl-hero__icon { width: 52px; height: 52px; margin-bottom: 4px; }
@@ -334,14 +324,14 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .fwl-empty__icon { width: 80px; height: 80px; }
 }
 
-/* ========= 375px (Small Mobile) ========= */
+
 @media (max-width: 375px) {
   .fwl-main { padding: 24px 12px 48px; }
   .fwl-grid { gap: 10px; }
   .fwl-hero__title { letter-spacing: 0.05em; }
 }
 
-/* ========= 320px (Very Small Devices) ========= */
+
 @media (max-width: 320px) {
   .fwl-hero { padding: 72px 0 32px; }
   .fwl-main { padding: 20px 10px 44px; }

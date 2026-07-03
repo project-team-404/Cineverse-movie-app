@@ -1,6 +1,6 @@
 (function () {
 
-    const isLocalBackend = false; // Change to true only when running FastAPI locally
+    const isLocalBackend = false; 
 
     window.API_BASE = isLocalBackend
         ? "http://127.0.0.1:8000"

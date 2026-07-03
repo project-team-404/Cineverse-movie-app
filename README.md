@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/images/logo.png" alt="CineVerse Logo" width="80" height="80" />
+<img src="screenshots/logo.png" alt="CineVerse Logo" width="200" height="200" />
 
 #  CineVerse
 
@@ -490,7 +490,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 <div align="center">
 
-Built with ❤️ by the CineVerse Team
+Built by the CineVerse Team
 
 **[⬆ Back to top](#-cineverse)**
 

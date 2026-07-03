@@ -40,9 +40,7 @@
     toastContainer: document.getElementById('toast-container')
   };
 
-  /* ---------------------------------------------------------------------
-     State
-     --------------------------------------------------------------------- */
+  
   const state = {
     loadingMessageTimer: null,
     favoriteIds: new Set(),
@@ -50,9 +48,7 @@
     isSubmitting: false
   };
 
-  /* ---------------------------------------------------------------------
-     Auth helpers
-     --------------------------------------------------------------------- */
+  
   function getToken() {
     return localStorage.getItem('access_token');
   }
@@ -67,9 +63,7 @@
     window.location.href = 'login.html';
   }
 
-  /* ---------------------------------------------------------------------
-     API helper
-     --------------------------------------------------------------------- */
+  
   class ApiError extends Error {
     constructor(kind, message) {
       super(message);
@@ -116,9 +110,7 @@
     return response.json();
   }
 
-  /* ---------------------------------------------------------------------
-     Toasts (injected into the shared #toast-container)
-     --------------------------------------------------------------------- */
+
   const TOAST_ICONS = {
     error: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 8v5M12 16h.01M10.29 3.86l-8.18 14.18A1 1 0 003 19.5h18a1 1 0 00.87-1.46L13.71 3.86a1 1 0 00-1.73 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     success: '<svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -138,15 +130,11 @@
     }, duration);
   }
 
-  /* ---------------------------------------------------------------------
-     Login modal
-     --------------------------------------------------------------------- */
+  
   function openLoginModal() { dom.loginModal?.classList.add('active'); }
   dom.modalLogin?.addEventListener('click', goToLogin);
 
-  /* ---------------------------------------------------------------------
-     Character counter + validation
-     --------------------------------------------------------------------- */
+  
   dom.textarea?.addEventListener('input', () => {
     const len = dom.textarea.value.length;
     dom.charCounter.textContent = `${len} / 500`;
@@ -165,9 +153,7 @@
     });
   });
 
-  /* ---------------------------------------------------------------------
-     Loading state
-     --------------------------------------------------------------------- */
+  
   function startLoading() {
     dom.resultsSection.classList.remove('active');
     dom.emptySection.classList.remove('active');
@@ -213,9 +199,7 @@
     dom.skeletonGrid.appendChild(fragment);
   }
 
-  /* ---------------------------------------------------------------------
-     Favorites & Watchlist (talks to the real backend endpoints)
-     --------------------------------------------------------------------- */
+ 
   async function loadUserCollections() {
     if (!isLoggedIn()) return;
     try {
@@ -226,7 +210,7 @@
       state.favoriteIds = new Set((favorites || []).map((f) => f.movie_id));
       state.watchlistIds = new Set((watchlist || []).map((w) => w.movie_id));
     } catch (_) {
-      /* buttons default to unpressed if this fails */
+      
     }
   }
 
@@ -269,9 +253,7 @@
     btn.setAttribute('aria-pressed', String(active));
   }
 
-  /* ---------------------------------------------------------------------
-     MGC movie card (same visual system used by the rest of CineVerse)
-     --------------------------------------------------------------------- */
+ 
   function formatDuration(minutes) {
     if (minutes === null || minutes === undefined) return '';
     const h = Math.floor(minutes / 60);
@@ -350,9 +332,7 @@
     dom.emptySection.classList.add('active');
   }
 
-  /* ---------------------------------------------------------------------
-     Core flow
-     --------------------------------------------------------------------- */
+
   async function fetchMovieById(id) {
     return apiRequest(`/movies/${id}`);
   }
@@ -402,9 +382,7 @@
     showToast(fallbackMessage, 'error');
   }
 
-  /* ---------------------------------------------------------------------
-     Form submission
-     --------------------------------------------------------------------- */
+  
   dom.form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (state.isSubmitting) return;
@@ -432,9 +410,7 @@
     dom.textarea.focus();
   });
 
-  /* ---------------------------------------------------------------------
-     Utils
-     --------------------------------------------------------------------- */
+  
   function escapeHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;')
@@ -447,9 +423,7 @@
     return escapeHtml(str);
   }
 
-  /* ---------------------------------------------------------------------
-     Init
-     --------------------------------------------------------------------- */
+  
   (async function init() {
     if (dom.charCounter) dom.charCounter.textContent = `${dom.textarea.value.length} / 500`;
     await loadUserCollections();

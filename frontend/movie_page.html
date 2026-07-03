@@ -11,13 +11,13 @@
   <meta property="og:type" content="website">
 
   <title>Movies — CineVerse</title>
-
-  <!-- Google Fonts -->
+<link rel="icon" type="image/png" href="assets/images/logo.png">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 
-  <!-- Stylesheets — DO NOT CHANGE ORDER -->
+  
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/navbar_home.css">
@@ -30,18 +30,15 @@
 
 <body>
 
-  <!-- Noise texture overlay -->
+  
   <div class="noise-overlay" aria-hidden="true"></div>
 
-  <!-- Page transition -->
+  
   <div id="page-transition" aria-hidden="true"></div>
 
-  <!-- Toast container -->
+  
   <div id="toast-container" role="status" aria-live="polite"></div>
 
-  <!-- ============================================================
-       NAVBAR
-  ============================================================ -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="home.html" class="nav-logo" aria-label="CineVerse Home">
@@ -142,7 +139,7 @@
     </nav>
   </nav>
 
-  <!-- Search Overlay (navbar) -->
+  
   <div id="search-overlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="Search movies">
     <div class="search-box">
       <div class="search-input-wrap">
@@ -175,18 +172,12 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       MAIN CONTENT
-  ============================================================ -->
   <main id="main-content">
 
-    <!-- ================================================================
-         SECTION 1 — SEARCH BAR (TOP, NOT STICKY)
-         "Explore Movies" hero is REMOVED as requested
-    ================================================================ -->
+    
     <div class="search-section" id="movies-search-section" role="search" aria-label="Search movies">
       <div class="search-inner">
-        <!-- .search-inner::before CSS pseudo-element shows "MOVIES" title -->
+       
 
         <div class="search-bar-wrap" id="movies-search-bar">
           <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true">
@@ -211,7 +202,7 @@
               <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/>
             </svg>
           </button>
-          <!-- Live autocomplete suggestions -->
+          
           <div class="search-suggestions" id="movies-suggestions" role="listbox" aria-label="Search suggestions"></div>
         </div>
 
@@ -227,13 +218,11 @@
       </div>
     </div>
 
-    <!-- ================================================================
-         SECTION 2 — FILTER CONTROL PANEL
-    ================================================================ -->
+   
     <div class="filter-section" id="filter-section" role="group" aria-label="Filter movies">
       <div class="filter-inner">
 
-        <!-- Genre -->
+        
         <div class="filter-group" role="group" aria-label="Filter by genre">
           <span class="filter-label">Genre</span>
           <button class="filter-chip active" data-filter="genre" data-value="all">All</button>
@@ -249,7 +238,7 @@
 
         <div class="filter-sep" aria-hidden="true"></div>
 
-        <!-- Year -->
+        
         <div class="filter-group" role="group" aria-label="Filter by year">
           <span class="filter-label">Year</span>
           <button class="filter-chip active" data-filter="year" data-value="all">All</button>
@@ -262,7 +251,7 @@
 
         <div class="filter-sep" aria-hidden="true"></div>
 
-        <!-- Rating -->
+        
         <div class="filter-group" role="group" aria-label="Filter by rating">
           <span class="filter-label">Rating</span>
           <button class="filter-chip active" data-filter="rating" data-value="all">All</button>
@@ -300,15 +289,13 @@
       </div>
     </div>
 
-    <!-- Results bar -->
+   
     <div class="results-bar" id="results-bar" aria-live="polite" aria-atomic="true">
       <p class="results-count">Showing <strong id="results-count-num">—</strong> movies</p>
       <div class="active-filters" id="active-filters-wrap" role="list" aria-label="Active filters"></div>
     </div>
 
-    <!-- ================================================================
-         SECTION 3 — FEATURED COLLECTION BANNER
-    ================================================================ -->
+    
     <div class="collection-banner reveal" id="collection-banner">
       <div class="collection-inner" role="link" tabindex="0" aria-label="Browse Sci-Fi Universe collection">
         <img class="collection-bg"
@@ -335,12 +322,10 @@
       </div>
     </div>
 
-    <!-- ================================================================
-         SECTION 4 — MOVIE GRID
-    ================================================================ -->
+    
     <section class="movies-grid-section" aria-label="Movies grid">
       <div class="movies-grid" id="movies-grid" role="list" aria-label="Movies">
-        <!-- Skeleton loaders shown until js loads movies -->
+        
         <div class="skeleton-card" aria-hidden="true"><div class="skeleton skeleton-poster"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div>
         <div class="skeleton-card" aria-hidden="true"><div class="skeleton skeleton-poster"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div>
         <div class="skeleton-card" aria-hidden="true"><div class="skeleton skeleton-poster"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div>
@@ -353,7 +338,7 @@
         <div class="skeleton-card" aria-hidden="true"><div class="skeleton skeleton-poster"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div>
       </div>
 
-      <!-- Empty state -->
+      
       <div class="empty-state" id="empty-state" role="status">
         <div class="empty-state-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="44" height="44">
@@ -373,9 +358,7 @@
       </div>
     </section>
 
-    <!-- ================================================================
-         SECTION 5 — TOP RATED MOVIES carousel
-    ================================================================ -->
+    
     <section class="carousel-section reveal" id="section-top-rated" aria-label="Top rated movies">
       <div class="carousel-section-inner">
         <div class="carousel-section-header">
@@ -431,9 +414,7 @@
       </div>
     </section>
 
-    <!-- ================================================================
-         SECTION 6 — MOST POPULAR carousel
-    ================================================================ -->
+   
     <section class="carousel-section reveal" id="section-trending-now" aria-label="Most popular movies">
       <div class="carousel-section-inner">
         <div class="carousel-section-header">
@@ -489,9 +470,7 @@
       </div>
     </section>
 
-    <!-- ================================================================
-         SECTION 7 — GENRE SHOWCASE
-    ================================================================ -->
+    
     <section class="genre-showcase reveal" aria-label="Browse by genre">
       <div class="genre-showcase-inner">
         <div class="genre-showcase-header">
@@ -583,9 +562,7 @@
       </div>
     </section>
 
-    <!-- ================================================================
-         SECTION 8 — RECENTLY ADDED
-    ================================================================ -->
+   
     <section class="recently-section reveal" aria-label="Recently added movies">
       <div class="recently-inner">
         <div class="recently-header">
@@ -606,16 +583,12 @@
       </div>
     </section>
 
-    <!-- ================================================================
-         SECTION 9 — PAGINATION
-    ================================================================ -->
+    
     <div class="pagination-wrap" id="pagination" role="navigation" aria-label="Movies pagination"></div>
 
   </main>
 
-  <!-- ============================================================
-       FOOTER
-  ============================================================ -->
+  
   <footer class="footer" role="contentinfo">
     <div class="footer-inner">
       <div class="footer-top">
@@ -693,7 +666,7 @@
     </div>
   </footer>
 
-  <!-- Trailer Modal -->
+  
   <div class="trailer-modal-overlay" id="trailer-modal" role="dialog" aria-modal="true" aria-label="Movie trailer">
     <div class="trailer-modal">
       <div class="trailer-video-wrap">
@@ -709,7 +682,7 @@
     </button>
   </div>
 
-  <!-- Quick View Modal -->
+  
   <div class="trailer-modal-overlay" id="quickview-modal" role="dialog" aria-modal="true" aria-label="Quick view">
     <div class="trailer-modal" style="max-width:680px;padding:0;background:var(--bg-elevated);border-radius:var(--radius-2xl);overflow:hidden;border:1px solid var(--glass-border);">
       <div id="quickview-content" style="padding:32px;min-height:200px;"></div>
@@ -721,28 +694,24 @@
     </button>
   </div>
 
-  <!-- ============================================================
-       SCRIPTS
-       IMPORTANT: tmdb.js + utils.js + components.js load first,
-       then movie_page.js. movie_page.js has fallbacks if they are absent.
-  ============================================================ -->
+  
   <script src="js/utils.js"></script>
   <script src="js/components.js"></script>
   <script src="js/movie_page.js"></script>
 
   <script>
-    /* ── Trailer close ── */
+    
     document.getElementById('trailer-close')?.addEventListener('click', () => {
       document.getElementById('trailer-modal')?.classList.remove('active');
       document.getElementById('trailer-iframe').src = '';
     });
 
-    /* ── Quick view close ── */
+   
     document.getElementById('quickview-close')?.addEventListener('click', () => {
       document.getElementById('quickview-modal')?.classList.remove('active');
     });
 
-    /* ── Close modals on overlay click ── */
+   
     ['trailer-modal', 'quickview-modal'].forEach(id => {
       const el = document.getElementById(id);
       el?.addEventListener('click', e => {
@@ -750,7 +719,7 @@
       });
     });
 
-    /* ── Search overlay tags ── */
+    
     document.querySelectorAll('.search-tag').forEach(tag => {
       tag.addEventListener('click', () => {
         const input = document.getElementById('search-overlay-input');
@@ -759,7 +728,7 @@
     });
   </script>
 
-  <!-- Enhanced favorites and watchlist functionality -->
+  
   <script src="js/auth/config/api.js"></script>
   <script src="js/cv-api.js"></script>
   <script src="js/cv-patch.js"></script>
