@@ -4,7 +4,7 @@
   'use strict';
 
  
-  const API_BASE = window.API_BASE || 'https://cineverse-movie-app.onrender.com';
+  const API_BASE = "http://127.0.0.1:8000";
   const LOADING_MESSAGES = [
     'Analyzing your preferences...',
     'Understanding your request...',

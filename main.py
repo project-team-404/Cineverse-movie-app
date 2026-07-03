@@ -48,6 +48,7 @@ app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "http://localhost:63620",
         "http://localhost:63342",
         "http://127.0.0.1:5500",
         "http://localhost:5500",
