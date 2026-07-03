@@ -2,7 +2,8 @@
    CINEVERSE — login.js
    ============================================================ */
 
-const API_BASE = window.API_BASE;
+const API_BASE = window.API_BASE||
+    "https://cineverse-movie-app.onrender.com";;
 
 // ── DOM refs ──────────────────────────────────────────────────
 

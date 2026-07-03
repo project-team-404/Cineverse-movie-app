@@ -4,7 +4,7 @@
   'use strict';
 
  
-  const API_BASE = window.API_BASE;
+  const API_BASE = window.API_BASE || 'https://cineverse-movie-app.onrender.com';
   const LOADING_MESSAGES = [
     'Analyzing your preferences...',
     'Understanding your request...',

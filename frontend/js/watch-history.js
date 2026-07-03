@@ -11,7 +11,8 @@
 
 'use strict';
 
-const WH_BASE        = window.API_BASE;
+const WH_BASE        = window.API_BASE||
+    "https://cineverse-movie-app.onrender.com";;
 const WH_PLACEHOLDER = 'assets/images/placeholder.jpg';
 
 function whToken()    { return localStorage.getItem('access_token') || ''; }
