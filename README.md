@@ -95,6 +95,18 @@ Whether you're browsing the latest releases, managing your watchlist, or getting
 
 </details>
 
+ 
+| Login | Sign Up | Profile |
+|-------|---------|---------|
+| ![Login](screenshots/login.jpeg) | ![Signup](screenshots/signup.jpeg) | ![Profile](screenshots/profile.jpeg) |
+ 
+| Home | Movie Details | Movie Page |
+|------|--------------|------------|
+| ![Home](screenshots/home.jpeg) | ![Movie Detail](screenshots/movie-detail.jpeg) | ![Movie Page](screenshots/movie-page.jpeg) |
+ 
+| Watchlist | Favorites | Watch History | AI Recommendations |
+|-----------|-----------|--------------|-------------------|
+| ![Watchlist](screenshots/watchlist.jpeg) | ![Favorites](screenshots/favorites.jpeg) | ![Watch History](screenshots/watch-history.jpeg) | ![AI](screenshots/ai%20recomendation.jpeg) |
 
 ## 🗂 Project Structure
 
