@@ -36,7 +36,9 @@ Whether you're browsing the latest releases, managing your watchlist, or getting
 > Built as a portfolio-grade team project demonstrating end-to-end product engineering — REST APIs, async databases, LLM integration, JWT auth, Docker deployment, and a polished responsive frontend.
 
 ---
+## 🎥 Demo Video
 
+https://github.com/user-attachments/assets/d538e1d3-4f8b-41ac-94c1-110841ef5a91
 ## ✨ Features
 
 <details>
