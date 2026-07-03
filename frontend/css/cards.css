@@ -1,8 +1,4 @@
-/* ============================================================
-   CINEVERSE — MOVIE CARDS & CAROUSELS
-   ============================================================ */
 
-/* ── SECTION WRAPPER ── */
 .section {
   padding: var(--space-16) 0;
   position: relative;
@@ -73,7 +69,7 @@
 }
 .section-see-all:hover svg { transform: translateX(4px); }
 
-/* ── CAROUSEL TRACK ── */
+
 .carousel-wrap {
   position: relative;
   overflow: hidden;
@@ -92,7 +88,7 @@
 .carousel-track:active { cursor: grabbing; }
 .carousel-track::-webkit-scrollbar { display: none; }
 
-/* Gradient fade edges */
+
 .carousel-wrap::before,
 .carousel-wrap::after {
   content: '';
@@ -111,7 +107,7 @@
   background: linear-gradient(to left, var(--bg-void), transparent);
 }
 
-/* Arrow buttons */
+
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -143,7 +139,7 @@
 .carousel-btn-next { right: var(--space-3); }
 .carousel-btn[disabled] { opacity: 0 !important; pointer-events: none; }
 
-/* ── MOVIE CARD — POSTER (2:3 ratio) ── */
+
 .movie-card {
   position: relative;
   flex-shrink: 0;
@@ -177,7 +173,7 @@
 }
 .movie-card:hover .movie-card-poster img { transform: scale(1.06); }
 
-/* Hover overlay */
+
 .movie-card-overlay {
   position: absolute;
   inset: 0;
@@ -232,7 +228,7 @@
 }
 .card-play-btn svg { width: 18px; height: 18px; }
 
-/* Rating badge */
+
 .movie-card-rating {
   position: absolute;
   top: var(--space-3);
@@ -251,7 +247,7 @@
 }
 .movie-card-rating svg { width: 10px; height: 10px; fill: var(--rating-star); }
 
-/* Quality badge */
+
 .movie-card-quality {
   position: absolute;
   top: var(--space-3);
@@ -265,7 +261,7 @@
   color: var(--bg-void);
 }
 
-/* Card info below poster */
+
 .movie-card-info {
   padding: var(--space-3) var(--space-1) 0;
 }
@@ -285,7 +281,6 @@
   color: var(--white-30);
 }
 
-/* ── MOVIE CARD — WIDE (16:9 ratio) ── */
 .movie-card-wide {
   width: 280px;
 }
@@ -293,12 +288,11 @@
   aspect-ratio: 16/9;
 }
 
-/* ── MOVIE CARD — FEATURED (larger) ── */
+
 .movie-card-featured {
   width: 220px;
 }
 
-/* ── MOVIE CARD — CONTINUE WATCHING ── */
 .movie-card-cw {
   width: 260px;
 }
@@ -328,7 +322,7 @@
   border-radius: 3px;
 }
 
-/* ── SKELETON CARDS ── */
+
 .movie-card-skeleton {
   flex-shrink: 0;
   width: 160px;
@@ -353,7 +347,7 @@
 .movie-card-featured.movie-card-skeleton { width: 220px; }
 .movie-card-cw.movie-card-skeleton { width: 260px; }
 
-/* ── FEATURED SPOTLIGHT ── */
+
 .featured-section {
   padding: var(--space-16) 0;
 }
@@ -446,7 +440,7 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* Sidebar list */
+
 .featured-sidebar {
   display: flex;
   flex-direction: column;
@@ -511,7 +505,7 @@
   color: var(--white-30);
 }
 
-/* ── GENRE GRID ── */
+
 .genre-section { padding: var(--space-16) 0; }
 .genre-grid {
   max-width: var(--max-w);
@@ -567,7 +561,7 @@
   color: var(--white-60);
   margin-top: var(--space-1);
 }
-/* Color accent per genre */
+
 .genre-card[data-genre="action"]    { --genre-color: #ef4444; }
 .genre-card[data-genre="drama"]     { --genre-color: #8b5cf6; }
 .genre-card[data-genre="comedy"]    { --genre-color: #f59e0b; }
@@ -588,7 +582,7 @@
 }
 .genre-card:hover::after { transform: scaleX(1); }
 
-/* ── RESPONSIVE ── */
+
 @media (max-width: 1200px) {
   .featured-grid { grid-template-columns: 1fr 300px; }
 }

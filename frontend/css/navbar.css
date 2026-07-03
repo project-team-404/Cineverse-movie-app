@@ -1,4 +1,4 @@
-/* Navbar Glassmorphism Styles */
+
 .navbar {
   position: sticky;
   top: 0;
@@ -10,7 +10,7 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom-left-radius: 0;
-  border-bottom-right-radius: 20px; /* curved end on the right side */
+  border-bottom-right-radius: 20px; 
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   transition: background 0.3s ease, box-shadow 0.3s ease;
   z-index: 1000;
@@ -68,7 +68,7 @@
   transform: scaleX(1);
 }
 
-/* Avatar button */
+
 .avatar-btn {
   background: none;
   border: none;
@@ -92,7 +92,7 @@
   border: 2px solid var(--primary-color);
 }
 
-/* Dropdown */
+
 .user-dropdown {
   position: absolute;
   top: 110%;
@@ -135,7 +135,7 @@
   background: var(--border-color);
 }
 
-/* Guest buttons */
+
 .btn-ghost, .btn-primary {
   padding: 0.5rem 1rem;
   border-radius: 12px;
@@ -168,9 +168,9 @@
   transform: translateY(-1px);
 }
 
-/* Hamburger for mobile */
+
 .hamburger {
-  display: none; /* will be shown via media query */
+  display: none; 
   flex-direction: column;
   gap: 4px;
   background: none;

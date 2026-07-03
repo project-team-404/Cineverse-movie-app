@@ -3,28 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="title" content="CineVerse — My Profile">
+<meta name="description" content="Manage your CineVerse profile, update your personal information, view your account details, and personalize your movie experience.">
+<meta name="keywords" content="CineVerse, Profile, Account, User Profile, Movie Streaming, Watchlist, Favorites, History">
+<meta name="author" content="CineVerse Team">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0F111A">
+
+<!-- =========================
+     Open Graph
+========================= -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CineVerse">
+<meta property="og:title" content="CineVerse — My Profile">
+<meta property="og:description" content="Manage your CineVerse account and personalize your movie experience.">
+<meta property="og:url" content="https://cineverse-movie-app.onrender.com/profile.html">
   <title>My Profile — CineVerse</title>
 
-  <!-- Same fonts as home.html -->
+ 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 
-  <!-- Base tokens + global from existing project -->
+  
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/global.css">
-  <!-- Profile-specific styles -->
+  
   <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
 
-  <!-- ── Background Glows ── -->
+  
   <div class="pf-bg" aria-hidden="true">
     <div class="pf-glow pf-glow--blue"></div>
     <div class="pf-glow pf-glow--gold"></div>
   </div>
 
-  <!-- ── Header ── -->
+  
   <header class="pf-header">
     <a href="home.html" class="pf-back">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -38,10 +53,10 @@
     </a>
   </header>
 
-  <!-- ── Main ── -->
+  
   <main class="pf-main">
 
-    <!-- ── Hero ── -->
+   
     <div class="pf-hero">
       <div class="pf-avatar-wrap" id="avatar-wrap">
         <img id="pf-avatar" class="pf-avatar-img" src="assets/images/default-avatar.png" alt="Profile picture">
@@ -58,9 +73,7 @@
       <p  class="pf-hero-email" id="pf-email">—</p>
     </div>
 
-    <!-- ══════════════════════════════
-         EMPTY STATE — Create Profile
-    ══════════════════════════════ -->
+    
     <section id="pf-create" class="pf-section" hidden aria-label="Create profile">
       <div class="pf-card pf-create-card">
 
@@ -70,7 +83,7 @@
           <p class="pf-create-sub">Personalize your universe — upload a photo and tell us what you love.</p>
         </div>
 
-        <!-- Upload Zone -->
+        
         <div class="pf-upload-zone" id="create-upload-zone" role="button" tabindex="0" aria-label="Upload photo">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -104,12 +117,10 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════
-         EDIT STATE — Profile exists
-    ══════════════════════════════ -->
+    
     <section id="pf-edit" class="pf-section" hidden aria-label="Edit profile">
 
-      <!-- Info Card -->
+      
       <div class="pf-card">
         <h2 class="pf-card-title">Profile Details</h2>
 
@@ -130,7 +141,7 @@
           </div>
         </div>
 
-        <!-- Photo replace zone -->
+        
         <div class="pf-upload-zone pf-upload-zone--sm" id="edit-upload-zone" role="button" tabindex="0" aria-label="Replace profile photo" style="margin-top:4px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -150,7 +161,7 @@
         </div>
       </div>
 
-      <!-- Stats Row -->
+      
       <div class="pf-stats-row">
         <a href="favorites.html" class="pf-stat-card" aria-label="My Favorites">
           <span class="pf-stat-icon" aria-hidden="true"></span>
@@ -174,7 +185,7 @@
         </a>
       </div>
 
-      <!-- Recent Watchlist -->
+      
       <div class="pf-card">
         <div class="pf-watchlist-header">
           <h2 class="pf-card-title" style="margin-bottom:0;">Recent Watchlist</h2>
@@ -189,11 +200,11 @@
       </div>
 
     </section>
-    <!-- end edit section -->
+    
 
   </main>
 
-  <!-- ── Delete Confirm Modal ── -->
+  
   <div class="pf-modal-overlay" id="delete-modal" role="dialog" aria-modal="true" aria-label="Delete profile confirmation">
     <div class="pf-modal">
       <div class="pf-modal-body">

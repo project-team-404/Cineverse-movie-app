@@ -1,9 +1,4 @@
-/* ================================================================
-   CINEVERSE — favorites.js  v3.0  (FIXED to match real backend spec)
-   GET    /favorites/        → [{id, user_id, movie_id}]
-   POST   /favorites/{id}
-   DELETE /favorites/{id}
-================================================================ */
+
 
 'use strict';
 
@@ -18,7 +13,7 @@ function favHeaders() {
   return { 'Accept': 'application/json', 'Authorization': `Bearer ${favToken()}` };
 }
 
-/* ── Boot ── */
+
 document.addEventListener('DOMContentLoaded', async () => {
   initNavbar();
   initProfileDropdown();
@@ -43,10 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-/* ================================================================
-   FETCH — GET /favorites/ returns [{id, user_id, movie_id}]
-   Then fetch each movie by movie_id from /movies/{id}
-================================================================ */
+
 async function loadFavoriteMovies() {
   const res = await fetch(`${FAV_BASE}/favorites/`, { headers: favHeaders() });
 
@@ -57,11 +49,11 @@ async function loadFavoriteMovies() {
   }
   if (!res.ok) throw new Error(`GET /favorites/ → ${res.status}`);
 
-  const list = await res.json(); /* [{id, user_id, movie_id}] */
+  const list = await res.json(); 
 
   if (!Array.isArray(list) || list.length === 0) return [];
 
-  /* Fetch full movie details for each movie_id */
+  
   const results = await Promise.all(
     list.map(async item => {
       const movieId = item.movie_id;
@@ -77,7 +69,7 @@ async function loadFavoriteMovies() {
   return results.filter(Boolean);
 }
 
-/* ── Normalize ── */
+
 function normalizeMovie(m) {
   const images = Array.isArray(m.images) ? m.images : [];
   const poster = resolveImg(m.poster_url || images[0]?.image_url || '');
@@ -100,9 +92,7 @@ function resolveImg(raw) {
   return raw;
 }
 
-/* ================================================================
-   RENDER
-================================================================ */
+
 function renderGrid(movies) {
   const countEl = document.getElementById('fav-count');
   if (countEl) countEl.textContent = `${movies.length} film${movies.length !== 1 ? 's' : ''}`;
@@ -113,7 +103,7 @@ function renderGrid(movies) {
   grid.innerHTML = movies.map((m, i) => buildCard(m, i)).join('');
   showSection('fav-grid');
 
-  /* Wire remove-from-favorites */
+  
   grid.querySelectorAll('.cv-remove-fav').forEach(btn => {
     btn.addEventListener('click', async (e) => {
       e.preventDefault(); e.stopPropagation();
@@ -127,7 +117,7 @@ function renderGrid(movies) {
     });
   });
 
-  /* Wire add-to-watchlist from this page */
+ 
   grid.querySelectorAll('.cv-add-wl').forEach(btn => {
     btn.addEventListener('click', async (e) => {
       e.preventDefault(); e.stopPropagation();
@@ -154,7 +144,7 @@ function renderGrid(movies) {
   });
 }
 
-/* ── Remove from favorites: DELETE /favorites/{movie_id} ── */
+
 async function removeFavorite(movieId, cardEl) {
   try {
     const res = await fetch(`${FAV_BASE}/favorites/${movieId}`, {
@@ -181,7 +171,7 @@ async function removeFavorite(movieId, cardEl) {
   } catch { toast('Network error.', 'error'); }
 }
 
-/* ── Card HTML ── */
+
 function buildCard(m, i) {
   const rating = m.rating ? m.rating.toFixed(1) : '--';
   const year   = m.release_year || '--';
@@ -220,7 +210,7 @@ function buildCard(m, i) {
     </div>`;
 }
 
-/* ── SVGs ── */
+
 function heartSvg(a) {
   return `<svg viewBox="0 0 24 24" fill="${a?'currentColor':'none'}" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
 }
@@ -228,7 +218,7 @@ function bookmarkSvg(a) {
   return `<svg viewBox="0 0 24 24" fill="${a?'currentColor':'none'}" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>`;
 }
 
-/* ── Helpers ── */
+
 function hideSkeleton() {
   const sk = document.getElementById('skeleton-grid');
   if (sk) sk.style.display = 'none';
@@ -265,11 +255,7 @@ function initNavbar() {
   if (nb) window.addEventListener('scroll', () => nb.classList.toggle('scrolled', scrollY > 40), { passive: true });
 }
 
-/* ================================================================
-   PROFILE DROPDOWN — matches the markup already in favorites.html
-   (#profile-btn / #profile-dropdown / #logout-btn).
-   Self-contained, runs once, no duplicate listeners.
-================================================================ */
+
 function initProfileDropdown() {
   const profileBtn = document.getElementById('profile-btn');
   const dropdown   = document.getElementById('profile-dropdown');

@@ -1,8 +1,7 @@
-// frontend/JS/components/toast.js
-// Simple toast notification utility
+
 
 function showToast(message, type = "info", duration = 3000) {
-  // Create container if not exists
+  
   let container = document.getElementById("toast-container");
   if (!container) {
     container = document.createElement("div");

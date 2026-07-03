@@ -1,6 +1,4 @@
-/* ============================================================
-   CINEVERSE — NAVBAR
-   ============================================================ */
+
 
 .navbar {
   position: fixed;
@@ -30,7 +28,7 @@
   gap: var(--space-10);
 }
 
-/* ── LOGO ── */
+
 .nav-logo {
   display: flex;
   align-items: center;
@@ -67,7 +65,7 @@
 }
 .nav-logo-text span { color: var(--gold); }
 
-/* ── PRIMARY LINKS ── */
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -101,7 +99,7 @@
 .nav-link:hover::after,
 .nav-link.active::after { width: 60%; }
 
-/* ── ACTIONS ── */
+
 .nav-actions {
   display: flex;
   align-items: center;
@@ -110,7 +108,7 @@
   flex-shrink: 0;
 }
 
-/* Search trigger */
+
 .nav-search-btn {
   display: flex;
   align-items: center;
@@ -137,7 +135,7 @@
   border-left: 1px solid var(--white-10);
 }
 
-/* Icon buttons */
+
 .nav-icon-btn {
   position: relative;
   width: 40px; height: 40px;
@@ -171,7 +169,7 @@
   line-height: 1;
 }
 
-/* Avatar */
+
 .nav-avatar {
   width: 36px; height: 36px;
   border-radius: 50%;
@@ -193,7 +191,7 @@
   box-shadow: 0 0 20px var(--gold-glow);
 }
 
-/* Mobile hamburger */
+
 .nav-hamburger {
   display: none;
   flex-direction: column;
@@ -217,7 +215,7 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Mobile drawer */
+
 .nav-mobile-drawer {
   position: fixed;
   top: var(--nav-h); left: 0; right: 0;
@@ -247,7 +245,7 @@
   background: var(--white-05);
 }
 
-/* Search Overlay */
+
 .search-overlay {
   position: fixed;
   inset: 0;
@@ -337,7 +335,7 @@
   color: var(--gold);
 }
 
-/* ── RESPONSIVE ── */
+
 @media (max-width: 992px) {
   .nav-links { display: none; }
   .nav-search-btn .nav-search-hint { display: none; }

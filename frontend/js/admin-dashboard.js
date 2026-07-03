@@ -1,6 +1,4 @@
-// admin-dashboard.js — CineVerse Admin Dashboard
 
-// ── Auth Guard ─────────────────────────────────
 (function() {
   var token = localStorage.getItem('access_token');
   if (!token) {
@@ -8,7 +6,6 @@
   }
 })();
 
-// ── Load Stats ────────────────────────────────
 async function loadDashboardStats() {
   try {
     var movies = await CV_Admin.getMovies(1, 100);
@@ -27,7 +24,7 @@ async function loadDashboardStats() {
   }
 }
 
-// ── Init ──────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', function() {
   loadDashboardStats();
 });

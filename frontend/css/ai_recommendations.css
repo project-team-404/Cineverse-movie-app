@@ -50,7 +50,7 @@
   --grad-gold: linear-gradient(135deg, #e8a838 0%, #ffd97d 50%, #e8a838 100%);
 }
 
-/* ── Buttons (defensive duplicate — same as movie_page.css) ── */
+
 .btn-primary {
   display: inline-flex; align-items: center; gap: var(--space-2);
   padding: var(--space-3) var(--space-8);
@@ -89,7 +89,7 @@
   background: var(--gold); border-radius: var(--radius-pill);
 }
 
-/* ── Shimmer (defensive duplicate) ── */
+
 @keyframes shimmer {
   0%   { background-position: -600px 0; }
   100% { background-position: 600px 0; }
@@ -105,9 +105,7 @@
 .skeleton-card .skeleton-title { height: 12px; margin: 10px 0 6px; border-radius: 6px; }
 .skeleton-card .skeleton-meta { height: 10px; width: 55%; border-radius: 6px; }
 
-/* ================================================================
-   AIR — page wrapper
-================================================================ */
+
 .air-main { position: relative; overflow-x: hidden; }
 .air-main::before {
   content: '';
@@ -117,9 +115,7 @@
   pointer-events: none; z-index: 0;
 }
 
-/* ================================================================
-   HERO
-================================================================ */
+
 .air-hero {
   position: relative; z-index: 1;
   max-width: var(--max-w); margin: 0 auto;
@@ -152,9 +148,7 @@
   color: var(--white-100); font-size: var(--text-lg); line-height: 1.7;
 }
 
-/* ================================================================
-   INPUT CARD
-================================================================ */
+
 .air-input-section { position: relative; z-index: 1; max-width: var(--max-w); margin: 0 auto; padding: 0 var(--space-8) var(--space-10); }
 .air-input-card {
   width: min(780px, 100%); margin: 0 auto;
@@ -221,9 +215,7 @@
 .air-ask-btn.loading .air-spinner { display: inline-block; }
 .air-ask-btn.loading .air-ask-icon { display: none; }
 
-/* ================================================================
-   LOADING
-================================================================ */
+
 .air-loading { display: none; position: relative; z-index: 1; max-width: var(--max-w); margin: 0 auto; padding: 0 var(--space-8) var(--space-16); }
 .air-loading.active { display: block; animation: fadeUp 0.5s var(--ease-out-expo) both; }
 .air-loading-inner { text-align: center; margin-bottom: var(--space-8); }
@@ -235,9 +227,7 @@
 .air-loading-message { font-size: var(--text-base); color: var(--white-60); min-height: 1.5em; transition: opacity 0.35s var(--ease-out-expo); }
 .air-skeleton-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
 
-/* ================================================================
-   RESULTS
-================================================================ */
+
 .air-results { display: none; position: relative; z-index: 1; max-width: var(--max-w); margin: 0 auto; padding: 0 var(--space-8) var(--space-16); }
 .air-results.active { display: block; }
 
@@ -281,10 +271,7 @@
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ================================================================
-   MGC CARD — same system as movie_page.css so results look identical
-   to every other grid in CineVerse
-================================================================ */
+
 .mgc {
   position: relative; border-radius: var(--radius-xl); overflow: visible;
   cursor: default; transition: transform 0.5s var(--ease-out-expo);
@@ -369,10 +356,7 @@
 .mgc-meta-row { font-size: var(--text-xs); color: var(--white-30); display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
 .mgc-genre-tag { padding: 2px 7px; border: 1px solid var(--glass-border); border-radius: var(--radius-pill); font-size: 10px; color: var(--white-30); }
 
-/* ================================================================
-   LOGIN-REQUIRED MODAL (glass modal, same visual language as
-   .trailer-modal-overlay elsewhere in CineVerse)
-================================================================ */
+
 .air-modal-overlay {
   position: fixed; inset: 0; z-index: 1000;
   background: rgba(5,8,22,0.92); backdrop-filter: blur(16px);
@@ -399,9 +383,7 @@
 .air-modal p { color: var(--white-60); font-size: var(--text-sm); margin-bottom: var(--space-6); line-height: 1.6; }
 .air-modal-actions { display: flex; gap: var(--space-3); justify-content: center; }
 
-/* ================================================================
-   TOASTS — injected into the existing #toast-container
-================================================================ */
+
 #toast-container {
   position: fixed; bottom: var(--space-6); right: var(--space-6); z-index: 1100;
   display: flex; flex-direction: column; gap: var(--space-3);

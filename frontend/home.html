@@ -1,24 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CineVerse — The premium cinematic streaming experience. Discover trending movies, curated collections, and personalized recommendations.">
-  <meta name="theme-color" content="#080810">
+ <!-- Character Encoding -->
+<meta charset="UTF-8">
 
-  <!-- Open Graph -->
+<<<<<<< HEAD
+  
   <meta property="og:title" content="CineVerse — Premium Cinema">
   <meta property="og:description" content="Your universe of cinema, curated.">
   <meta property="og:type" content="website">
+=======
+<!-- Responsive Design -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO -->
+<meta name="title" content="CineVerse - Discover, Stream & Explore Movies">
+<meta name="description" content="CineVerse is a modern movie streaming and discovery platform where you can explore trending movies, top-rated films, watch trailers, manage your watchlist, favorites, reviews, and personalized recommendations.">
+<meta name="keywords" content="movies, streaming, CineVerse, watch movies, movie database, trailers, watchlist, favorites, reviews, entertainment, cinema">
+<meta name="author" content="CineVerse Team">
+<meta name="robots" content="index, follow">
+
+<!-- Theme -->
+<meta name="theme-color" content="#0B0F19">
+
+<!-- Open Graph (Facebook, LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="CineVerse - Your Universe of Cinema">
+<meta property="og:description" content="Discover trending movies, create watchlists, read reviews, and enjoy a premium movie experience.">
+\
+<meta property="og:url" content="https://your-domain.com">
+<meta property="og:site_name" content="CineVerse">
+>>>>>>> e127d806b70bc539298d7986e7910ec6f7357e70
 
   <title>CineVerse — Your Universe of Cinema</title>
 
-  <!-- Google Fonts -->
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 
-  <!-- Styles -->
+  
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/navbar_home.css">
@@ -28,9 +49,9 @@
   <link rel="stylesheet" href="css/footer.css">
 
   <style>
-    /* ── HOME-SPECIFIC OVERRIDES ── */
+    
 
-    /* Stats strip */
+    
     .stats-strip {
       background: var(--bg-elevated);
       border-top: 1px solid var(--glass-border);
@@ -70,16 +91,14 @@
       color: var(--white-30);
     }
 
-    /* ================================================================
-       SECTION 4 — HOW ARE YOU FEELING (image-based mood cards)
-    ================================================================ */
+   
     .mood-section {
       padding: var(--space-16) 0 var(--space-20);
       background: var(--bg-deep);
       position: relative;
       overflow: hidden;
     }
-    /* Ambient teal glow top-left */
+    
     .mood-section::before {
       content: '';
       position: absolute;
@@ -88,7 +107,7 @@
       background: radial-gradient(ellipse, var(--teal-trace) 0%, transparent 65%);
       pointer-events: none;
     }
-    /* Ambient gold glow bottom-right */
+    
     .mood-section::after {
       content: '';
       position: absolute;
@@ -105,7 +124,7 @@
       margin: 0 auto;
       padding: var(--space-8) var(--space-8) 0;
     }
-    /* Image-based mood card */
+    
     .mood-card {
       position: relative;
       aspect-ratio: 3/4;
@@ -126,7 +145,7 @@
       z-index: 2;
     }
 
-    /* Full-bleed background image */
+    
     .mood-card-img {
       position: absolute;
       inset: 0;
@@ -141,7 +160,7 @@
       filter: saturate(1) brightness(0.75);
     }
 
-    /* Cinematic gradient overlay */
+    
     .mood-card-overlay {
       position: absolute;
       inset: 0;
@@ -164,7 +183,7 @@
       );
     }
 
-    /* Colour accent top bar — unique per mood */
+    
     .mood-card::before {
       content: '';
       position: absolute;
@@ -178,7 +197,7 @@
     }
     .mood-card:hover::before { transform: scaleX(1); }
 
-    /* Text content */
+    
     .mood-card-content {
       position: absolute;
       bottom: 0; left: 0; right: 0;
@@ -212,7 +231,7 @@
       transform: translateY(0);
     }
 
-    /* CTA pill that slides up on hover */
+   
     .mood-card-cta {
       display: inline-flex;
       align-items: center;
@@ -241,15 +260,13 @@
     .mood-card-cta:hover { background: rgba(255,255,255,0.18); }
     .mood-card-cta svg { width: 12px; height: 12px; }
 
-    /* ================================================================
-       SECTION 2 — TRENDING THIS WEEK (premium centered carousel)
-    ================================================================ */
+    
     .trending-premium-section {
       padding: var(--space-20) 0;
       position: relative;
       overflow: hidden;
     }
-    /* Subtle background glow */
+    
     .trending-premium-section::before {
       content: '';
       position: absolute;
@@ -260,7 +277,7 @@
       pointer-events: none;
     }
 
-    /* Centered section header */
+    
     .trending-premium-header {
       text-align: center;
       max-width: 600px;
@@ -284,7 +301,7 @@
     }
     .trending-premium-header .section-subtitle { margin-top: var(--space-2); }
 
-    /* 80% wide carousel container */
+    
     .trending-stage {
       width: 80%;
       margin: 0 auto;
@@ -294,7 +311,7 @@
       position: relative;
       overflow: hidden;
     }
-    /* Faded edges */
+    
     .trending-carousel-wrap::before,
     .trending-carousel-wrap::after {
       content: '';
@@ -325,7 +342,7 @@
     .trending-track:active { cursor: grabbing; }
     .trending-track::-webkit-scrollbar { display: none; }
 
-    /* Trending movie card — slightly larger than default */
+    
     .trending-card {
       position: relative;
       flex-shrink: 0;
@@ -377,7 +394,7 @@
       filter: saturate(0.85) brightness(0.85);
     }
 
-    /* Rank number */
+    
     .trending-card-rank {
       position: absolute;
       top: var(--space-3); left: var(--space-3);
@@ -391,7 +408,7 @@
     }
     .trending-card.active-card .trending-card-rank { color: var(--gold-dim); }
 
-    /* Rating badge */
+    
     .trending-card-rating {
       position: absolute;
       top: var(--space-3); right: var(--space-3);
@@ -410,7 +427,7 @@
     }
     .trending-card-rating svg { width: 10px; height: 10px; fill: var(--rating-star); }
 
-    /* Hover overlay */
+    
     .trending-card-overlay {
       position: absolute;
       inset: 0;
@@ -473,7 +490,6 @@
       color: var(--white-30);
     }
 
-    /* Carousel arrow buttons */
     .trending-btn {
       position: absolute;
       top: 42%;
@@ -505,7 +521,7 @@
     .trending-btn-next { right: -24px; }
     .trending-btn[disabled] { opacity: 0 !important; pointer-events: none; }
 
-    /* ── TRENDING DETAIL PANEL ── */
+    
     .trending-detail-panel {
       width: 80%;
       margin: var(--space-8) auto 0;
@@ -592,7 +608,7 @@
     .tdp-right .btn-primary { font-size: var(--text-sm); padding: var(--space-3) var(--space-6); white-space: nowrap; }
     .tdp-right .btn-ghost   { font-size: var(--text-sm); padding: var(--space-3) var(--space-6); white-space: nowrap; }
 
-    /* Panel transition */
+    
     .trending-detail-panel.panel-transitioning .tdp-left {
       opacity: 0;
       transform: translateY(8px);
@@ -604,14 +620,12 @@
       transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
     }
 
-    /* ================================================================
-       SECTION 3 — PERSONALIZED FOR YOU (enhanced recommendations)
-    ================================================================ */
+   
     .recommended-section {
       padding: var(--space-20) 0;
       position: relative;
     }
-    /* Teal ambient */
+    
     .recommended-section::before {
       content: '';
       position: absolute;
@@ -620,10 +634,10 @@
       background: radial-gradient(ellipse, var(--teal-trace) 0%, transparent 65%);
       pointer-events: none;
     }
-    /* Bigger, more impactful movie cards for recommended */
+    
     #recommended-track .movie-card { width: 185px; }
     #recommended-track .movie-card:hover { transform: translateY(-12px) scale(1.06); }
-    /* Match score badge */
+    
     #recommended-track .movie-card-poster::after {
       content: attr(data-match);
       position: absolute;
@@ -642,7 +656,7 @@
     }
     #recommended-track .movie-card:hover .movie-card-poster::after { opacity: 1; }
 
-    /* Editorial quote */
+    
     .editorial-band {
       padding: var(--space-16) 0;
       text-align: center;
@@ -686,7 +700,7 @@
     }
     .editorial-author::before { content: '— '; }
 
-    /* Section ambience */
+    
     .section-ambient {
       position: relative;
     }
@@ -700,7 +714,7 @@
       pointer-events: none;
     }
 
-    /* Promo banner */
+    
     .promo-banner {
       margin: var(--space-8) auto;
       max-width: var(--max-w);
@@ -744,7 +758,7 @@
     .promo-desc { font-size: var(--text-sm); color: var(--white-60); max-width: 40ch; }
     .promo-actions { display: flex; gap: var(--space-4); flex-shrink: 0; }
 
-    /* ── RESPONSIVE FIXES ── */
+    
     @media (max-width: 1200px) {
       .mood-grid { grid-template-columns: repeat(3, 1fr); }
     }
@@ -783,13 +797,7 @@
       .mood-grid { grid-template-columns: 1fr 1fr; gap: var(--space-2); }
     }
 
-    /* ================================================================
-       FULL RESPONSIVE BREAKPOINT SYSTEM (HOME PAGE)
-       Desktop (1366px+) is the design reference and is left untouched.
-       Every rule below only narrows/adapts layout for smaller viewports.
-       ================================================================ */
-
-    /* Global safety net: never allow horizontal scroll on any device */
+    
     html, body { max-width: 100%; overflow-x: hidden; }
     .hero, .hero-inner, .stats-inner, .trending-stage, .mood-grid,
     .genre-grid, .promo-inner, .trending-detail-panel { max-width: 100%; }
@@ -797,37 +805,36 @@
     .hero-backdrop img, .mood-card-img, .movie-card-poster img,
     .trending-card-poster img, .genre-card img, .featured-main img { height: 100%; }
 
-    /* ========= 1920px+  (Large Desktop) ========= */
+    
     @media (min-width: 1920px) {
-      /* Reference design already centers content with var(--max-w);
-         only stop hero art from over-stretching on ultra-wide canvases. */
+    
       .hero-title { font-size: clamp(4rem, 6vw, 7.5rem); }
     }
 
-    /* ========= 1600px  (Desktop) ========= */
+    
     @media (max-width: 1600px) {
       .trending-stage { width: 84%; }
     }
 
-    /* ========= 1440px  (Laptop) ========= */
+    
     @media (max-width: 1440px) {
       .trending-stage { width: 86%; }
       #recommended-track .movie-card { width: 170px; }
     }
 
-    /* ========= 1366px  (Small Laptop) ========= */
+    
     @media (max-width: 1366px) {
       .nav-inner { gap: var(--space-8); }
       .trending-stage { width: 88%; }
     }
 
-    /* ========= 1200px  (already present above for mood-grid) ========= */
+    
     @media (max-width: 1200px) {
       #recommended-track .movie-card { width: 160px; }
       .featured-main-title { font-size: var(--text-4xl); }
     }
 
-    /* ========= 1024px  (Tablet Landscape) ========= */
+    
     @media (max-width: 1024px) {
       .hero-inner { padding: 0 var(--space-6); }
       .stats-inner { gap: var(--space-4); }
@@ -837,7 +844,7 @@
       .genre-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
     }
 
-    /* ========= 768px  (Tablet Portrait) ========= */
+    
     @media (max-width: 768px) {
       .nav-inner { padding: 0 var(--space-5); gap: var(--space-5); }
       .hero { min-height: 560px; }
@@ -851,7 +858,7 @@
       .featured-sidebar-card { min-width: 180px; }
     }
 
-    /* ========= 576px  (Large Mobile) ========= */
+    
     @media (max-width: 576px) {
       .nav-inner { gap: var(--space-3); }
       .nav-logo-text { font-size: var(--text-lg); }
@@ -874,7 +881,7 @@
       .editorial-quote { font-size: 1.3rem; }
     }
 
-    /* ========= 480px  (Medium Mobile) ========= */
+    
     @media (max-width: 480px) {
       .hero-inner { padding: 0 var(--space-4); }
       .hero-title { font-size: clamp(2.2rem, 11vw, 3.2rem); max-width: 100%; }
@@ -893,7 +900,7 @@
       .genre-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); padding: 0 var(--space-4); }
     }
 
-    /* ========= 375px  (Small Mobile) ========= */
+    
     @media (max-width: 375px) {
       .section-header { padding: 0 var(--space-4); }
       .carousel-track { padding: var(--space-3) var(--space-4) var(--space-6); }
@@ -906,7 +913,7 @@
       .stats-inner { padding: 0 var(--space-4); }
     }
 
-    /* ========= 320px  (Very Small Devices) ========= */
+    
     @media (max-width: 320px) {
       .nav-inner { padding: 0 var(--space-3); }
       .nav-search-btn span:not(.nav-search-hint) { display: none; }
@@ -927,7 +934,7 @@
 
 <body>
 
-  <!-- Loading Screen -->
+  
   <div class="loading-screen" role="status" aria-label="Loading CineVerse">
     <div class="loading-logo">CINE<span>VERSE</span></div>
     <div class="loading-bar-wrap">
@@ -936,18 +943,16 @@
     <div class="loading-text">Curating your universe…</div>
   </div>
 
-  <!-- Noise texture overlay -->
+  
   <div class="noise-overlay" aria-hidden="true"></div>
 
-  <!-- Page transition -->
+  
   <div id="page-transition" aria-hidden="true"></div>
 
-  <!-- Toast container -->
+  
   <div id="toast-container" role="status" aria-live="polite"></div>
 
-  <!-- ============================================================
-       NAVBAR (unchanged)
-  ============================================================ -->
+  
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="home.html" class="nav-logo" aria-label="CineVerse Home">
@@ -1054,7 +1059,7 @@
     </nav>
   </nav>
 
-  <!-- Search Overlay (unchanged) -->
+  
   <div id="search-overlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="Search movies">
     <div class="search-box">
       <div class="search-input-wrap">
@@ -1089,24 +1094,15 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       MAIN CONTENT
-  ============================================================ -->
+  
   <main id="main-content">
 
-    <!-- ================================================================
-         SECTION 1 — FULLSCREEN CINEMATIC HERO SLIDER (enhanced)
-         Key changes:
-         • 8 local backdrop images (Ken Burns + crossfade)
-         • Each slide animates independently with Ken Burns zoom
-         • Content stagger animation per slide
-         • Slide counter display
-    ================================================================ -->
+   
     <section class="hero" id="hero" aria-label="Featured movies showcase">
 
-      <!-- Backdrop images — js will populate OR static fallbacks fire immediately -->
+      
       <div class="hero-backdrop" aria-hidden="true">
-        <!-- Static preload — first visible slide so there's no blank on load -->
+       
         <div class="hero-slide active" data-local="1">
           <img src="assets/images/hero/oppenheimer.jpg"
                alt="Featured film backdrop 1"
@@ -1156,14 +1152,14 @@
       <div class="hero-light-leak" aria-hidden="true"></div>
       <div class="hero-depth-layer" aria-hidden="true"></div>
 
-      <!-- Slide counter (new) -->
+      
       <div class="hero-slide-counter" aria-hidden="true">
         <span class="hsc-current">01</span>
         <span class="hsc-sep">/</span>
         <span class="hsc-total">08</span>
       </div>
 
-      <!-- Content (structure preserved, animations enhanced) -->
+      
       <div class="hero-content">
         <div class="hero-inner">
 
@@ -1210,20 +1206,20 @@
         </div>
       </div>
 
-      <!-- Thumbnails (populated by js) -->
+      
       <div class="hero-thumbs" aria-label="Featured movies" role="tablist"></div>
 
-      <!-- Dot indicators (populated by js) -->
+     
       <div class="hero-indicators" role="tablist" aria-label="Hero slides"></div>
 
-      <!-- Scroll cue -->
+      
       <div class="hero-scroll-cue" aria-hidden="true">
         <span class="scroll-cue-text">Scroll</span>
         <span class="scroll-cue-line"></span>
       </div>
     </section>
 
-    <!-- ── STATS STRIP (unchanged) ── -->
+    
     <div class="stats-strip reveal" id="stats-banner" aria-label="Platform statistics">
       <div class="stats-inner">
         <div class="stat-item">
@@ -1246,9 +1242,7 @@
     </div>
 
 
-    <!-- ================================================================
-         SECTION 2 — TRENDING THIS WEEK (premium centered carousel)
-    <!-- ── CONTINUE WATCHING (unchanged) ── -->
+   
     <section class="section section-ambient" id="section-cw" aria-label="Continue watching">
       <div class="section-header reveal">
         <div class="section-title-group">
@@ -1277,7 +1271,7 @@
       </div>
     </section>
 
-    <!-- ── EDITORIAL BAND (unchanged) ── -->
+   
     <div class="editorial-band" aria-hidden="true">
       <div class="editorial-inner reveal">
         <blockquote class="editorial-quote">
@@ -1287,7 +1281,7 @@
       </div>
     </div>
 
-    <!-- ── TOP RATED (trending-card style) ── -->
+    
     <section class="trending-premium-section" id="section-toprated" aria-label="Top rated movies">
       <div class="trending-premium-header reveal">
         <p class="section-eyebrow">Critically Acclaimed</p>
@@ -1335,7 +1329,7 @@
           </button>
         </div>
 
-        <!-- Detail panel updates when a card is clicked -->
+        
         <div class="trending-detail-panel" id="toprated-detail" aria-live="polite" aria-label="Selected movie details">
           <div class="tdp-left">
             <p class="tdp-eyebrow">Top Rated #1</p>
@@ -1365,7 +1359,7 @@
     </section>
 
 
-    <!-- ── NOW PLAYING (unchanged) ── -->
+    
     <section class="section" id="section-nowplaying" aria-label="Recently added movies">
       <div class="section-header reveal">
         <div class="section-title-group">
@@ -1395,7 +1389,7 @@
       </div>
     </section>
 
-    <!-- ── GENRE COLLECTIONS (unchanged) ── -->
+    
     <section class="genre-section" aria-label="Browse by genre">
       <div class="section-header reveal" style="max-width:var(--max-w);margin:0 auto;padding:0 var(--space-8);margin-bottom:0">
         <div class="section-title-group">
@@ -1407,7 +1401,7 @@
       <div id="genre-grid" class="genre-grid stagger-children" role="list" aria-label="Movie genres"></div>
     </section>
 
-    <!-- ── PROMO BANNER (unchanged) ── -->
+   
     <div class="promo-banner reveal">
       <div class="promo-inner">
         <div class="promo-text">
@@ -1427,13 +1421,7 @@
       </div>
     </div>
 
-    <!-- ================================================================
-         SECTION 3 — RECOMMENDED FOR YOU (enhanced)
-         Key changes:
-         • Larger cards (185px)
-         • Match-score badge visible on hover
-         • Teal ambient glow behind section
-    ================================================================ -->
+   
     <section class="recommended-section section" id="section-recommended" aria-label="Recommended for you">
       <div class="section-header reveal">
         <div class="section-title-group">
@@ -1463,7 +1451,7 @@
       </div>
     </section>
 
-    <!-- ── UPCOMING (unchanged) ── -->
+    
     <section class="section" id="section-upcoming" aria-label="Latest movies">
       <div class="section-header reveal">
         <div class="section-title-group">
@@ -1495,7 +1483,7 @@
 
   </main>
 
-  <!-- FOOTER (unchanged) -->
+  
   <footer class="footer" role="contentinfo">
     <div class="footer-inner">
       <div class="footer-top">
@@ -1578,7 +1566,7 @@
     </div>
   </footer>
 
-  <!-- Trailer Modal (unchanged) -->
+  
   <div class="trailer-modal-overlay" id="trailer-modal" role="dialog" aria-modal="true" aria-label="Movie trailer">
     <div class="trailer-modal">
       <div class="trailer-video-wrap">
@@ -1594,12 +1582,12 @@
     </button>
   </div>
 
-  <!-- Scripts (original order preserved) -->
+  
   <script src="js/tmdb.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/components.js"></script>
   <script src="js/home.js"></script>
-  <!-- NEW: enhanced sections controller -->
+  
   <script src="js/home-enhanced.js"></script>
 
   <script>
@@ -1619,7 +1607,7 @@
   </script>
 
 
- <!-- These scripts are for the enhanced favorites and watchlist functionality -->
+ 
 <script src="js/auth/config/api.js"></script>
 <script src="js/cv-api.js"></script>
 <script src="js/cv-patch.js"></script>

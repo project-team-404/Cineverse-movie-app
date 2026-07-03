@@ -1,19 +1,17 @@
-// manage-reviews.js — CineVerse Manage Reviews
 
-// ── Auth Guard ─────────────────────────────────
 (function() {
   if (!localStorage.getItem('access_token')) {
     window.location.href = 'login.html';
   }
 })();
 
-// ── State ─────────────────────────────────────
+
 var movies = [];
 var reviews = [];
 var currentMovie = null;
 var deleteReviewId = null;
 
-// ── Modal Helpers ─────────────────────────────
+
 function openModal(id) {
   document.getElementById(id).classList.add('open');
 }
@@ -22,14 +20,14 @@ function closeModal(id) {
   document.getElementById(id).classList.remove('open');
 }
 
-// Close modal on overlay click
+
 document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) overlay.classList.remove('open');
   });
 });
 
-// ── Load Movies ───────────────────────────────
+
 async function loadMovies() {
   try {
     var result = await CV_Admin.getMovies(1, 100);
@@ -40,7 +38,7 @@ async function loadMovies() {
   }
 }
 
-// ── Populate Movie Dropdown ────────────────────
+
 function populateMovieDropdown() {
   var dropdown = document.getElementById('movie-filter');
   var options = movies.map(function(movie) {
@@ -49,12 +47,12 @@ function populateMovieDropdown() {
 
   dropdown.innerHTML = '<option value="">Select Movie</option>' + options;
 
-  // Attach change event listener
+ 
   dropdown.removeEventListener('change', onMovieFilterChange);
   dropdown.addEventListener('change', onMovieFilterChange);
 }
 
-// ── Movie Filter Change Event ──────────────────
+
 function onMovieFilterChange() {
   var movieId = document.getElementById('movie-filter').value;
 
@@ -72,7 +70,7 @@ function onMovieFilterChange() {
   loadSummary(currentMovie);
 }
 
-// ── Load Reviews ───────────────────────────────
+
 async function loadReviews(movieId) {
   var tableBody = document.getElementById('reviews-table-body');
   tableBody.innerHTML = '<div class="loading-spinner"><div class="spinner"></div> Loading reviews...</div>';
@@ -89,14 +87,14 @@ async function loadReviews(movieId) {
   }
 }
 
-// ── Load AI Summary ────────────────────────────
+
 async function loadSummary(movieId) {
   try {
     var result = await CV_Admin.getReviewSummary(movieId);
     var summary = result.summary_message || 'No summary available';
     document.getElementById('summary-text').textContent = summary;
 
-    // Simple sentiment detection based on keywords
+    
     var sentiment = 'Neutral';
     var lowerSummary = summary.toLowerCase();
     if (lowerSummary.includes('amazing') || lowerSummary.includes('love') || lowerSummary.includes('excellent') || lowerSummary.includes('great')) {
@@ -115,7 +113,7 @@ async function loadSummary(movieId) {
   }
 }
 
-// ── Render Statistics ──────────────────────────
+
 function renderStats() {
   var totalReviews = reviews.length;
   var avgRating = '—';
@@ -134,7 +132,7 @@ function renderStats() {
   document.getElementById('stat-five-star').textContent = fiveStarCount;
 }
 
-// ── Render Star Rating ─────────────────────────
+
 function renderStars(rating) {
   var stars = '';
   for (var i = 0; i < 5; i++) {
@@ -143,7 +141,7 @@ function renderStars(rating) {
   return stars;
 }
 
-// ── Render Reviews Table ──────────────────────
+
 function renderReviews() {
   var tableBody = document.getElementById('reviews-table-body');
 
@@ -181,7 +179,7 @@ function renderReviews() {
     '</table>';
 }
 
-// ── Delete Review ──────────────────────────────
+
 function openDeleteModal(reviewId) {
   deleteReviewId = reviewId;
   openModal('delete-review-modal');
@@ -214,7 +212,7 @@ async function submitDeleteReview() {
   }
 }
 
-// ── Init ──────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', function() {
   loadMovies();
 });
