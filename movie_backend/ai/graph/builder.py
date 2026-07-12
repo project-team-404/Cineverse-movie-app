@@ -1,9 +1,9 @@
 from langgraph.prebuilt import ToolNode
 from langgraph.graph import StateGraph, START, END
 
-from movie_backend.ai.graph.state import AgentState
-from movie_backend.ai.graph.nodes import chat_bot
-from movie_backend.ai.graph.router import decision
+from movie_app.movie_backend.ai.graph.state import AgentState
+from movie_app.movie_backend.ai.graph.nodes import chat_bot
+from movie_app.movie_backend.ai.graph.router import decision
 
 
 def build_graph(tools):

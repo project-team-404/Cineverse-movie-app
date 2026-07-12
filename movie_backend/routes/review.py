@@ -1,32 +1,32 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.database.database import get_db
-from movie_backend.util.helpers import verify_token
-from movie_backend.util.helpers import rate_limit
-from movie_backend.schemas.review_schema import (
+from movie_app.movie_backend.database.database import get_db
+from movie_app.movie_backend.util.helpers import verify_token
+from movie_app.movie_backend.util.helpers import rate_limit
+from movie_app.movie_backend.schemas.review_schema import (
     ReviewCreate,
     ReviewUpdate,
     ReviewResponse
 )
 
-from movie_backend.schemas.response_schema import (
+from movie_app.movie_backend.schemas.response_schema import (
     MessageResponse
 )
 
-from movie_backend.schemas.ai_summary_review_schema import (
+from movie_app.movie_backend.schemas.ai_summary_review_schema import (
     SummaryRequest,
     SummaryResponse
 )
 
-from movie_backend.services.review_service import (
+from movie_app.movie_backend.services.review_service import (
     create_review_service,
     update_review_service,
     delete_review_service,
     get_reviews_service
 )
 
-from movie_backend.ai.services.review_summary import summary_review_service
+from movie_app.movie_backend.ai.services.review_summary import summary_review_service
 
 router = APIRouter(
     prefix="/reviews",

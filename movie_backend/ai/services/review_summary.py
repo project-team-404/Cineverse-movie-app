@@ -9,8 +9,8 @@ from langchain_groq import ChatGroq
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.models.movie import Movie
-from movie_backend.models.review import Review
+from movie_app.movie_backend.models.movie import Movie
+from movie_app.movie_backend.models.review import Review
 
 load_dotenv()
 

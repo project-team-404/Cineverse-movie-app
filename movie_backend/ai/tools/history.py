@@ -1,13 +1,14 @@
 from collections import Counter
+import json
 
 from langchain_core.tools import tool
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from movie_backend.models.user import User
-from movie_backend.models.watch_history import WatchHistory
-from movie_backend.models.movie import Movie
+from movie_app.movie_backend.models.user import User
+from movie_app.movie_backend.models.watch_history import WatchHistory
+from movie_app.movie_backend.models.movie import Movie
 
 
 def create_user_history_genre_count_tool(
@@ -44,6 +45,6 @@ def create_user_history_genre_count_tool(
             genre = history.movie.genre.name
             genre_count[genre] += 1
 
-        return dict(genre_count)
+        return json.dumps(dict(genre_count))
 
     return user_history_genre_count

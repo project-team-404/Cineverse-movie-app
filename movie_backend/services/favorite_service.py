@@ -2,8 +2,8 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.models.favorite import Favorite
-from movie_backend.models.movie import Movie
+from movie_app.movie_backend.models.favorite import Favorite
+from movie_app.movie_backend.models.movie import Movie
 from sqlalchemy.orm import selectinload
 
 async def add_favorite_service(

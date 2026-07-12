@@ -3,19 +3,19 @@ from pydantic import ValidationError
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.ai.graph.builder import build_graph
+from movie_app.movie_backend.ai.graph.builder import build_graph
 
-from movie_backend.ai.tools.history import (
+from movie_app.movie_backend.ai.tools.history import (
     create_user_history_genre_count_tool
 )
 
-from movie_backend.ai.tools.favorite import (
+from movie_app.movie_backend.ai.tools.favorite import (
     create_user_favorite_genre_count_tool
 )
 
-from movie_backend.ai.tools.rag import rag
+from movie_app.movie_backend.ai.tools.rag import rag
 
-from movie_backend.schemas.ai_recommendation import (
+from movie_app.movie_backend.schemas.ai_recommendation import (
     AiResponse
 )
 

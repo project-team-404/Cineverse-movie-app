@@ -5,9 +5,9 @@ from fastapi import HTTPException, status, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from movie_backend.models.profile import Profile
-from movie_backend.schemas.profile_schema import ProfileCreate, ProfileUpdate
-from movie_backend.util.helpers import _save_file
+from movie_app.movie_backend.models.profile import Profile
+from movie_app.movie_backend.schemas.profile_schema import ProfileCreate, ProfileUpdate
+from movie_app.movie_backend.util.helpers import _save_file
 
 UPLOAD_DIR = "uploads/profile_pictures"
 os.makedirs(UPLOAD_DIR, exist_ok=True)

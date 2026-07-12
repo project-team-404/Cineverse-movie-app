@@ -4,24 +4,24 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.models.user import User
-from movie_backend.schemas.auth_schema import (
+from movie_app.movie_backend.models.user import User
+from movie_app.movie_backend.schemas.auth_schema import (
     SignupRequest,
     LoginRequest
 )
-from movie_backend.util.helpers import (
+from movie_app.movie_backend.util.helpers import (
     hash_password,
     verify_password,
     create_access_token
 )
 
-from movie_backend.util.emails import (
+from movie_app.movie_backend.util.emails import (
     send_welcome_email,
     send_otp_email,
     generate_otp
 )
 
-from movie_backend.util.helpers import rate_limit,redis_client
+from movie_app.movie_backend.util.helpers import rate_limit,redis_client
 
 import uuid
 

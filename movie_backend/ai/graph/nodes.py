@@ -1,8 +1,8 @@
 from langchain_core.messages import SystemMessage
 
-from movie_backend.ai.prompts.system_prompt import SYSTEM_PROMPT
-from movie_backend.ai.graph.state import AgentState
-from movie_backend.ai.configs.config import llm
+from movie_app.movie_backend.ai.prompts.system_prompt import SYSTEM_PROMPT
+from movie_app.movie_backend.ai.graph.state import AgentState
+from movie_app.movie_backend.ai.configs.config import llm
 
 
 def chat_bot(state: AgentState, tools) -> AgentState:

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Boolean, DateTime, ForeignKey, UniqueConstraint
 from datetime import datetime
-from movie_backend.database.database import Base
+from movie_app.movie_backend.database.database import Base
 from sqlalchemy.orm import relationship
 
 

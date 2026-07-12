@@ -2,19 +2,19 @@ from fastapi import APIRouter,Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 from sqlalchemy import select
-from movie_backend.models.movie import Movie
+from movie_app.movie_backend.models.movie import Movie
 
-from movie_backend.database.database import get_db
-from movie_backend.util.helpers import verify_token
+from movie_app.movie_backend.database.database import get_db
+from movie_app.movie_backend.util.helpers import verify_token
 
-from movie_backend.schemas.ai_recommendation import (
+from movie_app.movie_backend.schemas.ai_recommendation import (
     AiResponse,
     AiRequest
 )
-from movie_backend.ai.vectorstore.helpers import add_movie
-from movie_backend.ai.vectorstore.store import vector_store
+from movie_app.movie_backend.ai.vectorstore.helpers import add_movie
+from movie_app.movie_backend.ai.vectorstore.store import vector_store
 
-from movie_backend.services.ai_recommendation_service import get_ai_recommendation
+from movie_app.movie_backend.services.ai_recommendation_service import get_ai_recommendation
 
 router = APIRouter(
     prefix="/ai_recommendation",

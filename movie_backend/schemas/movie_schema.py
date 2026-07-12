@@ -1,8 +1,6 @@
-# schemas/movie_schema.py
-
 from pydantic import BaseModel
-from .genre_schema import GenreResponse
-from .movie_image_schema import MovieImageResponse
+from movie_app.movie_backend.schemas.genre_schema import GenreResponse
+from movie_app.movie_backend.schemas.movie_image_schema import MovieImageResponse
 
 
 class MovieCreate(BaseModel):

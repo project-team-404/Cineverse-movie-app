@@ -2,13 +2,13 @@ from fastapi import APIRouter, Depends, UploadFile, File, Form
 from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.database.database import get_db
-from movie_backend.util.helpers import verify_token
-from movie_backend.util.helpers import rate_limit
-from movie_backend.schemas.profile_schema import ProfileResponse
-from movie_backend.schemas.response_schema import MessageResponse
+from movie_app.movie_backend.database.database import get_db
+from movie_app.movie_backend.util.helpers import verify_token
+from movie_app.movie_backend.util.helpers import rate_limit
+from movie_app.movie_backend.schemas.profile_schema import ProfileResponse
+from movie_app.movie_backend.schemas.response_schema import MessageResponse
 
-from movie_backend.services.profile_service import (
+from movie_app.movie_backend.services.profile_service import (
     create_profile_service,
     get_profile_service,
     update_profile_service,

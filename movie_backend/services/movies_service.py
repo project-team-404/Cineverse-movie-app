@@ -2,8 +2,8 @@ from fastapi import HTTPException, status
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.models.genre import Genre
-from movie_backend.models.movie import Movie
+from movie_app.movie_backend.models.genre import Genre
+from movie_app.movie_backend.models.movie import Movie
 
 from sqlalchemy import select, desc
 from sqlalchemy.orm import selectinload

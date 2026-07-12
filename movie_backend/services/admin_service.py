@@ -3,28 +3,28 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from movie_backend.models.genre import Genre
-from movie_backend.models.movie import Movie
-from movie_backend.models.movie_image import MovieImage
+from movie_app.movie_backend.models.genre import Genre
+from movie_app.movie_backend.models.movie import Movie
+from movie_app.movie_backend.models.movie_image import MovieImage
 
-from movie_backend.schemas.movie_schema import (
+from movie_app.movie_backend.schemas.movie_schema import (
     MovieCreate,
     MovieUpdate
 )
 
-from movie_backend.schemas.genre_schema import (
+from movie_app.movie_backend.schemas.genre_schema import (
     GenreCreate,
     GenreUpdate
 )
 
-from movie_backend.util.helpers import (
+from movie_app.movie_backend.util.helpers import (
     save_image,
     delete_image,
     verify_admin
 )
 
 
-from movie_backend.ai.vectorstore.helpers import (
+from movie_app.movie_backend.ai.vectorstore.helpers import (
     add_movie,
     update_movie,
     delete_movie

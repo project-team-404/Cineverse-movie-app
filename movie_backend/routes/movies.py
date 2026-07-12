@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.database.database import get_db
-from movie_backend.services.movies_service import (
+from movie_app.movie_backend.database.database import get_db
+from movie_app.movie_backend.services.movies_service import (
     get_movies_service,
     get_movie_service,
     search_movies_service,
@@ -10,8 +10,8 @@ from movie_backend.services.movies_service import (
     home_service
 )
 
-from movie_backend.schemas.movie_schema import MovieResponse,HomePageResponse
-from movie_backend.util.helpers import rate_limit
+from movie_app.movie_backend.schemas.movie_schema import MovieResponse,HomePageResponse
+from movie_app.movie_backend.util.helpers import rate_limit
 from typing import List
 
 

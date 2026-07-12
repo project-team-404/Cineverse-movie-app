@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.database.database import get_db
-from movie_backend.util.helpers import verify_token
-from movie_backend.schemas.watch_history_schema import WatchHistoryRequest, WatchHistoryResponse
-import movie_backend.services.watch_history_service as watch_service
+from movie_app.movie_backend.database.database import get_db
+from movie_app.movie_backend.util.helpers import verify_token
+from movie_app.movie_backend.schemas.watch_history_schema import WatchHistoryRequest, WatchHistoryResponse
+import movie_app.movie_backend.services.watch_history_service as watch_service
 
 router = APIRouter(
     prefix="/watch-history",

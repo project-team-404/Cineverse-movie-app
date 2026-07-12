@@ -2,8 +2,8 @@ from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from movie_backend.models.watchlist import Watchlist
-from movie_backend.models.movie import Movie
+from movie_app.movie_backend.models.watchlist import Watchlist
+from movie_app.movie_backend.models.movie import Movie
 
 from sqlalchemy.orm import selectinload
 

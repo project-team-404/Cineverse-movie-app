@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.database.database import get_db
-from movie_backend.schemas.auth_schema import (
+from movie_app.movie_backend.database.database import get_db
+from movie_app.movie_backend.schemas.auth_schema import (
     SignupRequest,
     SignupResponse,
     LoginRequest,
@@ -16,9 +16,9 @@ from movie_backend.schemas.auth_schema import (
     ResetPasswordRequest
 )
 
-from movie_backend.schemas.response_schema import MessageResponse
+from movie_app.movie_backend.schemas.response_schema import MessageResponse
 
-from movie_backend.services.auth_service import (
+from movie_app.movie_backend.services.auth_service import (
     signup_service,
     login_service,
     logout_service,
@@ -28,8 +28,8 @@ from movie_backend.services.auth_service import (
     reset_password_service
 )
 
-from movie_backend.util.helpers import verify_token
-from movie_backend.util.helpers import rate_limit
+from movie_app.movie_backend.util.helpers import verify_token
+from movie_app.movie_backend.util.helpers import rate_limit
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 

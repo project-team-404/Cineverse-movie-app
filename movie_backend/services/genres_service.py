@@ -2,7 +2,7 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.models.genre import Genre
+from movie_app.movie_backend.models.genre import Genre
 
 
 async def get_genres_service(

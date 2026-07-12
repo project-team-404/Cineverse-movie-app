@@ -2,10 +2,10 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from movie_backend.models.movie import Movie
-from movie_backend.models.review import Review
+from movie_app.movie_backend.models.movie import Movie
+from movie_app.movie_backend.models.review import Review
 
-from movie_backend.schemas.review_schema import (
+from movie_app.movie_backend.schemas.review_schema import (
     ReviewCreate,
     ReviewUpdate
 )

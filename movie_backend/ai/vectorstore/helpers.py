@@ -1,7 +1,7 @@
 from langchain_core.documents import Document
 
-from movie_backend.ai.vectorstore.store import vector_store
-from movie_backend.models.movie import Movie
+from movie_app.movie_backend.ai.vectorstore.store import vector_store
+from movie_app.movie_backend.models.movie import Movie
 
 
 def movie_to_document(movie: Movie) -> Document:

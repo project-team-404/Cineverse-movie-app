@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from movie_backend.schemas.movie_schema import MovieResponse
+from movie_app.movie_backend.schemas.movie_schema import MovieResponse
 
 class AllFavoriteResponse(BaseModel):
     id: int

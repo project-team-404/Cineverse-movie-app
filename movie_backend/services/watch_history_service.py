@@ -4,8 +4,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime, timezone
 from fastapi import HTTPException, status
 
-from movie_backend.models.watch_history import WatchHistory
-from movie_backend.schemas.watch_history_schema import WatchHistoryRequest
+from movie_app.movie_backend.models.watch_history import WatchHistory
+from movie_app.movie_backend.schemas.watch_history_schema import WatchHistoryRequest
 
 
 def now():

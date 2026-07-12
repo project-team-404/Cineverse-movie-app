@@ -1,4 +1,4 @@
-from movie_backend.ai.graph.state import AgentState
+from movie_app.movie_backend.ai.graph.state import AgentState
 
 def decision(state: AgentState):
     request = state["messages"][-1]
