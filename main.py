@@ -6,34 +6,36 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from scalar_fastapi import get_scalar_api_reference
 
-from movie_backend.database.database import init_db
+from movie_app.movie_backend.database.database import init_db
 
-from movie_backend.routes.auth import router as auth
-from movie_backend.routes.movies import router as movies
-from movie_backend.routes.genres import router as genres
-from movie_backend.routes.admin import router as admin
-from movie_backend.routes.favorite import router as favorite
-from movie_backend.routes.review import router as review
-from movie_backend.routes.watchlist import router as watchlist
-from movie_backend.routes.profile import router as profile
-from movie_backend.routes.watch_history_router import router as watch_history
-from movie_backend.routes.ai_recommendation import router as ai_recommendation
+from movie_app.movie_backend.routes.auth import router as auth
+from movie_app.movie_backend.routes.movies import router as movies
+from movie_app.movie_backend.routes.genres import router as genres
+from movie_app.movie_backend.routes.admin import router as admin
+from movie_app.movie_backend.routes.favorite import router as favorite
+from movie_app.movie_backend.routes.review import router as review
+from movie_app.movie_backend.routes.watchlist import router as watchlist
+from movie_app.movie_backend.routes.profile import router as profile
+from movie_app.movie_backend.routes.watch_history_router import router as watch_history
+from movie_app.movie_backend.routes.ai_recommendation import router as ai_recommendation
 
-from movie_backend.models.user import User
-from movie_backend.models.genre import Genre
-from movie_backend.models.movie import Movie
-from movie_backend.models.movie_image import MovieImage
-from movie_backend.models.watchlist import Watchlist
-from movie_backend.models.profile import Profile
-from movie_backend.models.watch_history import WatchHistory
+from movie_app.movie_backend.models.user import User
+from movie_app.movie_backend.models.genre import Genre
+from movie_app.movie_backend.models.movie import Movie
+from movie_app.movie_backend.models.movie_image import MovieImage
+from movie_app.movie_backend.models.watchlist import Watchlist
+from movie_app.movie_backend.models.profile import Profile
+from movie_app.movie_backend.models.watch_history import WatchHistory
 
+from movie_app.movie_backend.configs.logger import logger
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("Welcome to lifespan")
-    await init_db()  # creates all tables including watch_history
+    logger.info("Application starting...")
+    await init_db()
+    logger.info("Database initialized successfully.")
     yield
-    print("Bye from lifespan")
+    logger.info("Application shutting down...")
 
 
 app = FastAPI(
@@ -43,7 +45,11 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+app.mount(
+    "/uploads",
+    StaticFiles(directory="movie_app/uploads"),
+    name="uploads"
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -67,8 +73,14 @@ app.add_middleware(
 async def log_requests(request: Request, call_next):
     start = time.perf_counter()
     response = await call_next(request)
-    end = time.perf_counter()
-    print(f"Request time: {end - start:.4f} seconds")
+    process_time = time.perf_counter() - start
+    logger.info(
+        "%s %s | %d | %.4fs",
+        request.method,
+        request.url.path,
+        response.status_code,
+        process_time,
+    )
     return response
 
 
