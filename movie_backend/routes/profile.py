@@ -14,7 +14,9 @@ from movie_app.movie_backend.services.profile_service import (
     update_profile_service,
     delete_profile_service
 )
+import logging
 
+logger = logging.getLogger(__name__)
 router = APIRouter(
     prefix="/profile",
     tags=["Profile"]
@@ -34,11 +36,13 @@ async def create_profile(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    
     from movie_backend.schemas.profile_schema import ProfileCreate
     data = ProfileCreate(
         preferred_language=preferred_language,
         favorite_movie=favorite_movie
     )
+    logger.info(f"Create profile request received. User ID: {current_user.id}, Photo: {photo.filename}")
     return await create_profile_service(data, db, current_user, photo)
 
 
@@ -51,6 +55,7 @@ async def get_profile(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Get profile request received. User ID: {current_user.id}")
     return await get_profile_service(db, current_user)
 
 
@@ -72,6 +77,7 @@ async def update_profile(
         preferred_language=preferred_language,
         favorite_movie=favorite_movie
     )
+    logger.info(f"Update profile request received. User ID: {current_user.id}")
     return await update_profile_service(data, db, current_user, photo)
 
 
@@ -84,4 +90,5 @@ async def delete_profile(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Delete profile request received. User ID: {current_user.id}")
     return await delete_profile_service(db, current_user)

@@ -40,6 +40,8 @@ from movie_app.movie_backend.services.admin_service import (
     delete_movie_image_service
 )
 from movie_app.movie_backend.util.helpers import rate_limit
+import logging
+logger = logging.getLogger(__name__)
 
 router = APIRouter(
     prefix="/admin",
@@ -57,6 +59,7 @@ async def create_movie(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Create movie request received by user {current_user.id}")
     return await create_movie_service(
         request,
         db,
@@ -75,6 +78,7 @@ async def update_movie(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Update movie request received. Movie ID: {movie_id}, User ID: {current_user.id}")
     return await update_movie_service(
         movie_id,
         request,
@@ -93,6 +97,7 @@ async def delete_movie(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Delete movie request received. Movie ID: {movie_id}, User ID: {current_user.id}")
     return await delete_movie_service(
         movie_id,
         db,
@@ -110,6 +115,8 @@ async def create_genre(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    
+    logger.info(f"Create genre request received by user {current_user.id}")
     return await create_genre_service(
         request,
         db,
@@ -128,6 +135,7 @@ async def update_genre(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Update genre request received. Genre ID: {genre_id}, User ID: {current_user.id}")
     return await update_genre_service(
         genre_id,
         request,
@@ -146,6 +154,7 @@ async def delete_genre(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Delete genre request received. Genre ID: {genre_id}, User ID: {current_user.id}")
     return await delete_genre_service(
         genre_id,
         db,
@@ -164,6 +173,7 @@ async def add_movie_image(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Add movie image request received. Movie ID: {movie_id}, Filename: {image.filename}, User ID: {current_user.id}")
     return await add_movie_image_service(
         movie_id,
         image,
@@ -182,6 +192,7 @@ async def delete_movie_image(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Delete movie image request received. Image ID: {image_id}, User ID: {current_user.id}")
     return await delete_movie_image_service(
         image_id,
         db,

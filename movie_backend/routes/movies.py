@@ -13,9 +13,9 @@ from movie_app.movie_backend.services.movies_service import (
 from movie_app.movie_backend.schemas.movie_schema import MovieResponse,HomePageResponse
 from movie_app.movie_backend.util.helpers import rate_limit
 from typing import List
+import logging
 
-
-
+logger = logging.getLogger(__name__)
 router = APIRouter(
     prefix="/movies",
     tags=["Movies"]
@@ -28,6 +28,7 @@ async def get_movies(
     limit: int = 10,
     db: AsyncSession = Depends(get_db)
 ):
+    logger.info(f"Get movies request received. Page: {page}, Limit: {limit}")
     return await get_movies_service(
         page,
         limit,
@@ -40,6 +41,7 @@ async def get_movie(
     movie_id: int,
     db: AsyncSession = Depends(get_db)
 ):
+    logger.info(f"Get movie request received. Movie ID: {movie_id}")
     return await get_movie_service(
         movie_id,
         db
@@ -53,6 +55,7 @@ async def search_movies(
     limit: int = 10,
     db: AsyncSession = Depends(get_db)
 ):
+    logger.info(f"Search movies request received. Query: '{q}', Page: {page}, Limit: {limit}")
     return await search_movies_service(
         q,
         page,
@@ -70,6 +73,7 @@ async def filter_movies(
     limit: int = 10,
     db: AsyncSession = Depends(get_db)
 ):
+    logger.info(f"Filter movies request received. Genre: {genre}, Language: {language}, Year: {year}, Page: {page}, Limit: {limit}")
     return await filter_movies_service(
         genre,
         language,
@@ -81,4 +85,5 @@ async def filter_movies(
 
 @router.get("/home/",response_model=HomePageResponse)
 async def home(db: AsyncSession = Depends(get_db)):
+    logger.info("Home page data request received.")
     return await home_service(db)

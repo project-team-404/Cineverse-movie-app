@@ -6,7 +6,9 @@ from movie_app.movie_backend.services.genres_service import get_genres_service
 from movie_app.movie_backend.schemas.genre_schema import GenreResponse
 from movie_app.movie_backend.util.helpers import rate_limit
 from typing import List
+import logging
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/genres", tags=["Genres"])
 
 
@@ -14,4 +16,5 @@ router = APIRouter(prefix="/genres", tags=["Genres"])
 async def get_genres(
     db: AsyncSession = Depends(get_db)
 ):
+    logger.info("Get genres request received.")
     return await get_genres_service(db)

@@ -17,6 +17,9 @@ from movie_app.movie_backend.services.watchlist_service import (
     get_watchlist_service
 )
 from movie_app.movie_backend.util.helpers import rate_limit
+import logging
+
+logger = logging.getLogger(__name__)
 router = APIRouter(
     prefix="/watchlist",
     tags=["Watchlist"]
@@ -33,6 +36,7 @@ async def add_to_watchlist(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Add to watchlist request received. Movie ID: {movie_id}, User ID: {current_user.id}")
     return await add_watchlist_service(
         movie_id,
         db,
@@ -50,6 +54,7 @@ async def remove_from_watchlist(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Remove from watchlist request received. Movie ID: {movie_id}, User ID: {current_user.id}")
     return await remove_watchlist_service(
         movie_id,
         db,
@@ -66,6 +71,7 @@ async def get_watchlist(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Get watchlist request received. User ID: {current_user.id}")
     return await get_watchlist_service(
         db,
         current_user

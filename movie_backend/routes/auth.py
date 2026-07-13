@@ -30,7 +30,9 @@ from movie_app.movie_backend.services.auth_service import (
 
 from movie_app.movie_backend.util.helpers import verify_token
 from movie_app.movie_backend.util.helpers import rate_limit
+import logging
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
@@ -39,6 +41,7 @@ async def signup(
     request: SignupRequest,
     db: AsyncSession = Depends(get_db)
 ):
+    logger.info(f"Signup request received for email: {request.email}")
     return await signup_service(request, db)
 
 
@@ -47,6 +50,7 @@ async def login(
     request: LoginRequest,
     db: AsyncSession = Depends(get_db)
 ):
+    logger.info(f"Login request received for email: {request.email}")
     return await login_service(request, db)
 
 
@@ -54,6 +58,7 @@ async def login(
 async def logout(
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Logout request received from User ID: {current_user.id}")
     return await logout_service(current_user)
 
 
@@ -62,6 +67,7 @@ async def get_current_user(
     current_user=Depends(verify_token),
     db: AsyncSession = Depends(get_db)
 ):
+    logger.info(f"Profile request received from User ID: {current_user.id}")
     return await get_current_user_service(current_user, db)
 
 @router.post("/otp", response_model=PasswordResetResponse, dependencies=[Depends(rate_limit(5, 150))])
@@ -69,12 +75,14 @@ async def get_otp(
     request: PasswordResetRequest,
     db: AsyncSession = Depends(get_db)
 ):
+    logger.info(f"Password reset OTP requested for email: {request.email}")
     return await get_otp_service(request, db)
 
 @router.post("/otp_verified", response_model=OtpVerificationResponse, dependencies=[Depends(rate_limit(5, 150))])
 async def get_otp_verified(
     request: OtpVerificationRequest,
 ):
+    logger.info(f"OTP verification request received for email: {request.email}")
     return await get_otp_verified_service(request)
 
 @router.post("/reset-password",response_model=MessageResponse, dependencies=[Depends(rate_limit(5, 150))])
@@ -82,5 +90,6 @@ async def reset_password(
     request: ResetPasswordRequest,
     db: AsyncSession = Depends(get_db)
 ):
+    logger.info(f"Password reset request received for email: {request.email}")
     return await reset_password_service(request, db)
 

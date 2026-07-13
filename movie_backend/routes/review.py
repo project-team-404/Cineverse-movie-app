@@ -27,7 +27,9 @@ from movie_app.movie_backend.services.review_service import (
 )
 
 from movie_app.movie_backend.ai.services.review_summary import summary_review_service
+import logging
 
+logger = logging.getLogger(__name__)
 router = APIRouter(
     prefix="/reviews",
     tags=["Reviews"]
@@ -45,6 +47,7 @@ async def create_review(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Create review request received. Movie ID: {movie_id}, User ID: {current_user.id}")
     return await create_review_service(
         movie_id,
         request,
@@ -64,6 +67,7 @@ async def update_review(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Update review request received. Review ID: {review_id}, User ID: {current_user.id}")
     return await update_review_service(
         review_id,
         request,
@@ -82,6 +86,7 @@ async def delete_review(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Delete review request received. Review ID: {review_id}, User ID: {current_user.id}")
     return await delete_review_service(
         review_id,
         db,
@@ -98,6 +103,7 @@ async def get_reviews(
     movie_id: int,
     db: AsyncSession = Depends(get_db)
 ):
+    logger.info(f"Get reviews request received. Movie ID: {movie_id}")
     return await get_reviews_service(
         movie_id,
         db
@@ -112,4 +118,5 @@ async def get_reviews_summary(
         movie_id: int,
         db: AsyncSession = Depends(get_db)
 ):
+    logger.info(f"AI review summary request received. Movie ID: {movie_id}")
     return await summary_review_service(movie_id,db)

@@ -20,7 +20,9 @@ from movie_app.movie_backend.services.favorite_service import (
     remove_favorite_service,
     get_favorites_service
 )
+import logging
 
+logger = logging.getLogger(__name__)
 router = APIRouter(
     prefix="/favorites",
     tags=["Favorites"]
@@ -37,6 +39,7 @@ async def add_favorite(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Add favorite request received. Movie ID: {movie_id}, User ID: {current_user.id}")
     return await add_favorite_service(
         movie_id,
         db,
@@ -54,6 +57,7 @@ async def remove_favorite(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Remove favorite request received. Movie ID: {movie_id}, User ID: {current_user.id}")
     return await remove_favorite_service(
         movie_id,
         db,
@@ -70,6 +74,7 @@ async def get_favorites(
     db: AsyncSession = Depends(get_db),
     current_user=Depends(verify_token)
 ):
+    logger.info(f"Get favorites request received. User ID: {current_user.id}")
     return await get_favorites_service(
         db,
         current_user

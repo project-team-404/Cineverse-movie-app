@@ -15,6 +15,8 @@ from movie_app.movie_backend.ai.vectorstore.helpers import add_movie
 from movie_app.movie_backend.ai.vectorstore.store import vector_store
 
 from movie_app.movie_backend.services.ai_recommendation_service import get_ai_recommendation
+import logging
+logger = logging.getLogger(__name__)
 
 router = APIRouter(
     prefix="/ai_recommendation",
@@ -27,6 +29,7 @@ async def ai_recommendation(
         db: AsyncSession = Depends(get_db),
         current_user=Depends(verify_token)
 ):
+    logger.info(f"AI recommendation request received from User ID: {current_user.id}")
     return await get_ai_recommendation(request,db, current_user)
 
 
@@ -51,7 +54,8 @@ async def sync_chroma(db: AsyncSession = Depends(get_db)):
     # Add all movies to ChromaDB
     for movie in movies:
         add_movie(movie)
-
+    
+    logger.info(f"ChromaDB synchronization completed successfully. Total movies synced: {len(movies)}.")
     return {
         "message": "ChromaDB synchronized successfully",
         "movies_synced": len(movies),
